@@ -1,0 +1,8 @@
+.DS_Store
+Thumbs.db
+*.log
+.vercel
+
+# Tooling interno de Claude/skills — no es parte del sitio
+.agents/
+skills-lock.json
