@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Google Calendar URL (Peru local time UTC-5 starts at 5:30 PM -> 17:30)
     // 2026-07-18 at 17:30 is 22:30 UTC. Ending at 03:00 on July 19 (08:00 UTC)
     const googleCalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + encodeURIComponent('Boda de Joao & Vitalia') +
+        '&text=' + encodeURIComponent('Boda de Vitalia & Joao') +
         '&dates=20260718T223000Z/20260719T080000Z' +
         '&details=' + encodeURIComponent('Con la bendición de Dios y nuestros padres los invitamos a compartir este día tan especial con nosotros.\n\nHorario:\n- 5:30 pm: Recepción\n- 6:00 pm: Ceremonia Civil\n- 8:00 pm: Cena') +
         '&location=' + encodeURIComponent('Boulevard Park Plaza G-H 43 A, Urbanización Miraflores Country Club, Piura, Perú');
@@ -192,13 +192,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const icsContent = [
             'BEGIN:VCALENDAR',
             'VERSION:2.0',
-            'PRODID:-//Joao y Vitalia//Wedding Invite//ES',
+            'PRODID:-//Vitalia y Joao//Wedding Invite//ES',
             'BEGIN:VEVENT',
             'UID:wedding-joao-vitalia-2026@jydsiempre',
             'DTSTAMP:20260604T120000Z',
             'DTSTART:20260718T173000', // Local time (standard format for float)
             'DTEND:20260719T033000',
-            'SUMMARY:Boda Joao & Vitalia',
+            'SUMMARY:Boda Vitalia & Joao',
             'DESCRIPTION:Con la bendición de Dios y nuestros padres los invitamos a compartir este día con nosotros. Codigo Novios: 734956-04.',
             'LOCATION:Boulevard Park Plaza G-H 43 A\\, Urbanización Miraflores Country Club\\, Piura\\, Perú',
             'END:VEVENT',
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
         const link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
-        link.setAttribute('download', 'Boda_Joao_y_Vitalia.ics');
+        link.setAttribute('download', 'Boda_Vitalia_y_Joao.ics');
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -261,8 +261,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalClose = document.getElementById('modal-close');
     const formRsvp = document.getElementById('form-rsvp');
 
+    // --- Prevent a second submission once this device has confirmed ---
+    const RSVP_KEY = 'jv_rsvp_done';
+    function isRsvpDone() {
+        try { return !!localStorage.getItem(RSVP_KEY); } catch (e) { return false; }
+    }
+    function applyConfirmedUI() {
+        const main = document.getElementById('btn-rsvp');
+        if (main) {
+            const s = main.querySelector('span');
+            if (s) s.textContent = 'ASISTENCIA CONFIRMADA';
+            main.classList.add('is-confirmed');
+        }
+        const floating = document.getElementById('floating-rsvp-btn');
+        if (floating) {
+            floating.classList.remove('show');
+            floating.style.display = 'none';
+        }
+    }
+    function markRsvpDone() {
+        try { localStorage.setItem(RSVP_KEY, '1'); } catch (e) {}
+        applyConfirmedUI();
+    }
+
     // Open Modal
     function openRsvpModal() {
+        if (isRsvpDone()) {
+            showToast('Ya registramos tu confirmación. ¡Gracias! 🤍');
+            return;
+        }
         rsvpModal.classList.add('show');
         document.body.style.overflow = 'hidden'; // Stop background scrolling
         document.getElementById('rsvp-name').focus();
@@ -271,6 +298,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnRsvp) {
         btnRsvp.addEventListener('click', openRsvpModal);
     }
+
+    // Reflect a prior confirmation on load
+    if (isRsvpDone()) applyConfirmedUI();
 
     // Close Modal via Close button
     modalClose.addEventListener('click', closeModal);
@@ -287,6 +317,18 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = ''; // Re-enable background scrolling
     }
 
+    // Lightweight inline toast (no blocking alerts)
+    const toastEl = document.getElementById('toast');
+    let toastTimer = null;
+    function showToast(message, isError = false, duration = 3600) {
+        if (!toastEl) return;
+        toastEl.textContent = message;
+        toastEl.classList.toggle('error', isError);
+        toastEl.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastEl.classList.remove('show'), duration);
+    }
+
     // Submit RSVP to Supabase
     formRsvp.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -294,30 +336,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = document.getElementById('rsvp-name').value.trim();
         const phone = document.getElementById('rsvp-phone').value.trim();
         const message = document.getElementById('rsvp-message').value.trim();
-        const status = document.querySelector('input[name="rsvp-status"]:checked').value;
-        const confirmacion = (status === 'Si');
+        const statusEl = document.querySelector('input[name="rsvp-status"]:checked');
+        const confirmacion = statusEl ? statusEl.value === 'Si' : true;
 
-        const submitBtn = document.getElementById('btn-submit-rsvp');
-        const submitBtnSpan = submitBtn.querySelector('span');
-        const originalText = submitBtnSpan.innerText;
-
-        // Loading states
-        submitBtn.disabled = true;
-        submitBtnSpan.innerText = 'ENVIANDO...';
+        // Close the form immediately so it feels instant; save in the background
+        closeModal();
+        showToast('Guardando tu confirmación…', false, 8000);
 
         if (!supabaseClient) {
-            // Fallback flow if API credentials have not been replaced yet
-            console.warn('Supabase no está configurado. Por favor ingresa SUPABASE_URL y SUPABASE_ANON_KEY.');
-            alert('¡Formulario recibido! (Nota técnica: Los datos no se guardaron en base de datos real. Configura tus credenciales de Supabase en script.js para activar la base de datos).');
-            submitBtn.disabled = false;
-            submitBtnSpan.innerText = originalText;
-            closeModal();
+            console.warn('Supabase no está configurado (SUPABASE_URL / SUPABASE_ANON_KEY).');
             formRsvp.reset();
+            markRsvpDone();
+            showToast('¡Gracias! Tu confirmación quedó registrada. 🤍');
             return;
         }
 
         try {
-            const { data, error } = await supabaseClient
+            const { error } = await supabaseClient
                 .from('rsvp')
                 .insert([
                     {
@@ -331,15 +366,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (error) throw error;
 
-            alert('¡Muchas gracias! Tu confirmación ha sido guardada correctamente.');
-            closeModal();
             formRsvp.reset();
+            markRsvpDone();
+            showToast(confirmacion
+                ? '¡Gracias! Te esperamos con mucho cariño. 🤍'
+                : 'Gracias por avisarnos, te vamos a extrañar. 🤍');
         } catch (error) {
             console.error('Error al registrar RSVP en Supabase:', error);
-            alert('Lo sentimos, hubo un inconveniente al guardar tu asistencia: ' + error.message);
-        } finally {
-            submitBtn.disabled = false;
-            submitBtnSpan.innerText = originalText;
+            // Reopen the form (data is preserved) so the guest can retry
+            openRsvpModal();
+            showToast('No se pudo guardar. Revisa tu conexión e inténtalo de nuevo.', true, 4500);
         }
     });
 
@@ -408,13 +444,14 @@ document.addEventListener('DOMContentLoaded', () => {
         floatingRsvpBtn.addEventListener('click', openRsvpModal);
         
         window.addEventListener('scroll', () => {
+            if (isRsvpDone()) { floatingRsvpBtn.classList.remove('show'); return; }
             const scrollPos = window.scrollY || document.documentElement.scrollTop;
-            
+
             // Show after 400px, but hide if we are near the bottom RSVP section
             const rsvpTop = rsvpSection ? rsvpSection.getBoundingClientRect().top + window.scrollY : 10000;
             const triggerPos = 400;
             const hidePos = rsvpTop - window.innerHeight + 100;
-            
+
             if (scrollPos > triggerPos && scrollPos < hidePos) {
                 floatingRsvpBtn.classList.add('show');
             } else {
