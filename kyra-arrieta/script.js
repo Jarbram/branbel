@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     
     // Default background audio URL
-    const AUDIO_SRC = 'song.mp3?v=2';
+    const AUDIO_SRC = 'song.mp3?v=3';
     
     const bgMusic = document.getElementById('bg-music');
     const audioSource = document.getElementById('audio-source');
@@ -207,4 +207,169 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initScrollReveal();
+
+    // ==========================================================================
+    // RSVP — CONFIRMAR ASISTENCIA (Supabase, lazy-loaded)
+    // ==========================================================================
+    const SUPABASE_URL = 'https://pncvqukbnuqvwgowperf.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBuY3ZxdWtibnVxdndnb3dwZXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1NTg4MjUsImV4cCI6MjA5NjEzNDgyNX0.uZWqxvl2kd7Fq9pNAIDi86zWwa0TWhbj0OrSLAmRciE';
+    const SUPABASE_CDN = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+    const EVENT_SLUG = 'kyra-arrieta';
+
+    let supabaseClient = null;
+    let supabaseLoading = null;
+
+    function loadScript(src) {
+        return new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.src = src;
+            s.onload = resolve;
+            s.onerror = reject;
+            document.head.appendChild(s);
+        });
+    }
+
+    // Load the Supabase SDK only when the RSVP flow is used.
+    function ensureSupabase() {
+        if (supabaseClient) return Promise.resolve(supabaseClient);
+        if (!supabaseLoading) {
+            supabaseLoading = (async () => {
+                if (typeof supabase === 'undefined') {
+                    await loadScript(SUPABASE_CDN);
+                }
+                supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                return supabaseClient;
+            })();
+        }
+        return supabaseLoading;
+    }
+
+    const btnRsvp = document.getElementById('btn-rsvp');
+    const rsvpModal = document.getElementById('rsvp-modal');
+    const modalClose = document.getElementById('modal-close');
+    const formRsvp = document.getElementById('form-rsvp');
+
+    // Inline toast notifications
+    const toastEl = document.getElementById('toast');
+    let toastTimer = null;
+    function showToast(message, isError = false, duration = 3600) {
+        if (!toastEl) return;
+        toastEl.textContent = message;
+        toastEl.classList.toggle('error', isError);
+        toastEl.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastEl.classList.remove('show'), duration);
+    }
+
+    // Prevent a second submission once this device has confirmed
+    const RSVP_KEY = 'kyra_rsvp_done';
+    function isRsvpDone() {
+        try { return !!localStorage.getItem(RSVP_KEY); } catch (e) { return false; }
+    }
+    function applyConfirmedUI() {
+        if (btnRsvp) {
+            const s = btnRsvp.querySelector('span');
+            if (s) s.textContent = 'Asistencia confirmada';
+            btnRsvp.classList.add('is-confirmed');
+        }
+        const floating = document.getElementById('floating-rsvp-btn');
+        if (floating) {
+            floating.classList.remove('show');
+            floating.style.display = 'none';
+        }
+    }
+    function markRsvpDone() {
+        try { localStorage.setItem(RSVP_KEY, '1'); } catch (e) {}
+        applyConfirmedUI();
+    }
+
+    function openRsvpModal() {
+        if (!rsvpModal) return;
+        if (isRsvpDone()) {
+            showToast('Ya registramos tu confirmación. ¡Gracias! 🤍');
+            return;
+        }
+        rsvpModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        const nameInput = document.getElementById('rsvp-name');
+        if (nameInput) nameInput.focus();
+        ensureSupabase().catch(() => {}); // Preload in the background for an instant submit
+    }
+
+    function closeModal() {
+        if (!rsvpModal) return;
+        rsvpModal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    if (btnRsvp) btnRsvp.addEventListener('click', openRsvpModal);
+    if (isRsvpDone()) applyConfirmedUI();
+    if (modalClose) modalClose.addEventListener('click', closeModal);
+    if (rsvpModal) {
+        rsvpModal.addEventListener('click', (e) => {
+            if (e.target === rsvpModal) closeModal();
+        });
+    }
+
+    if (formRsvp) {
+        formRsvp.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('rsvp-name').value.trim();
+            const phone = document.getElementById('rsvp-phone').value.trim();
+            const message = document.getElementById('rsvp-message').value.trim();
+            const statusEl = document.querySelector('input[name="rsvp-status"]:checked');
+            const confirmacion = statusEl ? statusEl.value === 'Si' : true;
+
+            // Close the form immediately so it feels instant; save in the background
+            closeModal();
+            showToast('Guardando tu confirmación…', false, 8000);
+
+            try {
+                const client = await ensureSupabase();
+                const { error } = await client
+                    .from('rsvp')
+                    .insert([
+                        {
+                            event_slug: EVENT_SLUG,
+                            nombre: name,
+                            numero: phone,
+                            confirmacion: confirmacion,
+                            mensaje: message
+                        }
+                    ]);
+
+                if (error) throw error;
+
+                formRsvp.reset();
+                markRsvpDone();
+                showToast(confirmacion
+                    ? '¡Gracias! Te esperamos con mucho cariño. 🤍'
+                    : 'Gracias por avisarnos, te vamos a extrañar. 🤍');
+            } catch (error) {
+                console.error('Error al registrar RSVP en Supabase:', error);
+                openRsvpModal();
+                showToast('No se pudo guardar. Revisa tu conexión e inténtalo de nuevo.', true, 4500);
+            }
+        });
+    }
+
+    // Sticky Floating RSVP Button toggle
+    const floatingRsvpBtn = document.getElementById('floating-rsvp-btn');
+    const rsvpSection = document.getElementById('rsvp');
+    if (floatingRsvpBtn) {
+        floatingRsvpBtn.addEventListener('click', openRsvpModal);
+        window.addEventListener('scroll', () => {
+            if (isRsvpDone()) { floatingRsvpBtn.classList.remove('show'); return; }
+            const scrollPos = window.scrollY || document.documentElement.scrollTop;
+            const rsvpTop = rsvpSection ? rsvpSection.getBoundingClientRect().top + window.scrollY : 10000;
+            const triggerPos = 400;
+            const hidePos = rsvpTop - window.innerHeight + 100;
+            if (scrollPos > triggerPos && scrollPos < hidePos) {
+                floatingRsvpBtn.classList.add('show');
+            } else {
+                floatingRsvpBtn.classList.remove('show');
+            }
+        }, { passive: true });
+    }
 });

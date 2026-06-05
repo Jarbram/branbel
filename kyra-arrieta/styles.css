@@ -2729,21 +2729,51 @@ body::before {
     position: fixed;
     bottom: 24px;
     left: 50%;
-    transform: translateX(-50%) translateY(100px); /* Starts hidden below screen */
+    transform: translateX(-50%) translateY(120px); /* Starts hidden below screen */
     z-index: var(--z-index-sticky);
-    background: rgba(13, 27, 52, 0.85); /* Navy with elegant transparency */
+    /* Burgundy gradient for depth, frosted by the backdrop blur underneath */
+    background: linear-gradient(155deg, rgba(116, 22, 38, 0.96) 0%, rgba(74, 13, 23, 0.96) 100%);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(242, 235, 221, 0.2);
-    border-radius: 40px;
-    padding: 10px 24px;
+    border: 1px solid rgba(184, 154, 94, 0.55); /* Fine gold hairline */
+    border-radius: 999px;
+    padding: 12px 26px;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     cursor: pointer;
-    box-shadow: 0 8px 32px rgba(13, 27, 52, 0.25);
-    transition: transform 0.6s var(--ease-out-expo), background-color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+    overflow: hidden; /* Clip the sheen sweep to the pill */
+    white-space: nowrap; /* Keep the CTA on a single line */
+    box-shadow:
+        0 10px 30px rgba(91, 15, 28, 0.34),
+        inset 0 1px 0 rgba(255, 236, 179, 0.22); /* Top inner highlight */
+    transition:
+        transform 0.7s var(--ease-out-expo),
+        opacity 0.5s ease,
+        box-shadow 0.45s var(--ease-out-expo),
+        border-color 0.45s ease;
     opacity: 0;
+    pointer-events: none;
+    will-change: transform;
+}
+
+/* Slow gold sheen sweeping across the pill */
+.floating-rsvp-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -160%;
+    width: 70%;
+    height: 100%;
+    background: linear-gradient(
+        100deg,
+        transparent 0%,
+        rgba(255, 240, 200, 0.10) 35%,
+        rgba(255, 240, 200, 0.50) 50%,
+        rgba(255, 240, 200, 0.10) 65%,
+        transparent 100%
+    );
+    transform: skewX(-22deg);
     pointer-events: none;
 }
 
@@ -2751,29 +2781,81 @@ body::before {
     transform: translateX(-50%) translateY(0);
     opacity: 1;
     pointer-events: auto;
+    /* Gentle idle "breathing" glow once the button has settled in */
+    animation: floating-breathe 3.4s ease-in-out 0.9s infinite;
+}
+
+.floating-rsvp-btn.show::before {
+    animation: floating-sheen 5s ease-in-out 1.3s infinite;
 }
 
 .floating-rsvp-btn:hover {
-    background-color: var(--color-navy);
+    transform: translateX(-50%) translateY(-3px) scale(1.025);
     border-color: var(--color-sage);
+    box-shadow:
+        0 18px 42px rgba(91, 15, 28, 0.46),
+        inset 0 1px 0 rgba(255, 236, 179, 0.3);
+    animation-play-state: paused; /* Hold the breathe while interacting */
+}
+
+.floating-rsvp-btn:hover::before {
+    animation-duration: 1.6s; /* Sheen quickens on hover */
+    animation-delay: 0s;
+}
+
+.floating-rsvp-btn:active {
+    transform: translateX(-50%) translateY(-1px) scale(0.98);
+    box-shadow: 0 8px 22px rgba(91, 15, 28, 0.4);
+    transition-duration: 0.12s;
 }
 
 .floating-rsvp-btn span {
+    position: relative; /* Sit above the sheen */
+    z-index: 1;
     font-family: var(--font-sans);
     font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.16em;
     color: var(--color-cream);
     text-transform: uppercase;
 }
 
 .floating-rsvp-btn svg {
+    position: relative;
+    z-index: 1;
     color: var(--color-sage);
-    transition: transform 0.4s var(--ease-out-expo);
+    transition: transform 0.5s var(--ease-out-expo);
 }
 
 .floating-rsvp-btn:hover svg {
-    transform: rotate(45deg) scale(1.05);
+    transform: rotate(45deg) scale(1.08);
+}
+
+@keyframes floating-sheen {
+    0% { left: -160%; }
+    /* Sweep across, then rest off-screen until the next cycle */
+    45%, 100% { left: 160%; }
+}
+
+@keyframes floating-breathe {
+    0%, 100% {
+        box-shadow:
+            0 10px 30px rgba(91, 15, 28, 0.34),
+            inset 0 1px 0 rgba(255, 236, 179, 0.22);
+    }
+    50% {
+        box-shadow:
+            0 14px 40px rgba(91, 15, 28, 0.5),
+            0 0 0 4px rgba(184, 154, 94, 0.10),
+            inset 0 1px 0 rgba(255, 236, 179, 0.28);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .floating-rsvp-btn.show,
+    .floating-rsvp-btn.show::before {
+        animation: none;
+    }
 }
 
 /* ==========================================================================
@@ -3185,7 +3267,7 @@ button,
 
 /* Hero photo with built-in torn edge cutout (PNG with transparency) */
 .hero-photo-cutout {
-    margin: 0.5rem calc(-1 * var(--space-md)) 0;
+    margin: 2.5rem calc(-1 * var(--space-md)) 0;
     width: calc(100% + var(--space-md) * 2);
     overflow: hidden;
 }
@@ -3211,6 +3293,243 @@ button,
         margin-right: calc(-1 * var(--space-sm));
         width: calc(100% + var(--space-sm) * 2);
     }
+}
+
+/* ==========================================================================
+   ITINERARY (Vertical timeline, alternating sides)
+   ========================================================================== */
+.itinerary-section {
+    padding-top: var(--space-lg);
+}
+
+.itinerary-title {
+    font-family: var(--font-script), cursive;
+    font-size: clamp(3rem, 11vw, 5rem);
+    color: var(--color-gold);
+    line-height: 1;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    text-shadow: 1px 1px 2px rgba(48, 50, 42, 0.08);
+}
+
+/* Isolated class names (itin-*) so this component never collides with the
+   dormant wedding-template .timeline / .timeline-item rules above. */
+.itin-timeline {
+    position: relative;
+    max-width: 360px;
+    margin: 0 auto;
+    padding: var(--space-xs) 0;
+}
+
+/* Central vertical line */
+.itin-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+    background-color: var(--color-burgundy);
+}
+
+.itin-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 1.75rem;
+    clip-path: none;
+}
+
+.itin-row:last-child {
+    margin-bottom: 0;
+}
+
+/* Left rows: text + icon packed into the left half, hugging the centre line */
+.itin-row.is-left {
+    justify-content: flex-end;
+    padding-right: calc(50% + 1.5rem);
+}
+/* Right rows: icon + text packed into the right half, hugging the centre line */
+.itin-row.is-right {
+    justify-content: flex-start;
+    padding-left: calc(50% + 1.5rem);
+}
+
+/* Short tick connecting each row to the central line */
+.itin-row::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 2px;
+    background-color: var(--color-burgundy);
+    /* Default (left rows): tick extends left toward the content */
+    transform: translate(-100%, -50%);
+}
+
+.itin-row.is-right::before {
+    /* Right rows: tick extends right toward the content */
+    transform: translateY(-50%);
+}
+
+.itin-icon {
+    color: var(--color-burgundy);
+    flex-shrink: 0;
+}
+
+.itin-icon svg {
+    width: 38px;
+    height: 38px;
+    display: block;
+}
+
+.itin-text {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-text-script), cursive;
+    color: var(--color-burgundy);
+    line-height: 1.15;
+}
+
+.itin-time {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.itin-label {
+    font-size: 1.25rem;
+}
+
+/* Left rows: text first, then icon nearest the centre line */
+.itin-row.is-left .itin-text {
+    order: 1;
+    text-align: right;
+    align-items: flex-end;
+}
+.itin-row.is-left .itin-icon {
+    order: 2;
+}
+
+/* Right rows: icon nearest the centre line, then text */
+.itin-row.is-right .itin-icon {
+    order: 1;
+}
+.itin-row.is-right .itin-text {
+    order: 2;
+    text-align: left;
+    align-items: flex-start;
+}
+
+/* ==========================================================================
+   DRESS CODE
+   ========================================================================== */
+.dresscode-section {
+    text-align: center;
+    padding-top: var(--space-lg);
+}
+
+.dresscode-title {
+    font-family: var(--font-script), cursive;
+    font-size: clamp(3rem, 11vw, 5rem);
+    color: var(--color-gold);
+    line-height: 1;
+    font-weight: 400;
+    text-shadow: 1px 1px 2px rgba(48, 50, 42, 0.08);
+}
+
+.dresscode-subtitle {
+    font-family: var(--font-sans), sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--color-navy-muted);
+    margin-top: var(--space-sm);
+}
+
+.dresscode-icons {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.dresscode-svg {
+    width: clamp(90px, 28vw, 130px);
+    height: auto;
+    color: var(--color-burgundy);
+}
+
+/* ==========================================================================
+   CONFIRMAR ASISTENCIA (RSVP closing)
+   ========================================================================== */
+.rsvp-section {
+    padding-top: var(--space-lg);
+}
+
+.confirm-title,
+.te-esperamos {
+    font-family: var(--font-script), cursive;
+    color: var(--color-gold);
+    line-height: 1.05;
+    font-weight: 400;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(48, 50, 42, 0.08);
+}
+
+.confirm-title {
+    font-size: clamp(2.8rem, 10vw, 4.5rem);
+    margin-bottom: var(--space-md);
+}
+
+.confirm-intro {
+    font-family: var(--font-text-script), cursive;
+    font-size: clamp(1.25rem, 4.5vw, 1.6rem);
+    color: var(--color-navy);
+    text-align: center;
+    line-height: 1.4;
+    margin: 0 auto var(--space-md) auto;
+}
+
+.confirm-intro strong {
+    color: var(--color-burgundy);
+    font-weight: 700;
+}
+
+.confirm-closing {
+    font-family: var(--font-text-script), cursive;
+    font-size: clamp(1.2rem, 4.2vw, 1.5rem);
+    color: var(--color-navy);
+    text-align: center;
+    line-height: 1.45;
+    max-width: 420px;
+    margin: var(--space-lg) auto var(--space-md) auto;
+}
+
+.confirm-closing p + p {
+    margin-top: var(--space-sm);
+}
+
+.te-esperamos {
+    font-size: clamp(3rem, 12vw, 5.5rem);
+    margin-top: var(--space-md);
+}
+
+/* Burgundy CTA for the RSVP flow (matches the design mockup) */
+.rsvp-section .btn-primary,
+#rsvp-modal .btn-primary {
+    background-color: var(--color-burgundy);
+    border-color: var(--color-burgundy);
+}
+
+.rsvp-section .btn-primary:hover,
+#rsvp-modal .btn-primary:hover {
+    color: var(--color-burgundy);
+    border-color: var(--color-burgundy);
 }
 
 .intro-quote {
@@ -3436,8 +3755,8 @@ button,
    ========================================================================== */
 .countdown-section {
     text-align: center;
-    padding: var(--space-md) var(--space-sm) 0 var(--space-sm);
-    margin-top: var(--space-md);
+    padding: 0 var(--space-sm);
+    margin-top: 0;
 }
 
 .countdown-main-title {
