@@ -5,6 +5,7 @@
     /* Color Palette */
     --color-cream: #F2EBDD;
     --color-cream-dark: #E7DEC9;    /* Slightly deeper cream for placeholders/wells */
+    --color-paper: #ECE3D1;         /* Warm beige panel — clearly cream-family, never white */
     --color-navy: #0D1B34;
     --color-sage: #A7B49A;          /* Decorative: fine lines, frames, ornaments */
     --color-sage-strong: #8C9C7D;   /* Decorative with more presence: icons, motifs */
@@ -3026,7 +3027,7 @@ button,
 }
 .admin-gate-form input:focus {
     border-color: var(--color-navy);
-    background-color: var(--color-white);
+    background-color: var(--color-paper);
 }
 .admin-gate-error {
     font-family: var(--font-sans);
@@ -3048,7 +3049,7 @@ button,
 }
 .stat-card {
     border: 1px solid var(--color-sage-line);
-    background-color: var(--color-white);
+    background-color: transparent;
     padding: var(--space-md) var(--space-xs);
     text-align: center;
     display: flex;
@@ -3095,7 +3096,7 @@ button,
     color: var(--color-navy);
     outline: none;
 }
-.admin-search:focus { border-color: var(--color-navy); background-color: var(--color-white); }
+.admin-search:focus { border-color: var(--color-navy); background-color: var(--color-paper); }
 .admin-filters { display: flex; gap: 6px; }
 .admin-filter {
     font-family: var(--font-sans);
@@ -3120,12 +3121,11 @@ button,
 /* List */
 .rsvp-list { display: flex; flex-direction: column; gap: var(--space-sm); }
 .rsvp-card {
-    border: 1px solid rgba(13, 27, 52, 0.14);
-    background-color: var(--color-white);
+    border: 1px solid var(--color-sage-line);
+    background-color: transparent;
     padding: var(--space-md);
-    box-shadow: 0 3px 10px rgba(13, 27, 52, 0.04);
 }
-.rsvp-card.is-no { opacity: 0.85; background-color: var(--color-cream); }
+.rsvp-card.is-no { opacity: 0.7; border-style: dashed; }
 .rsvp-card-head {
     display: flex;
     align-items: center;

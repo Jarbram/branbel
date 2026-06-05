@@ -29,11 +29,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const SUPABASE_URL = 'https://pncvqukbnuqvwgowperf.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBuY3ZxdWtibnVxdndnb3dwZXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1NTg4MjUsImV4cCI6MjA5NjEzNDgyNX0.uZWqxvl2kd7Fq9pNAIDi86zWwa0TWhbj0OrSLAmRciE';
     
+    const SUPABASE_CDN = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
     let supabaseClient = null;
-    
-    // Check if the CDN Supabase SDK loaded and the user provided real keys
-    if (typeof supabase !== 'undefined' && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
-        supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    let supabaseLoading = null;
+
+    function loadScript(src) {
+        return new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.src = src;
+            s.async = true;
+            s.onload = resolve;
+            s.onerror = () => reject(new Error('No se pudo cargar ' + src));
+            document.head.appendChild(s);
+        });
+    }
+
+    // Carga el SDK de Supabase solo cuando se necesita (al abrir/enviar el RSVP),
+    // para no descargarlo en cada visita a la invitación.
+    function ensureSupabase() {
+        if (supabaseClient) return Promise.resolve(supabaseClient);
+        if (!supabaseLoading) {
+            supabaseLoading = (async () => {
+                if (typeof supabase === 'undefined') {
+                    await loadScript(SUPABASE_CDN);
+                }
+                supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                return supabaseClient;
+            })();
+        }
+        return supabaseLoading;
     }
 
     // ==========================================================================
@@ -43,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Default background audio URL (Royalty-free romantic acoustic wedding track)
     // To change to the original song "Is This Love - Bob Marley", replace this URL 
     // with your preferred hosting link or direct stream.
-    const AUDIO_SRC = 'song.mp3';
+    const AUDIO_SRC = 'song.mp3?v=2';
     
     const welcomeOverlay = document.getElementById('welcome-overlay');
     const btnEnter = document.getElementById('btn-enter');
@@ -293,6 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
         rsvpModal.classList.add('show');
         document.body.style.overflow = 'hidden'; // Stop background scrolling
         document.getElementById('rsvp-name').focus();
+        ensureSupabase().catch(() => {}); // Precarga en segundo plano para un envío instantáneo
     }
 
     if (btnRsvp) {
@@ -343,16 +368,9 @@ document.addEventListener('DOMContentLoaded', () => {
         closeModal();
         showToast('Guardando tu confirmación…', false, 8000);
 
-        if (!supabaseClient) {
-            console.warn('Supabase no está configurado (SUPABASE_URL / SUPABASE_ANON_KEY).');
-            formRsvp.reset();
-            markRsvpDone();
-            showToast('¡Gracias! Tu confirmación quedó registrada. 🤍');
-            return;
-        }
-
         try {
-            const { error } = await supabaseClient
+            const client = await ensureSupabase();
+            const { error } = await client
                 .from('rsvp')
                 .insert([
                     {
