@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Confirmaciones | Kyra Milene</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+
+    <!-- Passcode gate -->
+    <div id="gate" class="admin-gate">
+        <div class="admin-gate-card">
+            <span class="welcome-eyebrow">PANEL PRIVADO</span>
+            <h1 class="admin-gate-title">Confirmaciones</h1>
+            <p class="admin-gate-text">Ingresa la clave para ver la lista de invitados.</p>
+            <form id="gate-form" class="admin-gate-form" novalidate>
+                <input type="password" id="gate-input" placeholder="Clave de acceso" autocomplete="current-password" aria-label="Clave de acceso">
+                <button type="submit" class="btn btn-primary btn-block btn-double-border"><span>ENTRAR</span></button>
+            </form>
+            <p id="gate-error" class="admin-gate-error" role="alert"></p>
+        </div>
+    </div>
+
+    <!-- Top nav -->
+    <nav class="nav-gallery">
+        <div class="nav-gallery-content">
+            <a href="index.html" class="btn-back">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span>Volver a la Invitación</span>
+            </a>
+            <span class="nav-names">Kyra Milene</span>
+        </div>
+    </nav>
+
+    <!-- Panel -->
+    <div class="invite-container gallery-container admin-container" id="panel" hidden>
+
+        <header class="admin-header">
+            <span class="hero-subtitle">Panel de 15 años</span>
+            <h1 class="gallery-title">Confirmaciones</h1>
+            <div class="gallery-ornament" aria-hidden="true"><i></i></div>
+        </header>
+
+        <!-- Stats -->
+        <div class="admin-stats">
+            <div class="stat-card">
+                <span class="stat-num" id="stat-yes">0</span>
+                <span class="stat-label">Asistirán</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" id="stat-no">0</span>
+                <span class="stat-label">No podrán</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" id="stat-msg">0</span>
+                <span class="stat-label">Mensajes</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" id="stat-total">0</span>
+                <span class="stat-label">Respuestas</span>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="admin-toolbar">
+            <input type="search" id="admin-search" class="admin-search" placeholder="Buscar por nombre…" aria-label="Buscar por nombre">
+            <div class="admin-filters" role="tablist">
+                <button class="admin-filter is-active" data-filter="all">Todos</button>
+                <button class="admin-filter" data-filter="yes">Asistirán</button>
+                <button class="admin-filter" data-filter="no">No podrán</button>
+            </div>
+        </div>
+
+        <!-- List -->
+        <div id="rsvp-list" class="rsvp-list"></div>
+
+        <!-- States -->
+        <div id="rsvp-loading" class="admin-state">Cargando confirmaciones…</div>
+        <div id="rsvp-empty" class="admin-state" hidden>Aún no hay confirmaciones.</div>
+        <div id="rsvp-error" class="admin-state admin-state-error" hidden></div>
+
+        <footer class="main-footer">
+            <p>Panel privado • Kyra Milene © 2026</p>
+        </footer>
+    </div>
+
+    <!-- Supabase Client CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="confirmaciones.js?v=2"></script>
+</body>
+</html>

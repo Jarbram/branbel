@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyra Milene | Mis 15 Años</title>
+    <meta name="description" content="Invitación digital para la fiesta de 15 años de Kyra Milene Arrieta Olaya. Sábado 18 de Julio. Piura, Perú.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Main Style -->
+    <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress-container">
+        <div id="scroll-progress" class="scroll-progress"></div>
+    </div>
+
+    <!-- Background Music Element -->
+    <audio id="bg-music" loop preload="none">
+        <source id="audio-source" src="" type="audio/mp3">
+    </audio>
+
+
+
+    <!-- Main Container -->
+    <div class="invite-container">
+        
+
+        <!-- Hero Section -->
+        <header id="hero" class="section hero-section reveal active">
+            <div class="hero-content">
+                <blockquote class="intro-quote">
+                    "Entre sueños, ilusiones y nuevas metas, llega el día de celebrar una etapa única que guardaré para siempre en mi corazón."
+                </blockquote>
+
+                <!-- Cursive Title Name -->
+                <h1 class="hero-name-title">Kyra Milene</h1>
+            </div>
+        </header>
+
+        <!-- Photo with built-in torn edge cutout -->
+        <div class="hero-photo-cutout">
+            <img src="assets/Kyra1.png" alt="Kyra Milene - Mis 15 Años">
+        </div>
+
+        <!-- Embedded Custom Audio Player -->
+        <div class="custom-audio-player">
+            <div class="player-header">
+                <svg class="icon-heart" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+            <div class="progress-container">
+                <input type="range" id="progress-bar" class="progress-bar" value="0" min="0" max="100" step="0.1">
+                <div class="time-info">
+                    <span id="current-time">00:00</span>
+                    <span id="duration-time">00:00</span>
+                </div>
+            </div>
+            <div class="player-controls">
+                <button class="btn-control icon-shuffle" aria-label="Shuffle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+                </button>
+                <button class="btn-control icon-prev" aria-label="Previous">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                </button>
+                <button id="btn-play-pause" class="btn-play-pause" aria-label="Play/Pause">
+                    <svg id="icon-play" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg id="icon-pause" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </button>
+                <button class="btn-control icon-next" aria-label="Next">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                </button>
+                <button class="btn-control icon-repeat" aria-label="Repeat">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Parents & Intro Section -->
+        <section class="section text-center reveal">
+            <p class="intro-text">Con la compañía de mis padres</p>
+            <p class="intro-parents">Claudia Olaya y Marco Arrieta</p>
+            <p class="intro-text">
+                te invito a celebrar con alegría<br>
+                este momento tan especial:
+            </p>
+
+            <h2 class="title-15">
+                <span class="title-mis">Mis</span>
+                <span class="title-number">15</span>
+                <span class="title-anos">años</span>
+            </h2>
+
+            <!-- Date Block -->
+            <div class="date-block">
+                <span class="date-month">Julio</span>
+                <div class="date-row">
+                    <div class="date-side">
+                        <hr>
+                        <span>Sábado</span>
+                        <hr>
+                    </div>
+                    <div class="date-day">18</div>
+                    <div class="date-side">
+                        <hr>
+                        <span>8:00 pm</span>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Countdown Section -->
+        <section class="section countdown-section reveal">
+            <h2 class="countdown-main-title">Faltan</h2>
+            <div id="countdown" class="countdown-row">
+                <div class="countdown-item">
+                    <span id="days" class="time-num">00</span>
+                    <span class="time-label">Días</span>
+                </div>
+                <span class="countdown-colon">:</span>
+                <div class="countdown-item">
+                    <span id="hours" class="time-num">00</span>
+                    <span class="time-label">Horas</span>
+                </div>
+                <span class="countdown-colon">:</span>
+                <div class="countdown-item">
+                    <span id="minutes" class="time-num">00</span>
+                    <span class="time-label">Minutos</span>
+                </div>
+                <span class="countdown-colon">:</span>
+                <div class="countdown-item">
+                    <span id="seconds" class="time-num">00</span>
+                    <span class="time-label">Segundos</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Second Photo (Kyra2.png with cutout) -->
+        <div class="photo-cutout reveal">
+            <img src="assets/Kyra2.png" alt="Kyra Milene">
+        </div>
+
+    </div>
+
+    <!-- Inline toast notifications -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- Main JavaScript -->
+    <script defer src="script.js?v=2"></script>
+</body>
+</html>
