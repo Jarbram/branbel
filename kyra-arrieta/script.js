@@ -1,8 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Trigger welcome screen stagger fade-in on load
+    setTimeout(() => {
+        const welcomeOverlay = document.getElementById('welcome-overlay');
+        if (welcomeOverlay) welcomeOverlay.classList.add('welcome-loaded');
+    }, 100);
+
     // ==========================================================================
     // CUSTOM AUDIO PLAYER SYSTEM
     // ==========================================================================
-    
+
     // Default background audio URL
     const AUDIO_SRC = 'song.mp3?v=3';
     
@@ -26,6 +32,21 @@ document.addEventListener('DOMContentLoaded', () => {
         audioSource.src = AUDIO_SRC;
         bgMusic.load();
         bgMusic.volume = 0.5;
+    }
+
+    // ==========================================================================
+    // ONBOARDING — dismiss preview & start music
+    // ==========================================================================
+    const welcomeOverlay = document.getElementById('welcome-overlay');
+    const btnEnter = document.getElementById('btn-enter');
+    if (btnEnter && welcomeOverlay) {
+        btnEnter.addEventListener('click', () => {
+            welcomeOverlay.classList.add('dismissed');
+            bgMusic.play().then(() => {
+                if (iconPlay) iconPlay.style.display = 'none';
+                if (iconPause) iconPause.style.display = 'block';
+            }).catch(err => console.log('Audio playback failed: ', err));
+        });
     }
 
     // Format time function (seconds to MM:SS)

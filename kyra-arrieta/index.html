@@ -12,13 +12,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
     
     <!-- Main Style -->
-    <link rel="stylesheet" href="styles.css?v=3">
+    <link rel="stylesheet" href="styles.css?v=10">
 </head>
 <body>
 
     <!-- Scroll Progress Indicator -->
     <div class="scroll-progress-container">
         <div id="scroll-progress" class="scroll-progress"></div>
+    </div>
+
+    <!-- Onboarding / Welcome Screen (Preview) -->
+    <div id="welcome-overlay" class="welcome-overlay">
+        <div class="welcome-card">
+            <span class="welcome-eyebrow">MIS XV AÑOS</span>
+            <h1 class="welcome-title">Kyra Milene</h1>
+            <p class="welcome-date">Sábado . 18 . Julio . 2026</p>
+            <button id="btn-enter" class="btn btn-primary btn-double-border" aria-label="Entrar a la invitación">
+                <span>DESCUBRIR INVITACIÓN</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </button>
+        </div>
     </div>
 
     <!-- Background Music Element -->
@@ -29,8 +45,11 @@
 
 
     <!-- Main Container -->
-    <div class="invite-container">
-        
+    <div class="invite-container" style="overflow:hidden;">
+
+        <!-- Decorative floral corners -->
+        <img src="assets/EsquinaIzquierda.png" alt="" class="corner-flower corner-flower--left" aria-hidden="true" style="position:absolute; top:0; left:0; width:clamp(165px,48vw,250px); height:auto; pointer-events:none; z-index:6;">
+        <img src="assets/EsquinaDerecha.png" alt="" class="corner-flower corner-flower--right" aria-hidden="true" style="position:absolute; top:0; right:0; width:clamp(165px,48vw,250px); height:auto; pointer-events:none; z-index:6;">
 
         <!-- Hero Section -->
         <header id="hero" class="section hero-section reveal active">
@@ -84,7 +103,10 @@
         </div>
 
         <!-- Parents & Intro Section -->
-        <section class="section text-center reveal">
+        <section class="section text-center reveal" style="position:relative;">
+            <img src="assets/FlorAditional.png" alt="" aria-hidden="true" style="position:absolute; top:160px; left:-45px; width:clamp(115px,30vw,175px); height:auto; z-index:0; pointer-events:none; transform:scaleX(-1);">
+            <img src="assets/FlorAditional.png" alt="" aria-hidden="true" style="position:absolute; top:280px; right:-45px; width:clamp(115px,30vw,175px); height:auto; z-index:0; pointer-events:none;">
+
             <p class="intro-text">Con la compañía de mis padres</p>
             <p class="intro-parents">Claudia Olaya y Marco Arrieta</p>
             <p class="intro-text">
@@ -92,7 +114,7 @@
                 este momento tan especial:
             </p>
 
-            <h2 class="title-15">
+            <h2 class="title-15" style="position:relative; z-index:1;">
                 <span class="title-mis">Mis</span>
                 <span class="title-number">15</span>
                 <span class="title-anos">años</span>
@@ -365,6 +387,6 @@
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <!-- Main JavaScript -->
-    <script defer src="script.js?v=3"></script>
+    <script defer src="script.js?v=4"></script>
 </body>
 </html>

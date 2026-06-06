@@ -134,6 +134,75 @@ body::before {
 /* ==========================================================================
    ONBOARDING / WELCOME SCREEN (SLIDE REVEAL)
    ========================================================================== */
+.welcome-overlay {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 480px;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-cream);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: var(--z-index-welcome);
+    padding: var(--space-md);
+    transition: opacity 1s var(--ease-out-expo), transform 1.4s var(--ease-out-expo);
+}
+
+.welcome-overlay.dismissed {
+    transform: translate(-50%, -100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.welcome-card {
+    text-align: center;
+    max-width: 420px;
+    width: 100%;
+    padding: var(--space-lg);
+    position: relative;
+}
+
+/* Onboarding staggered fade-in triggers */
+.welcome-card > * {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.9s var(--ease-out-quart), transform 0.9s var(--ease-out-quart);
+}
+
+.welcome-loaded .welcome-card > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.welcome-loaded .welcome-card .welcome-eyebrow { transition-delay: 0.15s; }
+.welcome-loaded .welcome-card .welcome-title { transition-delay: 0.3s; }
+.welcome-loaded .welcome-card .welcome-date { transition-delay: 0.45s; }
+.welcome-loaded .welcome-card .btn-double-border { transition-delay: 0.6s; }
+
+/* Asymmetric corner marks (gold hairlines) */
+.welcome-card::before, .welcome-card::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-color: var(--color-sage);
+    border-style: solid;
+    pointer-events: none;
+}
+.welcome-card::before {
+    top: 0;
+    left: 0;
+    border-width: 1px 0 0 1px;
+}
+.welcome-card::after {
+    bottom: 0;
+    right: 0;
+    border-width: 0 1px 1px 0;
+}
+
 .welcome-eyebrow {
     font-family: var(--font-sans);
     font-size: 0.75rem;
@@ -142,6 +211,36 @@ body::before {
     color: var(--color-sage-deep);
     display: block;
     margin-bottom: var(--space-sm);
+}
+
+.welcome-title {
+    font-family: var(--font-script), cursive;
+    font-size: clamp(3.5rem, 13vw, 6rem);
+    color: var(--color-gold);
+    font-weight: 400;
+    line-height: 1.05;
+    margin-bottom: var(--space-sm);
+    text-shadow: 1px 1px 2px rgba(48, 50, 42, 0.08);
+}
+
+.welcome-date {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-style: italic;
+    letter-spacing: 0.1em;
+    color: var(--color-navy-muted);
+    margin-bottom: var(--space-lg);
+}
+
+/* Enter button in Kyra's signature burgundy */
+#btn-enter.btn-primary {
+    background-color: var(--color-burgundy);
+    border-color: var(--color-burgundy);
+    color: var(--color-cream);
+}
+#btn-enter.btn-primary:hover {
+    color: var(--color-burgundy);
+    border-color: var(--color-burgundy);
 }
 
 /* ==========================================================================
@@ -230,6 +329,28 @@ body::before {
 
 .btn-secondary:hover::before {
     transform: scaleX(1);
+}
+
+/* Animated secondary gold outline that frames the button on hover */
+.btn-double-border {
+    position: relative;
+}
+.btn-double-border::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 1px solid var(--color-sage);
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-out-expo), transform 0.3s var(--ease-out-expo);
+    pointer-events: none;
+    transform: scale(0.95);
+}
+.btn-double-border:hover::after {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .btn-sm {
@@ -404,6 +525,18 @@ body::before {
     box-shadow: 0 0 50px rgba(48, 50, 42, 0.1);
     min-height: 100vh;
 }
+
+/* Decorative floral corners framing the top of the invitation */
+.corner-flower {
+    position: absolute;
+    top: 0;
+    width: clamp(165px, 48vw, 250px);
+    height: auto;
+    pointer-events: none;
+    z-index: 6;
+}
+.corner-flower--left { left: 0; }
+.corner-flower--right { right: 0; }
 
 /* Fine heavy-stock paper grain + soft sage corner washes, layered on the
    content surface (the opaque cream container hides the body texture). */
@@ -3331,7 +3464,7 @@ button,
     left: 50%;
     width: 2px;
     transform: translateX(-50%);
-    background-color: var(--color-burgundy);
+    background-color: #30322A;
 }
 
 .itin-row {
@@ -3366,7 +3499,7 @@ button,
     left: 50%;
     width: 18px;
     height: 2px;
-    background-color: var(--color-burgundy);
+    background-color: #30322A;
     /* Default (left rows): tick extends left toward the content */
     transform: translate(-100%, -50%);
 }
@@ -3391,7 +3524,7 @@ button,
     display: flex;
     flex-direction: column;
     font-family: var(--font-text-script), cursive;
-    color: var(--color-burgundy);
+    color: #30322A;
     line-height: 1.15;
 }
 
@@ -3535,8 +3668,8 @@ button,
 .intro-quote {
     font-family: var(--font-text-script), cursive;
     font-size: clamp(1.5rem, 5vw, 2.2rem);
-    color: var(--color-burgundy);
-    line-height: 1.4;
+    color: #30322A;
+    line-height: 1.15;
     max-width: 600px;
     margin: 0 auto var(--space-md) auto;
     padding: 0 var(--space-sm);
