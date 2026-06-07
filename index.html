@@ -3,24 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Branbel · Invitaciones Digitales a tu Gusto</title>
-    <meta name="description" content="Estudio de invitaciones digitales personalizadas: bodas, quinceañeros y eventos. Confirmaciones en línea y galería de fotos, todo en un solo lugar.">
+    <title>Sinkarta · Invitaciones Digitales a tu Gusto</title>
+    <meta name="description" content="Estudio de invitaciones digitales personalizadas: bodas, quinceañeros y eventos. Confirmaciones en línea y galería de fotos, todo en un solo enlace.">
+    <link rel="canonical" href="https://sinkarta.com/">
 
-    <!-- Google Fonts -->
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+    <!-- Open Graph (WhatsApp / Facebook / LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Sinkarta">
+    <meta property="og:locale" content="es_PE">
+    <meta property="og:url" content="https://sinkarta.com/">
+    <meta property="og:title" content="Sinkarta · Invitaciones Digitales a tu Gusto">
+    <meta property="og:description" content="Cada historia merece una invitación a su altura. La diseñamos contigo y la entregamos en un solo enlace que tus invitados abren al instante.">
+    <meta property="og:image" content="https://sinkarta.com/og-cover.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Sinkarta · Invitaciones Digitales">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sinkarta · Invitaciones Digitales a tu Gusto">
+    <meta name="twitter:description" content="Cada historia merece una invitación a su altura. La entregamos en un solo enlace que tus invitados abren al instante.">
+    <meta name="twitter:image" content="https://sinkarta.com/og-cover.png">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --ink: #141218;
-            --paper: #F4F1EA;
-            --muted: rgba(20, 18, 24, 0.60);
-            --faint: rgba(20, 18, 24, 0.40);
-            --line: rgba(20, 18, 24, 0.12);
-            --coral: #FF8A5B;
-            --amber: #F2C14E;
-            --grad: linear-gradient(100deg, #FF8A5B 0%, #F2C14E 100%);
+            --ink: #1B1620;
+            --paper: #F3EEE4;
+            --paper-2: #EFE8DA;
+            --muted: rgba(27, 22, 32, 0.62);
+            --faint: rgba(27, 22, 32, 0.40);
+            --line: rgba(27, 22, 32, 0.12);
+            --coral: #F2774E;
+            --amber: #E9B23C;
+            --grad: linear-gradient(105deg, #F2774E 0%, #E9B23C 100%);
             --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
             --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
             --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -35,18 +58,36 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Instrument Sans', sans-serif;
             background-color: var(--paper);
             color: var(--ink);
             height: 100dvh;
             display: flex;
             flex-direction: column;
             position: relative;
-            padding: clamp(1.2rem, 5vw, 2.5rem);
+            padding: clamp(1.2rem, 4.5vw, 2.6rem);
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ===== Playful floating shapes (minimal, transform-only) ===== */
+        /* ===== Atmosphere: warm glow + paper grain ===== */
+        .bg {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+        }
+        .bg::before {
+            /* soft warm light pooling from the top */
+            content: ''; position: absolute; inset: 0;
+            background:
+                radial-gradient(120% 80% at 50% -10%, rgba(242, 119, 78, 0.16), transparent 55%),
+                radial-gradient(90% 70% at 85% 110%, rgba(233, 178, 60, 0.14), transparent 60%),
+                linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+        }
+        .bg::after {
+            /* fine grain */
+            content: ''; position: absolute; inset: 0; opacity: 0.5; mix-blend-mode: multiply;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+        }
+
+        /* playful floating shapes */
         .shapes { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
         .shape {
             position: absolute;
@@ -58,27 +99,27 @@
             from { transform: translateY(0) rotate(var(--r, 0deg)); }
             to   { transform: translateY(var(--travel, -18px)) rotate(calc(var(--r, 0deg) + var(--spin, 8deg))); }
         }
-        .dot-shape { border-radius: 50%; }
-        .ring-shape { border-radius: 50%; background: transparent; }
+        .ring-shape { border-radius: 50%; border: 2px solid var(--coral); opacity: 0.5; }
         .plus-shape { position: relative; }
         .plus-shape::before, .plus-shape::after {
             content: ''; position: absolute; inset: 0; margin: auto; border-radius: 4px; background: var(--coral);
         }
-        .plus-shape::before { width: 100%; height: 28%; }
-        .plus-shape::after  { width: 28%; height: 100%; }
+        .plus-shape::before { width: 100%; height: 26%; }
+        .plus-shape::after  { width: 26%; height: 100%; }
         .tri-shape {
             width: 0; height: 0;
-            border-left: 11px solid transparent;
-            border-right: 11px solid transparent;
-            border-bottom: 19px solid var(--amber);
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 17px solid var(--amber);
+            opacity: 0.75;
         }
 
-        /* ===== Hero ===== */
+        /* ===== Layout ===== */
         .hero {
             position: relative;
             z-index: 1;
             text-align: center;
-            max-width: 760px;
+            max-width: 880px;
             width: 100%;
             margin: 0 auto;
             flex: 1;
@@ -88,131 +129,141 @@
             align-items: center;
         }
         .hero-top, .hero-middle, .hero-bottom {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
+            display: flex; flex-direction: column; align-items: center; width: 100%;
         }
-        .hero-top { gap: 1rem; margin-top: 2vh; }
-        .hero-middle { flex: 1; justify-content: center; transform: translateY(-1vh); }
-        .hero-bottom { gap: clamp(1.4rem, 4vh, 2rem); margin-bottom: 1vh; }
+        .hero-top { margin-top: 1.5vh; }
+        .hero-middle { flex: 1; justify-content: center; }
+        .hero-bottom { gap: clamp(1.3rem, 3.6vh, 1.9rem); margin-bottom: 1vh; }
 
         /* Entrance choreography */
         .reveal {
             opacity: 0;
-            animation: rise 0.7s var(--ease-out-quint) forwards;
-            animation-delay: calc(var(--i, 0) * 0.09s + 0.05s);
+            animation: rise 0.8s var(--ease-out-quint) forwards;
+            animation-delay: calc(var(--i, 0) * 0.1s + 0.05s);
         }
         @keyframes rise {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(22px); }
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* Wordmark */
-        .brand {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.95rem;
+        /* Eyebrow */
+        .eyebrow {
+            font-size: clamp(0.62rem, 1.6vw, 0.72rem);
             font-weight: 600;
-            letter-spacing: 0.01em;
+            letter-spacing: 0.34em;
+            text-transform: uppercase;
+            color: var(--faint);
+            display: inline-flex; align-items: center; gap: 0.7rem;
         }
-        .brand .mark {
-            width: 11px; height: 11px; border-radius: 50%;
-            background: var(--grad);
-            animation: wink 3s var(--ease-out-quart) infinite;
-        }
-        @keyframes wink {
-            0%, 90%, 100% { transform: scale(1); }
-            95% { transform: scale(1.35); }
+        .eyebrow::before, .eyebrow::after {
+            content: ''; width: clamp(18px, 5vw, 34px); height: 1px; background: var(--line);
         }
 
-        /* Headline */
-        .title {
+        /* ===== The logotype ===== */
+        .logo {
             font-family: 'Fraunces', serif;
             font-weight: 600;
-            line-height: 1.0;
+            font-optical-sizing: 144;
+            line-height: 0.9;
             letter-spacing: -0.025em;
-            font-size: clamp(2.8rem, 10vw, 5.4rem);
-            text-wrap: balance;
-        }
-        .title-main { display: block; }
-        .accent {
+            font-size: clamp(4.2rem, 21vw, 11rem);
+            color: var(--ink);
+            position: relative;
             display: inline-block;
+        }
+        /* dotless i with a coral tittle that winks */
+        .logo .i { position: relative; }
+        .logo .i::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0.04em;
+            width: 0.15em; height: 0.15em;
+            border-radius: 50%;
+            background: var(--grad);
+            transform: translateX(-50%);
+            transform-origin: center;
+            animation: wink 3.4s var(--ease-out-quart) infinite;
+            box-shadow: 0 4px 12px -3px rgba(242, 119, 78, 0.6);
+        }
+        @keyframes wink {
+            0%, 88%, 100% { transform: translateX(-50%) scale(1); }
+            94% { transform: translateX(-50%) scale(1.4); }
+        }
+
+        /* Tagline under the logotype */
+        .tagline {
+            font-family: 'Fraunces', serif;
+            font-weight: 400;
+            font-size: clamp(1.35rem, 4.6vw, 2.3rem);
+            line-height: 1.1;
+            color: var(--ink);
+            margin-top: clamp(0.9rem, 2.6vh, 1.4rem);
+        }
+        .tagline .accent {
             position: relative;
             font-style: italic;
-            font-weight: 600;
             color: var(--coral);
-            margin-top: 0.1em;
+            white-space: nowrap;
         }
-        /* Hand-drawn squiggle underline */
-        .accent .squiggle {
+        .tagline .squiggle {
             position: absolute;
-            left: -2%;
-            bottom: -0.32em;
-            width: 104%;
-            height: 0.42em;
-            overflow: visible;
+            left: -2%; bottom: -0.34em;
+            width: 104%; height: 0.4em; overflow: visible;
         }
-        .accent .squiggle path {
-            fill: none;
-            stroke: var(--amber);
-            stroke-width: 7;
+        .tagline .squiggle path {
+            fill: none; stroke: var(--amber); stroke-width: 6;
             stroke-linecap: round;
-            stroke-dasharray: 340;
-            stroke-dashoffset: 340;
-            animation: draw 0.9s var(--ease-out-quint) forwards;
-            animation-delay: 0.55s;
+            stroke-dasharray: 340; stroke-dashoffset: 340;
+            animation: draw 1s var(--ease-out-quint) forwards;
+            animation-delay: 0.7s;
         }
         @keyframes draw { to { stroke-dashoffset: 0; } }
 
         .lead {
-            font-size: clamp(1rem, 2.4vw, 1.18rem);
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: clamp(0.98rem, 2.3vw, 1.12rem);
             font-weight: 400;
             color: var(--muted);
-            margin-top: clamp(1.2rem, 2.6vh, 1.6rem);
-            max-width: 44ch;
-            line-height: 1.55;
+            margin-top: clamp(1.3rem, 3vh, 1.8rem);
+            max-width: 46ch;
+            line-height: 1.6;
             text-wrap: pretty;
         }
         .lead em { font-style: normal; color: var(--ink); font-weight: 600; }
 
         /* CTA */
-        .cta-row { display: flex; justify-content: center; width: 100%; }
         .cta {
             position: relative;
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
-            padding: 1.05rem 2.1rem;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
+            padding: 1.05rem 2.2rem;
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 0.92rem;
             font-weight: 600;
             letter-spacing: 0.01em;
             text-decoration: none;
             border-radius: 100px;
-            color: #1a130c;
+            color: #2a1505;
             background: var(--grad);
-            box-shadow: 0 12px 30px -10px rgba(255, 138, 91, 0.55);
+            box-shadow: 0 14px 34px -12px rgba(242, 119, 78, 0.6);
             transition: transform 0.22s var(--ease-back), box-shadow 0.22s var(--ease-out-quart);
         }
         .cta:hover {
             transform: translateY(-3px) rotate(-1deg);
-            box-shadow: 0 18px 40px -10px rgba(255, 138, 91, 0.7);
+            box-shadow: 0 20px 44px -12px rgba(242, 119, 78, 0.75);
         }
         .cta:active { transform: scale(0.96); transition-duration: 0.1s; }
         .cta svg { width: 20px; height: 20px; flex-shrink: 0; }
         @media (hover: none) {
-            .cta:hover { transform: none; box-shadow: 0 12px 30px -10px rgba(255, 138, 91, 0.55); }
+            .cta:hover { transform: none; box-shadow: 0 14px 34px -12px rgba(242, 119, 78, 0.6); }
         }
 
         /* Mini features */
         .features {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.85rem;
-            flex-wrap: wrap;
+            display: flex; align-items: center; justify-content: center;
+            gap: 0.85rem; flex-wrap: wrap;
             font-size: clamp(0.68rem, 1.7vw, 0.78rem);
             letter-spacing: 0.02em;
             color: var(--faint);
@@ -222,25 +273,17 @@
         .features .dot { width: 7px; height: 7px; border-radius: 50%; }
         .features .dot.c { background: var(--coral); }
         .features .dot.a { background: var(--amber); }
-        .features .dot.i { background: var(--ink); opacity: 0.55; }
+        .features .dot.i { background: var(--ink); opacity: 0.5; }
 
-        /* Footer */
         .foot {
-            font-size: 0.6rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--faint);
-            text-align: center;
-            width: 100%;
+            font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--faint); text-align: center; width: 100%;
         }
 
         /* Confetti */
         .confetti-piece {
-            position: fixed;
-            z-index: 5;
-            width: 9px; height: 9px;
-            border-radius: 2px;
-            pointer-events: none;
+            position: fixed; z-index: 5; width: 9px; height: 9px;
+            border-radius: 2px; pointer-events: none;
             animation: confetti 0.9s var(--ease-out-quart) forwards;
         }
         @keyframes confetti {
@@ -248,58 +291,47 @@
             to   { transform: translate(var(--tx), var(--ty)) rotate(var(--rot)); opacity: 0; }
         }
 
-        @media (max-height: 600px) {
-            .hero-top { margin-top: 0; gap: 0.7rem; }
-            .hero-middle { transform: none; }
-            .hero-bottom { gap: 1rem; margin-bottom: 0; }
+        @media (max-height: 640px) {
+            .hero-top { margin-top: 0; }
             .features, .foot { display: none; }
         }
         @media (max-width: 480px) {
             .features { gap: 0.5rem 0.85rem; }
         }
-
         @media (prefers-reduced-motion: reduce) {
             .reveal { opacity: 1; animation: none; }
-            .shape, .mark, .accent .squiggle path { animation: none !important; }
-            .accent .squiggle path { stroke-dashoffset: 0; }
+            .shape, .logo .i::after, .tagline .squiggle path { animation: none !important; }
+            .tagline .squiggle path { stroke-dashoffset: 0; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Playful floating shapes -->
+    <div class="bg" aria-hidden="true"></div>
     <div class="shapes" aria-hidden="true">
-        <span class="shape plus-shape" style="bottom:24%; left:13%; width:26px; height:26px; --dur:9.5s; --travel:-20px; --r:8deg; --spin:24deg; --delay:-4s;"></span>
-        <span class="shape tri-shape" style="bottom:18%; right:14%; --dur:10s; --travel:22px; --r:-6deg; --spin:30deg; --delay:-1s;"></span>
+        <span class="shape ring-shape" style="top:18%; left:11%; width:46px; height:46px; --dur:11s; --travel:18px; --r:0deg; --spin:0deg; --delay:-3s;"></span>
+        <span class="shape plus-shape" style="bottom:26%; left:14%; width:24px; height:24px; --dur:9.5s; --travel:-20px; --r:8deg; --spin:24deg; --delay:-4s;"></span>
+        <span class="shape tri-shape" style="top:22%; right:13%; --dur:10s; --travel:22px; --r:-6deg; --spin:30deg; --delay:-1s;"></span>
     </div>
 
     <main class="hero">
         <div class="hero-top reveal" style="--i:0">
-            <p class="brand"><span class="mark"></span>Branbel</p>
+            <p class="eyebrow">Estudio de invitaciones digitales</p>
         </div>
 
         <div class="hero-middle">
-            <h1 class="title reveal" style="--i:1">
-                <span class="title-main">Invitaciones</span>
-                <span class="accent">a tu gusto.
-                    <svg class="squiggle" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true">
-                        <path d="M4,16 C50,4 90,22 140,12 C190,2 240,22 296,9"></path>
-                    </svg>
-                </span>
-            </h1>
-            <p class="lead reveal" style="--i:2">Cada historia merece una invitación a su altura. La diseñamos contigo y la entregamos en <em>un solo enlace</em> que tus invitados abren al instante, desde cualquier teléfono.</p>
+            <h1 class="logo reveal" style="--i:1">s<span class="i">ı</span>nkarta</h1>
+            <p class="tagline reveal" style="--i:2">Invitaciones <span class="accent">a tu gusto.<svg class="squiggle" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4,16 C50,4 90,22 140,12 C190,2 240,22 296,9"></path></svg></span></p>
+            <p class="lead reveal" style="--i:3">Cada historia merece una invitación a su altura. La diseñamos contigo y la entregamos en <em>un solo enlace</em> que tus invitados abren al instante, desde cualquier teléfono.</p>
         </div>
 
-        <div class="hero-bottom reveal" style="--i:3">
-            <div class="cta-row">
-                <!-- WhatsApp CTA — cambia el número en data-phone (formato internacional sin +) -->
-                <a class="cta" id="wa-cta" data-phone="51992487774" href="#" target="_blank" rel="noopener">
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-                    </svg>
-                    Escríbeme por WhatsApp
-                </a>
-            </div>
+        <div class="hero-bottom reveal" style="--i:4">
+            <a class="cta" id="wa-cta" data-phone="51992487774" href="#" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
+                Escríbeme por WhatsApp
+            </a>
 
             <div class="features">
                 <span><i class="dot c"></i>Diseñada a tu medida</span>
@@ -307,13 +339,12 @@
                 <span><i class="dot i"></i>Recuerdos compartidos</span>
             </div>
 
-            <footer class="foot">Branbel · Invitaciones Digitales © 2026</footer>
+            <footer class="foot">Sinkarta · Invitaciones Digitales © 2026</footer>
         </div>
     </main>
 
     <script>
         (function () {
-            // WhatsApp link with prefilled message
             var cta = document.getElementById('wa-cta');
             var phone = cta.getAttribute('data-phone');
             var msg = '¡Hola! Me gustaría una invitación digital personalizada para mi evento ✨';
@@ -322,8 +353,7 @@
             var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             if (calm) return;
 
-            // Fun confetti burst from the button on click
-            var colors = ['#FF8A5B', '#F2C14E', '#141218'];
+            var colors = ['#F2774E', '#E9B23C', '#1B1620'];
             cta.addEventListener('click', function () {
                 var r = cta.getBoundingClientRect();
                 var cx = r.left + r.width / 2;
