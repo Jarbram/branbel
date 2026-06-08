@@ -231,7 +231,7 @@ body::before {
     right: 15px;
     bottom: 15px;
     z-index: 2;
-    transform: translateY(0);
+    transform: translateY(0) translateZ(-2px);
     transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1), z-index 0.4s;
 }
 
@@ -317,7 +317,7 @@ body::before {
     justify-content: center;
     cursor: pointer;
     z-index: 6;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) translateZ(6px) scale(1);
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
 }
 
@@ -331,7 +331,7 @@ body::before {
 }
 
 .wax-seal:hover {
-    transform: translate(-50%, -50%) scale(1.08);
+    transform: translate(-50%, -50%) translateZ(6px) scale(1.08);
     box-shadow: 
         0 6px 16px rgba(37, 39, 32, 0.35), 
         inset 1px 1px 3px rgba(255, 255, 255, 0.3),
@@ -381,7 +381,7 @@ body::before {
 }
 
 .envelope.open .wax-seal {
-    transform: translate(-50%, -50%) scale(0.2) rotate(45deg);
+    transform: translate(-50%, -50%) translateZ(6px) scale(0.2) rotate(45deg);
     opacity: 0;
     pointer-events: none;
 }
