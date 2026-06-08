@@ -617,6 +617,19 @@ body::before {
     user-select: none;
 }
 
+/* Mirrored corner bouquet anchored to the left edge, level with the section title */
+.section-flower-bl {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    width: clamp(115px, 33vw, 185px);
+    height: auto;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+    transform: scaleX(-1);
+}
+
 /* Dynamic editorial frames */
 .editorial-frame {
     border: 1px solid var(--color-navy);
@@ -1957,24 +1970,27 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-xs);
-    max-width: 450px;
-    margin: 0 auto var(--space-lg) auto;
-    border: 1px solid rgba(13, 27, 52, 0.08);
-    padding: var(--space-sm);
-    background-color: var(--color-navy-light);
+    gap: var(--space-sm);
+    max-width: 440px;
+    margin: var(--space-md) auto 0 auto;
+    border: 1px solid var(--color-sage-line);
+    border-left: 3px solid var(--color-sage-deep);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-sage-light);
+    text-align: left;
 }
 
 .icon-moon {
-    color: var(--color-sage-strong);
+    color: var(--color-sage-deep);
     flex-shrink: 0;
 }
 
 .kids-restriction p {
     font-family: var(--font-serif);
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-style: italic;
-    color: var(--color-navy-muted);
+    line-height: 1.5;
+    color: var(--color-navy);
 }
 
 .instagram-box {
@@ -2015,9 +2031,27 @@ body::before {
     line-height: 1.6;
 }
 
+.final-message-highlight {
+    margin-top: var(--space-md);
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--color-sage-deep);
+}
+
+.final-message-highlight::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    margin: 0 auto var(--space-sm);
+    background-color: var(--color-sage-line);
+}
+
 .main-footer {
     text-align: center;
-    margin-top: var(--space-xl);
+    margin-top: var(--space-lg);
     padding-top: var(--space-md);
     border-top: 1px solid rgba(13, 27, 52, 0.08);
 }
