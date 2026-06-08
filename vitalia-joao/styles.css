@@ -605,6 +605,14 @@ body::before {
     background-image: url("RamoPequeño.PNG");
 }
 
+/* Closing flourish: a smaller centered bouquet that signals the end */
+.section-divider-closing {
+    height: clamp(110px, 32vw, 160px);
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-sm);
+    opacity: 0.92;
+}
+
 /* Corner bouquet anchored to the right edge, level with the section title */
 .section-flower-br {
     position: absolute;
