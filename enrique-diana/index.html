@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enrique & Diana | Boda y Bautizo</title>
+    <meta name="description" content="Invitación digital a la boda de Enrique y Diana y el bautizo de Abdiel Enrique. Sábado 25 de Julio 2026. Castilla, Piura.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" class="scroll-progress"></div>
+
+    <!-- Onboarding / Interactive Envelope Welcome Screen -->
+    <div id="welcome-overlay" class="welcome-overlay">
+        <div class="envelope-wrapper">
+            <div class="envelope" id="envelope">
+                <!-- Flaps inside -->
+                <div class="envelope-left"></div>
+                <div class="envelope-right"></div>
+                <div class="envelope-bottom"></div>
+                <!-- Card inside -->
+                <div class="envelope-card-wrapper" id="envelope-card-wrapper">
+                    <div class="welcome-card">
+                        <span class="welcome-eyebrow">¡NOS CASAMOS!</span>
+                        <h1 class="welcome-title">Enrique &amp; Diana</h1>
+                        <p class="welcome-date">Sábado • 25 • Julio • 2026</p>
+                    </div>
+                </div>
+                <!-- Top flap (closes down) -->
+                <div class="envelope-flap" id="envelope-flap"></div>
+                <!-- Wax seal on top -->
+                <div class="wax-seal" id="wax-seal" aria-label="Sello de cera, haz clic para abrir">
+                    <div class="wax-seal-crest">
+                        <span class="crest-monogram">E&amp;D</span>
+                    </div>
+                </div>
+            </div>
+            <p class="envelope-hint">Haz clic en el sello para abrir la invitación</p>
+        </div>
+    </div>
+
+    <!-- Background Music Element -->
+    <audio id="bg-music" loop preload="none">
+        <source id="audio-source" src="" type="audio/mp3">
+    </audio>
+
+    <!-- Main Container -->
+    <div class="invite-container">
+
+        <!-- Organic Floating Shapes (Ambient Motion) -->
+        <div class="ambient-shapes-container" aria-hidden="true">
+            <div class="ambient-shape shape-1"></div>
+            <div class="ambient-shape shape-2"></div>
+            <div class="ambient-shape shape-3"></div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- SECCIÓN 1: PORTADA -->
+        <!-- ============================================================== -->
+        <header id="hero" class="section hero-section reveal">
+            <div class="editorial-frame">
+                <img src="botanical_decoration.png" alt="" class="hero-botanical hero-botanical--top" aria-hidden="true">
+                <img src="botanical_decoration.png" alt="" class="hero-botanical hero-botanical--bottom" aria-hidden="true">
+                <div class="hero-content">
+                    <span class="hero-subtitle">Nuestra Boda</span>
+
+                    <div class="couple-names">
+                        <span class="couple-name">Enrique</span>
+                        <span class="couple-amp">&amp;</span>
+                        <span class="couple-name">Diana</span>
+                    </div>
+
+                    <div class="hero-date-line">
+                        <span class="hero-rule"></span>
+                        <span class="hero-roman">XXV &middot; JULIO &middot; MMXXVI</span>
+                        <span class="hero-rule"></span>
+                    </div>
+
+                    <p class="hero-fulldate">Sábado 25 de Julio de 2026 &middot; Castilla, Piura</p>
+
+                    <!-- Cuenta atrás -->
+                    <div class="countdown-container reveal">
+                        <span class="countdown-label">Faltan</span>
+                        <div class="countdown-row" id="countdown">
+                            <div class="countdown-item">
+                                <span class="countdown-num" id="days">00</span>
+                                <span class="countdown-unit">días</span>
+                            </div>
+                            <span class="countdown-sep">•</span>
+                            <div class="countdown-item">
+                                <span class="countdown-num" id="hours">00</span>
+                                <span class="countdown-unit">horas</span>
+                            </div>
+                            <span class="countdown-sep">•</span>
+                            <div class="countdown-item">
+                                <span class="countdown-num" id="minutes">00</span>
+                                <span class="countdown-unit">minutos</span>
+                            </div>
+                            <span class="countdown-sep">•</span>
+                            <div class="countdown-item">
+                                <span class="countdown-num" id="seconds">00</span>
+                                <span class="countdown-unit">segundos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ============================================================== -->
+        <!-- SECCIÓN: NUESTRA CANCIÓN (reproductor opcional) -->
+        <!-- ============================================================== -->
+        <section id="music" class="section music-section reveal">
+            <h2 class="section-title">Nuestra Canción</h2>
+            <p class="section-description">Si lo deseas, acompaña tu lectura con la melodía que nos representa.</p>
+
+            <button id="btn-music" class="btn-music music-player" aria-label="Reproducir o pausar nuestra canción">
+                <span class="music-player-disc" aria-hidden="true">
+                    <svg class="music-vinyl" width="50" height="50" viewBox="0 0 50 50">
+                        <circle cx="25" cy="25" r="24" fill="#252720"></circle>
+                        <circle cx="25" cy="25" r="20" fill="none" stroke="#54582f" stroke-width="0.6" opacity="0.5"></circle>
+                        <circle cx="25" cy="25" r="16.5" fill="none" stroke="#54582f" stroke-width="0.6" opacity="0.4"></circle>
+                        <circle cx="25" cy="25" r="13" fill="none" stroke="#54582f" stroke-width="0.6" opacity="0.3"></circle>
+                        <circle cx="25" cy="25" r="9" fill="#54582f"></circle>
+                        <circle cx="25" cy="25" r="9" fill="none" stroke="#DFBDB3" stroke-width="0.8" opacity="0.6"></circle>
+                        <circle cx="25" cy="25" r="1.8" fill="#FAF9F6"></circle>
+                        <path d="M25 16.2a8.8 8.8 0 0 1 6.2 2.6" fill="none" stroke="#FAF9F6" stroke-width="0.7" opacity="0.35"></path>
+                    </svg>
+                </span>
+                <span class="music-player-meta">
+                    <span class="music-player-title">Un Beso</span>
+                    <span class="music-player-artist">Baby Rasta y Gringo</span>
+                </span>
+                <span class="music-player-toggle" aria-hidden="true">
+                    <svg class="icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"></path>
+                    </svg>
+                    <svg class="icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 5h4v14H6zM14 5h4v14h-4z"></path>
+                    </svg>
+                </span>
+            </button>
+        </section>
+
+        <div class="section-divider-simple reveal"></div>
+
+        <!-- ============================================================== -->
+        <!-- SECCIÓN 2: PADRES Y PADRINOS -->
+        <!-- ============================================================== -->
+        <section id="parents" class="section parents-section reveal">
+            <div class="parents-grid">
+                <div class="parent-column">
+                    <h3>Padres del Novio:</h3>
+                    <p class="parent-name">Telmo Saavedra Paucar <span class="name-separator">|</span> Martha Rivas Navarro</p>
+                </div>
+
+                <div class="parent-column">
+                    <h3>Padres de la Novia:</h3>
+                    <p class="parent-name">Julio Castro Moreno <span class="name-separator">|</span> Renée Aguilera Maza</p>
+                </div>
+            </div>
+
+            <div class="parents-grid parents-grid--secondary">
+                <div class="parent-column">
+                    <h3>Padrinos Religioso:</h3>
+                    <p class="parent-name">Raúl Acha Rodríguez <span class="name-separator">|</span> Rosa Salazar Vega</p>
+                </div>
+
+                <div class="parent-column">
+                    <h3>Testigos:</h3>
+                    <p class="parent-name">Adderly Viera Amaya <span class="name-separator">|</span> Rubí Mijahuanca Chapilliquen</p>
+                </div>
+            </div>
+
+            <!-- Separador visual -->
+            <div class="baptism-divider" aria-hidden="true">
+                <span class="baptism-divider-line"></span>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3v18"></path>
+                    <path d="M7 8h10"></path>
+                </svg>
+                <span class="baptism-divider-line"></span>
+            </div>
+
+            <!-- Bautizo -->
+            <div class="baptism-block">
+                <div class="baptism-block-inner-border"></div>
+                <span class="baptism-eyebrow">Bautizo:</span>
+                <h3 class="baptism-name">Abdiel Enrique</h3>
+                <p class="baptism-godparents-label">Padrinos:</p>
+                <p class="baptism-godparents">Hedinson Saavedra Espinoza <span class="name-separator">|</span> Doris Mauricio Moscol</p>
+            </div>
+        </section>
+
+        <!-- Gallery removed -->
+
+        <!-- ============================================================== -->
+        <!-- SECCIÓN 3: CEREMONIAS Y UBICACIÓN -->
+        <!-- ============================================================== -->
+        <section id="datetime" class="section datetime-section reveal">
+            <h2 class="section-title">Ceremonias y Ubicación</h2>
+
+            <div class="datetime-container">
+                <!-- Ceremonia Religiosa y Bautizo -->
+                <div class="datetime-card" style="--card-index: 1;">
+                    <div class="datetime-card-inner">
+                        <div class="datetime-card-header">
+                            <span class="card-eyebrow">Ceremonia Religiosa y Bautizo:</span>
+                        </div>
+                        <div class="datetime-card-divider"></div>
+                        <div class="datetime-card-body">
+                            <p class="datetime-time">
+                                <svg class="icon-inline" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <span>Hora: 4:00 pm</span>
+                            </p>
+                            <p class="datetime-desc">
+                                <svg class="icon-inline" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                <span>Lugar: "Parroquia Sagrado Corazón de Jesús" Miraflores - Castilla.</span>
+                            </p>
+                            <div class="datetime-actions">
+                                <a href="https://www.google.com/maps/search/?api=1&query=Parroquia%20Sagrado%20Coraz%C3%B3n%20de%20Jes%C3%BAs%20Miraflores%20Castilla%20Piura"
+                                   target="_blank" rel="noopener" class="btn btn-primary btn-sm btn-double-border">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                    <span>VER MAPA</span>
+                                </a>
+                                <div class="calendar-dropdown">
+                                    <button class="btn btn-secondary btn-sm btn-double-border btn-calendar-trigger" aria-label="Agendar Ceremonia Religiosa">
+                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                                        </svg>
+                                        <span>AGENDAR</span>
+                                    </button>
+                                    <div class="calendar-menu">
+                                        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+y+Bautizo+-+Ceremonia+Religiosa&dates=20260725T210000Z/20260725T223000Z&details=Ceremonia+Religiosa+de+boda+de+Enrique+y+Diana+y+el+bautizo+de+nuestro+hijo+Abdiel+Enrique.&location=Parroquia+Sagrado+Corazon+de+Jesus,+Miraflores,+Castilla,+Piura,+Peru" target="_blank" rel="noopener">Google Calendar</a>
+                                        <a href="data:text/calendar;charset=utf-8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ASUMMARY:Misa de Boda y Bautizo - Enrique %26 Diana%0ADTSTART:20260725T210000Z%0ADTEND:20260725T223000Z%0ADESCRIPTION:Ceremonia Religiosa de boda de Enrique y Diana y el bautizo de nuestro hijo Abdiel Enrique.%0ALOCATION:Parroquia Sagrado Corazon de Jesus\, Miraflores\, Castilla\, Piura\, Peru%0AEND:VEVENT%0AEND:VCALENDAR" download="misa-boda-bautizo.ics">Apple Calendar / iCal</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ceremonia Civil y Recepción -->
+                <div class="datetime-card" style="--card-index: 2;">
+                    <div class="datetime-card-inner">
+                        <div class="datetime-card-header">
+                            <span class="card-eyebrow">Ceremonia Civil y Recepción:</span>
+                        </div>
+                        <div class="datetime-card-divider"></div>
+                        <div class="datetime-card-body">
+                            <p class="datetime-time">
+                                <svg class="icon-inline" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <span>Hora: 6:00 pm</span>
+                            </p>
+                            <p class="datetime-desc">
+                                <svg class="icon-inline" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                <span>Lugar: Prolongación Tacna s/n Interior 01 a la altura de la Av. Grau cuadra 23. Chiclayito - Castilla.</span>
+                            </p>
+                            <div class="datetime-actions">
+                                <a href="https://www.google.com/maps/search/?api=1&query=Prolongaci%C3%B3n%20Tacna%20Av.%20Grau%20cuadra%2023%20Chiclayito%20Castilla%20Piura"
+                                   target="_blank" rel="noopener" class="btn btn-primary btn-sm btn-double-border">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                    <span>VER MAPA</span>
+                                </a>
+                                <div class="calendar-dropdown">
+                                    <button class="btn btn-secondary btn-sm btn-double-border btn-calendar-trigger" aria-label="Agendar Boda Civil y Recepción">
+                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                                        </svg>
+                                        <span>AGENDAR</span>
+                                    </button>
+                                    <div class="calendar-menu">
+                                        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Civil+y+Recepci%C3%B3n+-+Enrique+%26+Diana&dates=20260725T230000Z/20260726T060000Z&details=Boda+Civil+y+recepcion+de+Enrique+y+Diana.&location=Prolongacion+Tacna+s/n+Interior+01+Chiclayito,+Castilla,+Piura,+Peru" target="_blank" rel="noopener">Google Calendar</a>
+                                        <a href="data:text/calendar;charset=utf-8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ASUMMARY:Boda Civil y Recepción - Enrique %26 Diana%0ADTSTART:20260725T230000Z%0ADTEND:20260726T060000Z%0ADESCRIPTION:Boda Civil y recepción de Enrique y Diana.%0ALOCATION:Prolongacion Tacna s/n Interior 01 Chiclayito\, Castilla\, Piura\, Peru%0AEND:VEVENT%0AEND:VCALENDAR" download="boda-civil-recepcion.ics">Apple Calendar / iCal</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider-simple reveal"></div>
+
+        <!-- ============================================================== -->
+        <!-- SECCIÓN 4: DRESS CODE -->
+        <!-- ============================================================== -->
+        <section id="dresscode" class="section dresscode-section reveal">
+            <h2 class="section-title">Dress Code</h2>
+            <p class="section-description">Elegante.</p>
+
+            <!-- Nota especial de colores -->
+            <div class="restrictions-wrapper">
+                <div class="restrictions-header">
+                    <svg class="icon-warning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <h4>Nota especial</h4>
+                </div>
+                <p class="restrictions-desc">
+                    Para ayudarnos a crear la atmósfera que soñamos, les agradeceríamos vestir de traje formal, reservando el color blanco exclusivamente para la novia y el verde olivo oscuro para las damas de honor. ¡Agradecemos su complicidad!
+                </p>
+
+                <div class="dresscode-swatches-container">
+                    <div class="swatches-group forbidden">
+                        <span class="group-label">Evitar (Reservados)</span>
+                        <div class="swatches-grid">
+                            <div class="swatch-item">
+                                <div class="color-swatch bg-white" title="Blanco — Reservado para la novia">
+                                    <div class="cross-line"></div>
+                                </div>
+                                <span>Blanco</span>
+                            </div>
+                            <div class="swatch-item">
+                                <div class="color-swatch" style="background-color:#272b00;" title="Verde olivo oscuro — Reservado para las damas de honor">
+                                    <div class="cross-line"></div>
+                                </div>
+                                <span>Olivo oscuro</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="swatches-group suggested">
+                        <span class="group-label">Colores Sugeridos</span>
+                        <div class="swatches-grid">
+                            <div class="swatch-item">
+                                <div class="color-swatch swatch-suggested" style="background-color:#DFBDB3;" title="Rosa empolvado / Blush">
+                                    <div class="check-mark">✓</div>
+                                </div>
+                                <span>Blush</span>
+                            </div>
+                            <div class="swatch-item">
+                                <div class="color-swatch swatch-suggested" style="background-color:#C2947E;" title="Terracota / Salmón oscuro">
+                                    <div class="check-mark">✓</div>
+                                </div>
+                                <span>Terracota</span>
+                            </div>
+                            <div class="swatch-item">
+                                <div class="color-swatch swatch-suggested" style="background-color:#D8C3A5;" title="Champagne / Crema claro">
+                                    <div class="check-mark">✓</div>
+                                </div>
+                                <span>Champagne</span>
+                            </div>
+                            <div class="swatch-item">
+                                <div class="color-swatch swatch-suggested" style="background-color:#8C9A86;" title="Verde salvia claro">
+                                    <div class="check-mark">✓</div>
+                                </div>
+                                <span>Salvia</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider-dot reveal"></div>
+
+        <!-- ============================================================== -->
+        <!-- SECCIÓN 5: ITINERARIO -->
+        <!-- ============================================================== -->
+        <section id="itinerary" class="section itinerary-section reveal">
+            <h2 class="section-title">El Itinerario</h2>
+            <p class="section-description">Momentos especiales para compartir</p>
+
+            <div class="program-centered-list">
+                <!-- 4:00 pm -->
+                <div class="program-item reveal">
+                    <svg class="program-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2v6M9 5h6M12 8l-8 5v9h16v-9z"/>
+                        <path d="M10 22v-5a2 2 0 0 1 4 0v5"/>
+                    </svg>
+                    <span class="program-time">4:00 pm</span>
+                    <span class="program-dot">✦</span>
+                    <h3 class="program-title">Ceremonia Religiosa y Bautizo</h3>
+                </div>
+
+                <!-- 5:30 pm -->
+                <div class="program-item reveal">
+                    <svg class="program-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 22V10l8-6 8 6v12"/>
+                        <path d="M9 22V14a3 3 0 0 1 6 0v8"/>
+                    </svg>
+                    <span class="program-time">5:30 pm</span>
+                    <span class="program-dot">✦</span>
+                    <h3 class="program-title">Recepción</h3>
+                </div>
+
+                <!-- 6:00 pm -->
+                <div class="program-item reveal">
+                    <svg class="program-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="13" r="4.5"/>
+                        <circle cx="15" cy="11" r="4.5"/>
+                    </svg>
+                    <span class="program-time">6:00 pm</span>
+                    <span class="program-dot">✦</span>
+                    <h3 class="program-title">Boda Civil</h3>
+                </div>
+
+                <!-- 7:00 pm -->
+                <div class="program-item reveal">
+                    <svg class="program-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M8 22V13M16 22V13M8 13c-2.5 0-4-1.5-4-4V3h8v6c0 2.5-1.5 4-4 4zM16 13c-2.5 0-4-1.5-4-4V3h8v6c0 2.5-1.5 4-4 4z"/>
+                        <line x1="5" y1="22" x2="11" y2="22"/>
+                        <line x1="13" y1="22" x2="19" y2="22"/>
+                    </svg>
+                    <span class="program-time">7:00 pm</span>
+                    <span class="program-dot">✦</span>
+                    <h3 class="program-title">Brindis</h3>
+                </div>
+
+                <!-- 7:15 pm -->
+                <div class="program-item reveal">
+                    <svg class="program-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18V5l12-2v13"/>
+                        <circle cx="6" cy="18" r="3"/>
+                        <circle cx="18" cy="16" r="3"/>
+                    </svg>
+                    <span class="program-time">7:15 pm</span>
+                    <span class="program-dot">✦</span>
+                    <h3 class="program-title">Vals</h3>
+                </div>
+
+                <!-- 8:00 pm -->
+                <div class="program-item reveal">
+                    <svg class="program-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 3v6a3 3 0 0 0 6 0V3M8 3v6M8 12v9"/>
+                        <path d="M19 3v8h-3V3h3zM17.5 11v10"/>
+                    </svg>
+                    <span class="program-time">8:00 pm</span>
+                    <span class="program-dot">✦</span>
+                    <h3 class="program-title">Cena</h3>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider-line reveal"></div>
+
+        <!-- ============================================================== -->
+        <!-- SECCIÓN 6: REGALOS -->
+        <!-- ============================================================== -->
+        <section id="gifts" class="section gifts-section reveal">
+            <div class="gifts-icon" aria-hidden="true">
+                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="8" width="18" height="13" rx="1.5"></rect>
+                    <path d="M3 12h18"></path>
+                    <path d="M12 8v13"></path>
+                    <path d="M12 8C12 5 10 3 8 3a2 2 0 0 0 0 4c2 0 4 .5 4 .5S16 7 16 7a2 2 0 0 0 0-4c-2 0-4 2-4 5z"></path>
+                </svg>
+            </div>
+            <h2 class="section-title">Regalos</h2>
+
+            <p class="gifts-intro">
+                Su presencia y cariño en nuestro gran día es el mayor regalo que podemos recibir. Sin embargo, si desean tener un detalle especial con nosotros, ponemos a su disposición nuestras opciones para obsequios en efectivo:
+            </p>
+
+            <div class="gifts-asymmetric-grid">
+                <!-- BCP Diana -->
+                <div class="gift-option-card">
+                    <h3>BCP DIANA</h3>
+                    <p class="gift-store">BANCO DE CRÉDITO</p>
+
+                    <div class="copy-field">
+                        <span class="label">N° de cuenta:</span>
+                        <span class="value" id="val-bcp">47597018886031</span>
+                        <button class="btn-copy" data-target="val-bcp" aria-label="Copiar número de cuenta BCP">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span class="tooltip-copy">Copiar</span>
+                        </button>
+                    </div>
+
+                    <div class="copy-field">
+                        <span class="label">CCI:</span>
+                        <span class="value" id="val-bcp-cci">00247519701888603129</span>
+                        <button class="btn-copy" data-target="val-bcp-cci" aria-label="Copiar CCI BCP">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span class="tooltip-copy">Copiar</span>
+                        </button>
+                    </div>
+
+                    <div class="copy-field">
+                        <span class="label">Yape:</span>
+                        <span class="value" id="val-bcp-yape">949788286</span>
+                        <button class="btn-copy" data-target="val-bcp-yape" aria-label="Copiar Yape BCP">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span class="tooltip-copy">Copiar</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Interbank -->
+                <div class="gift-option-card">
+                    <h3>INTERBANK</h3>
+                    <p class="gift-store">CUENTA ALTERNATIVA</p>
+
+                    <div class="copy-field">
+                        <span class="label">N° de cuenta:</span>
+                        <span class="value" id="val-ibk">7203201870800</span>
+                        <button class="btn-copy" data-target="val-ibk" aria-label="Copiar número de cuenta Interbank">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span class="tooltip-copy">Copiar</span>
+                        </button>
+                    </div>
+
+                    <div class="copy-field">
+                        <span class="label">CCI:</span>
+                        <span class="value" id="val-ibk-cci">00372001320187080009</span>
+                        <button class="btn-copy" data-target="val-ibk-cci" aria-label="Copiar CCI Interbank">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span class="tooltip-copy">Copiar</span>
+                        </button>
+                    </div>
+
+                    <div class="copy-field">
+                        <span class="label">Yape:</span>
+                        <span class="value" id="val-ibk-yape">997190604</span>
+                        <button class="btn-copy" data-target="val-ibk-yape" aria-label="Copiar Yape Interbank">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span class="tooltip-copy">Copiar</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider-simple reveal"></div>
+
+        <!-- ============================================================== -->
+        <!-- SECCIÓN 7: POLÍTICA Y DESPEDIDA -->
+        <!-- ============================================================== -->
+        <section id="rsvp" class="section rsvp-section reveal">
+            <!-- Kids restriction note -->
+            <div class="kids-restriction">
+                <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <p>Aunque adoramos a los más pequeños, para permitir que todos los padres puedan disfrutar plenamente de la celebración, hemos planificado un evento exclusivamente para adultos. ¡Agradecemos su comprensión!</p>
+            </div>
+
+            <h2 class="section-title">Confirmar Asistencia</h2>
+
+            <p class="rsvp-intro">
+                Nuestra celebración no estaría completa sin ti. Por favor, confírmanos tu asistencia antes del 1 de Julio de 2026 para ayudarnos a organizar todos los detalles.
+            </p>
+
+            <div class="rsvp-actions">
+                <button id="btn-rsvp" class="btn btn-primary btn-lg btn-double-border">
+                    <span>CONFIRMAR ASISTENCIA</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Monograma E & D -->
+            <div class="monogram" aria-label="Enrique y Diana">
+                <span class="monogram-letter">E</span>
+                <svg class="monogram-heart" width="34" height="34" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                <span class="monogram-letter">D</span>
+            </div>
+
+            <div class="final-message">
+                <p>
+                    Con mucha ilusión queremos vivir este momento rodeados de personas que han formado parte de nuestra historia. Será un honor contar con tu presencia.
+                </p>
+            </div>
+
+            <h2 class="te-esperamos">¡TE ESPERAMOS!</h2>
+        </section>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <p>Hecho con amor • Enrique &amp; Diana © 2026</p>
+        </footer>
+
+    </div>
+
+    <!-- RSVP Modal (Interactive Flow) -->
+    <div id="rsvp-modal" class="modal">
+        <div class="modal-content">
+            <button id="modal-close" class="modal-close" aria-label="Cerrar modal">&times;</button>
+            <div class="modal-body">
+                <h3>Confirmar Asistencia</h3>
+                <p class="modal-subtitle">Nos hace muy felices compartir este momento con ustedes. Por favor completen sus datos para registrar su confirmación en nuestra lista de invitados.</p>
+
+                <form id="form-rsvp" class="form-rsvp">
+                    <div class="form-group">
+                        <label for="rsvp-name">Nombre y Apellido</label>
+                        <input type="text" id="rsvp-name" required placeholder="Ej. Juan Pérez">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rsvp-phone">Número de Teléfono / Contacto</label>
+                        <input type="tel" id="rsvp-phone" required placeholder="Ej. +51 987654321">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rsvp-message">Mensaje para los novios (opcional)</label>
+                        <textarea id="rsvp-message" rows="2" placeholder="Ej. ¡Muchas felicidades! Qué alegría compartir este momento con ustedes."></textarea>
+                    </div>
+
+                    <div class="form-group-radio">
+                        <label>¿Nos acompañarán?</label>
+                        <div class="radio-options">
+                            <label class="radio-label">
+                                <input type="radio" name="rsvp-status" value="Si" checked>
+                                <span class="custom-radio"></span>
+                                <span>Sí, asistiré con alegría</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="rsvp-status" value="No">
+                                <span class="custom-radio"></span>
+                                <span>Lamentablemente no podré asistir</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" id="btn-submit-rsvp">
+                        <span>ENVIAR CONFIRMACIÓN</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating RSVP CTA Button -->
+    <button id="floating-rsvp-btn" class="floating-rsvp-btn" aria-label="Confirmar asistencia">
+        <span>Confirmar Asistencia</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+    </button>
+
+    <!-- Inline toast notifications -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- Supabase se carga bajo demanda desde script.js (solo al confirmar asistencia) -->
+    <script defer src="script.js"></script>
+</body>
+</html>
