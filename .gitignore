@@ -6,3 +6,7 @@ Thumbs.db
 # Tooling interno de Claude/skills — no es parte del sitio
 .agents/
 skills-lock.json
+
+# Audio fuente original sin usar (cada sitio reproduce song.mp3)
+*(Official Video).mp3
+*(Official Music Video).mp3
