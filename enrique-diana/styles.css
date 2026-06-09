@@ -1372,7 +1372,7 @@ body::before {
     font-size: clamp(3rem, 16vw, 5.2rem);
 }
 
-/* Encabezado "Testigos" */
+/* Encabezado "Padrinos" */
 .baptism-role-title {
     font-family: var(--font-sans);
     font-size: 0.8rem;
@@ -1384,7 +1384,7 @@ body::before {
     margin-bottom: var(--space-md);
 }
 
-/* Par de testigos con la paloma al centro */
+/* Par de padrinos con la paloma al centro */
 .baptism-pair {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
