@@ -9,7 +9,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!-- Main Style -->
     <link rel="stylesheet" href="styles.css">
@@ -67,25 +67,31 @@
         <!-- SECCIÓN 1: PORTADA -->
         <!-- ============================================================== -->
         <header id="hero" class="section hero-section reveal">
-            <div class="editorial-frame">
-                <img src="botanical_decoration.png" alt="" class="hero-botanical hero-botanical--top" aria-hidden="true">
-                <img src="botanical_decoration.png" alt="" class="hero-botanical hero-botanical--bottom" aria-hidden="true">
-                <div class="hero-content">
+            <!-- Ramo acuarela en la esquina superior izquierda (PNG con fondo transparente) -->
+            <img src="RamoTopIzquierdo-removebg-preview.png" alt="" aria-hidden="true" class="hero-flower hero-flower--top">
+            <div class="hero-content">
                     <span class="hero-subtitle">Nuestra Boda</span>
 
-                    <div class="couple-names">
-                        <span class="couple-name">Enrique</span>
-                        <span class="couple-amp">&amp;</span>
-                        <span class="couple-name">Diana</span>
+                    <div class="couple-names couple-names--script">
+                        <span class="couple-name couple-name--first">Enrique</span>
+                        <span class="couple-name couple-name--second"><span class="couple-amp">&amp;</span>Diana</span>
                     </div>
 
-                    <div class="hero-date-line">
-                        <span class="hero-rule"></span>
-                        <span class="hero-roman">XXV &middot; JULIO &middot; MMXXVI</span>
-                        <span class="hero-rule"></span>
+                    <div class="hero-photo-wrap">
+                        <figure class="hero-photo">
+                            <img src="IMG_4548.PNG" alt="Enrique y Diana" class="hero-photo-img">
+                        </figure>
+                        <!-- Ramo en la esquina inferior derecha de la foto -->
+                        <img src="RamoDerecho.png" alt="" aria-hidden="true" class="hero-flower hero-flower--photo-br">
                     </div>
 
-                    <p class="hero-fulldate">Sábado 25 de Julio de 2026 &middot; Castilla, Piura</p>
+                    <div class="hero-dateblock">
+                        <span class="dateblock-day">25</span>
+                        <span class="dateblock-month">Julio</span>
+                        <span class="dateblock-year">2026</span>
+                    </div>
+
+                    <p class="hero-when">Sábado <span class="hero-when-sep">|</span> A las 4:00 pm</p>
 
                     <!-- Cuenta atrás -->
                     <div class="countdown-container reveal">
@@ -113,15 +119,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </header>
 
         <!-- ============================================================== -->
         <!-- SECCIÓN: NUESTRA CANCIÓN (reproductor opcional) -->
         <!-- ============================================================== -->
         <section id="music" class="section music-section reveal">
-            <h2 class="section-title">Nuestra Canción</h2>
-            <p class="section-description">Si lo deseas, acompaña tu lectura con la melodía que nos representa.</p>
+            <!-- Ramo acuarela en el lado izquierdo -->
+            <img src="RamoIzq.png" alt="" aria-hidden="true" class="section-flower section-flower--music-left">
+            <h2 class="section-title section-title--script">Nuestra canción</h2>
+            <p class="section-description section-description--caps">Si lo deseas, acompaña tu lectura con la melodía que nos representa.</p>
 
             <button id="btn-music" class="btn-music music-player" aria-label="Reproducir o pausar nuestra canción">
                 <span class="music-player-disc" aria-hidden="true">
@@ -157,47 +164,74 @@
         <!-- SECCIÓN 2: PADRES Y PADRINOS -->
         <!-- ============================================================== -->
         <section id="parents" class="section parents-section reveal">
-            <div class="parents-grid">
-                <div class="parent-column">
-                    <h3>Padres del Novio:</h3>
-                    <p class="parent-name">Telmo Saavedra Paucar <span class="name-separator">|</span> Martha Rivas Navarro</p>
+            <div class="parents-arch">
+                <div class="parents-rings" aria-hidden="true">
+                    <svg width="62" height="42" viewBox="0 0 66 44" fill="none">
+                        <ellipse cx="26" cy="24" rx="13" ry="15.5" stroke="#d8c188" stroke-width="2.6"></ellipse>
+                        <ellipse cx="40" cy="21" rx="13" ry="15.5" stroke="#e6d3a0" stroke-width="2.6"></ellipse>
+                    </svg>
                 </div>
 
-                <div class="parent-column">
-                    <h3>Padres de la Novia:</h3>
-                    <p class="parent-name">Julio Castro Moreno <span class="name-separator">|</span> Renée Aguilera Maza</p>
-                </div>
-            </div>
+                <div class="parents-grid">
+                    <div class="parent-column">
+                        <h3>Padres del Novio</h3>
+                        <p class="parent-name">Telmo Saavedra Paucar</p>
+                        <p class="parent-name">Martha Rivas Navarro</p>
+                    </div>
 
-            <div class="parents-grid parents-grid--secondary">
-                <div class="parent-column">
-                    <h3>Padrinos Religioso:</h3>
-                    <p class="parent-name">Raúl Acha Rodríguez <span class="name-separator">|</span> Rosa Salazar Vega</p>
+                    <div class="parent-column">
+                        <h3>Padres de la Novia</h3>
+                        <p class="parent-name">Julio Castro Moreno</p>
+                        <p class="parent-name">Renée Aguilera Maza</p>
+                    </div>
                 </div>
 
-                <div class="parent-column">
-                    <h3>Testigos:</h3>
-                    <p class="parent-name">Adderly Viera Amaya <span class="name-separator">|</span> Rubí Mijahuanca Chapilliquen</p>
+                <div class="parents-role">
+                    <h3 class="parents-role-title">Padrinos Religiosos</h3>
+                    <div class="parents-pair">
+                        <p class="parent-name">Raúl Acha Rodríguez</p>
+                        <span class="parents-amp">&amp;</span>
+                        <p class="parent-name">Rosa Salazar Vega</p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Separador visual -->
-            <div class="baptism-divider" aria-hidden="true">
-                <span class="baptism-divider-line"></span>
-                <svg width="28" height="28" viewBox="0 0 512 512" fill="currentColor" stroke="none" aria-hidden="true">
-                    <!-- Paloma (Font Awesome) -->
-                    <path d="M160.8 96.5c14 17 31 30.9 49.5 42.2c25.9 15.8 53.7 25.9 77.7 31.6v-31.5c-22.2-30.3-38-67.3-39.4-110.8c-.4-11.3-7.5-21.5-18.4-24.4c-7.6-2-15.8-.2-21 5.8c-13.3 15.4-32.7 44.6-48.4 87.2zM320 144v64c-60.8-5.1-185-43.8-219.3-157.2C97.4 40 87.9 32 76.6 32c-7.9 0-15.3 3.9-18.8 11C46.8 65.9 32 112.1 32 176c0 116.9 80.1 180.5 118.4 202.8L11.8 416.6C6.7 418 2.6 421.8.9 426.8s-.8 10.6 2.3 14.8C21.7 466.2 77.3 512 160 512c3.6 0 7.2-1.2 10-3.5l75.6-60.5H320c88.4 0 160-71.6 160-160V128l29.9-44.9c1.3-2 2.1-4.4 2.1-6.8c0-6.8-5.5-12.3-12.3-12.3H400c-44.2 0-80 35.8-80 80m80-16a16 16 0 1 1 0 32a16 16 0 1 1 0-32"></path>
-                </svg>
-                <span class="baptism-divider-line"></span>
+                <div class="parents-role">
+                    <h3 class="parents-role-title">Testigos</h3>
+                    <div class="parents-pair">
+                        <p class="parent-name">Adderly Viera Amaya</p>
+                        <span class="parents-amp">&amp;</span>
+                        <p class="parent-name">Rubí Mijahuanca Chapilliquen</p>
+                    </div>
+                </div>
+
+                <!-- Ramos en las esquinas inferiores del arco -->
+                <img src="RamoIzq.png" alt="" aria-hidden="true" class="parents-flower parents-flower--left">
+                <img src="RamoDerecho.png" alt="" aria-hidden="true" class="parents-flower parents-flower--right">
             </div>
 
             <!-- Bautizo -->
             <div class="baptism-block">
-                <div class="baptism-block-inner-border"></div>
-                <span class="baptism-eyebrow">Bautizo:</span>
-                <h3 class="baptism-name">Abdiel Enrique</h3>
-                <p class="baptism-godparents-label">Padrinos:</p>
-                <p class="baptism-godparents">Hedinson Saavedra Espinoza <span class="name-separator">|</span> Doris Mauricio Moscol</p>
+                <span class="baptism-eyebrow">Mi Bautizo</span>
+
+                <div class="couple-names couple-names--script baptism-name">
+                    <span class="couple-name couple-name--first">Abdiel</span>
+                    <span class="couple-name couple-name--second">Enrique</span>
+                </div>
+
+                <h3 class="baptism-role-title">Testigos</h3>
+                <div class="baptism-pair">
+                    <p class="baptism-person">Hedinson Saavedra Espinoza</p>
+                    <span class="baptism-dove" aria-hidden="true">
+                        <svg width="34" height="34" viewBox="0 0 512 512" fill="currentColor" stroke="none">
+                            <path d="M160.8 96.5c14 17 31 30.9 49.5 42.2c25.9 15.8 53.7 25.9 77.7 31.6v-31.5c-22.2-30.3-38-67.3-39.4-110.8c-.4-11.3-7.5-21.5-18.4-24.4c-7.6-2-15.8-.2-21 5.8c-13.3 15.4-32.7 44.6-48.4 87.2zM320 144v64c-60.8-5.1-185-43.8-219.3-157.2C97.4 40 87.9 32 76.6 32c-7.9 0-15.3 3.9-18.8 11C46.8 65.9 32 112.1 32 176c0 116.9 80.1 180.5 118.4 202.8L11.8 416.6C6.7 418 2.6 421.8.9 426.8s-.8 10.6 2.3 14.8C21.7 466.2 77.3 512 160 512c3.6 0 7.2-1.2 10-3.5l75.6-60.5H320c88.4 0 160-71.6 160-160V128l29.9-44.9c1.3-2 2.1-4.4 2.1-6.8c0-6.8-5.5-12.3-12.3-12.3H400c-44.2 0-80 35.8-80 80m80-16a16 16 0 1 1 0 32a16 16 0 1 1 0-32"></path>
+                        </svg>
+                    </span>
+                    <p class="baptism-person">Doris Mauricio Moscol</p>
+                </div>
+
+                <figure class="hero-photo baptism-photo">
+                    <img src="IMG_4547.PNG" alt="Abdiel Enrique en su bautizo" class="hero-photo-img">
+                </figure>
             </div>
         </section>
 
@@ -207,110 +241,46 @@
         <!-- SECCIÓN 3: CEREMONIAS Y UBICACIÓN -->
         <!-- ============================================================== -->
         <section id="datetime" class="section datetime-section reveal">
-            <h2 class="section-title">Ceremonias y Ubicación</h2>
+            <div class="ceremony-list">
+                <!-- Ceremonia Religiosa -->
+                <article class="ceremony">
+                    <img src="RamoDerecho.png" alt="" aria-hidden="true" class="ceremony-flower ceremony-flower--right">
+                    <h2 class="section-title section-title--script ceremony-title">Ceremonia<br>Religiosa</h2>
+                    <p class="ceremony-time"><span class="ceremony-dot" aria-hidden="true"></span> 4:00 PM</p>
+                    <p class="ceremony-place">"Parroquia Sagrado Corazón de Jesús" &middot; Miraflores, Castilla</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Parroquia%20Sagrado%20Coraz%C3%B3n%20de%20Jes%C3%BAs%20Miraflores%20Castilla%20Piura"
+                       target="_blank" rel="noopener" class="loc-badge" aria-label="Ver ubicación de la Ceremonia Religiosa en el mapa">
+                        <svg class="loc-badge-svg" viewBox="0 0 120 120" width="104" height="104">
+                            <defs><path id="loc-arc-reli" d="M 18,72 A 42,42 0 0 0 102,72" fill="none"></path></defs>
+                            <circle class="lb-circle" cx="60" cy="48" r="26"></circle>
+                            <g class="lb-pin" transform="translate(48,36)">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"></path>
+                            </g>
+                            <circle class="lb-pin-dot" cx="60" cy="45" r="2.6"></circle>
+                            <text class="lb-text"><textPath href="#loc-arc-reli" startOffset="50%" text-anchor="middle">VER UBICACIÓN</textPath></text>
+                        </svg>
+                    </a>
+                </article>
 
-            <div class="datetime-container">
-                <!-- Ceremonia Religiosa y Bautizo -->
-                <div class="datetime-card" style="--card-index: 1;">
-                    <div class="datetime-card-inner">
-                        <div class="datetime-card-header">
-                            <span class="card-eyebrow">Ceremonia Religiosa y Bautizo:</span>
-                        </div>
-                        <div class="datetime-card-divider"></div>
-                        <div class="datetime-card-body">
-                            <p class="datetime-time">
-                                <svg class="icon-inline" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12 6 12 12 16 14"></polyline>
-                                </svg>
-                                <span>Hora: 4:00 pm</span>
-                            </p>
-                            <p class="datetime-desc">
-                                <svg class="icon-inline" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                                <span>Lugar: "Parroquia Sagrado Corazón de Jesús" Miraflores - Castilla.</span>
-                            </p>
-                            <div class="datetime-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Parroquia%20Sagrado%20Coraz%C3%B3n%20de%20Jes%C3%BAs%20Miraflores%20Castilla%20Piura"
-                                   target="_blank" rel="noopener" class="btn btn-primary btn-sm btn-double-border">
-                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                        <circle cx="12" cy="10" r="3"></circle>
-                                    </svg>
-                                    <span>VER MAPA</span>
-                                </a>
-                                <div class="calendar-dropdown">
-                                    <button class="btn btn-secondary btn-sm btn-double-border btn-calendar-trigger" aria-label="Agendar Ceremonia Religiosa">
-                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                                        </svg>
-                                        <span>AGENDAR</span>
-                                    </button>
-                                    <div class="calendar-menu">
-                                        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+y+Bautizo+-+Ceremonia+Religiosa&dates=20260725T210000Z/20260725T223000Z&details=Ceremonia+Religiosa+de+boda+de+Enrique+y+Diana+y+el+bautizo+de+nuestro+hijo+Abdiel+Enrique.&location=Parroquia+Sagrado+Corazon+de+Jesus,+Miraflores,+Castilla,+Piura,+Peru" target="_blank" rel="noopener">Google Calendar</a>
-                                        <a href="data:text/calendar;charset=utf-8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ASUMMARY:Misa de Boda y Bautizo - Enrique %26 Diana%0ADTSTART:20260725T210000Z%0ADTEND:20260725T223000Z%0ADESCRIPTION:Ceremonia Religiosa de boda de Enrique y Diana y el bautizo de nuestro hijo Abdiel Enrique.%0ALOCATION:Parroquia Sagrado Corazon de Jesus\, Miraflores\, Castilla\, Piura\, Peru%0AEND:VEVENT%0AEND:VCALENDAR" download="misa-boda-bautizo.ics">Apple Calendar / iCal</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ceremonia Civil y Recepción -->
-                <div class="datetime-card" style="--card-index: 2;">
-                    <div class="datetime-card-inner">
-                        <div class="datetime-card-header">
-                            <span class="card-eyebrow">Ceremonia Civil y Recepción:</span>
-                        </div>
-                        <div class="datetime-card-divider"></div>
-                        <div class="datetime-card-body">
-                            <p class="datetime-time">
-                                <svg class="icon-inline" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12 6 12 12 16 14"></polyline>
-                                </svg>
-                                <span>Hora: 6:00 pm</span>
-                            </p>
-                            <p class="datetime-desc">
-                                <svg class="icon-inline" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                                <span>Lugar: Prolongación Tacna s/n Interior 01 a la altura de la Av. Grau cuadra 23. Chiclayito - Castilla.</span>
-                            </p>
-                            <div class="datetime-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Prolongaci%C3%B3n%20Tacna%20Av.%20Grau%20cuadra%2023%20Chiclayito%20Castilla%20Piura"
-                                   target="_blank" rel="noopener" class="btn btn-primary btn-sm btn-double-border">
-                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                        <circle cx="12" cy="10" r="3"></circle>
-                                    </svg>
-                                    <span>VER MAPA</span>
-                                </a>
-                                <div class="calendar-dropdown">
-                                    <button class="btn btn-secondary btn-sm btn-double-border btn-calendar-trigger" aria-label="Agendar Boda Civil y Recepción">
-                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                                        </svg>
-                                        <span>AGENDAR</span>
-                                    </button>
-                                    <div class="calendar-menu">
-                                        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Civil+y+Recepci%C3%B3n+-+Enrique+%26+Diana&dates=20260725T230000Z/20260726T060000Z&details=Boda+Civil+y+recepcion+de+Enrique+y+Diana.&location=Prolongacion+Tacna+s/n+Interior+01+Chiclayito,+Castilla,+Piura,+Peru" target="_blank" rel="noopener">Google Calendar</a>
-                                        <a href="data:text/calendar;charset=utf-8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ASUMMARY:Boda Civil y Recepción - Enrique %26 Diana%0ADTSTART:20260725T230000Z%0ADTEND:20260726T060000Z%0ADESCRIPTION:Boda Civil y recepción de Enrique y Diana.%0ALOCATION:Prolongacion Tacna s/n Interior 01 Chiclayito\, Castilla\, Piura\, Peru%0AEND:VEVENT%0AEND:VCALENDAR" download="boda-civil-recepcion.ics">Apple Calendar / iCal</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Ceremonia Civil -->
+                <article class="ceremony">
+                    <img src="RamoIzq.png" alt="" aria-hidden="true" class="ceremony-flower ceremony-flower--left">
+                    <h2 class="section-title section-title--script ceremony-title">Ceremonia<br>Civil</h2>
+                    <p class="ceremony-time"><span class="ceremony-dot" aria-hidden="true"></span> 6:00 PM</p>
+                    <p class="ceremony-place">Prolongación Tacna s/n Interior 01, a la altura de la Av. Grau cuadra 23 &middot; Chiclayito, Castilla</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Prolongaci%C3%B3n%20Tacna%20Av.%20Grau%20cuadra%2023%20Chiclayito%20Castilla%20Piura"
+                       target="_blank" rel="noopener" class="loc-badge" aria-label="Ver ubicación de la Ceremonia Civil en el mapa">
+                        <svg class="loc-badge-svg" viewBox="0 0 120 120" width="104" height="104">
+                            <defs><path id="loc-arc-civil" d="M 18,72 A 42,42 0 0 0 102,72" fill="none"></path></defs>
+                            <circle class="lb-circle" cx="60" cy="48" r="26"></circle>
+                            <g class="lb-pin" transform="translate(48,36)">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"></path>
+                            </g>
+                            <circle class="lb-pin-dot" cx="60" cy="45" r="2.6"></circle>
+                            <text class="lb-text"><textPath href="#loc-arc-civil" startOffset="50%" text-anchor="middle">VER UBICACIÓN</textPath></text>
+                        </svg>
+                    </a>
+                </article>
             </div>
         </section>
 
@@ -321,7 +291,45 @@
         <!-- ============================================================== -->
         <section id="dresscode" class="section dresscode-section reveal">
             <h2 class="section-title">Dress Code</h2>
-            <p class="section-description">Elegante.</p>
+            <div class="dresscode-icons" role="img" aria-label="Vestimenta formal: vestido y traje">
+                <!-- Vestido de gala (mujer): cuerpo entallado, escote corazón y falda con vuelo -->
+                <svg class="dc-icon" viewBox="0 0 40 58" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                    <!-- tirantes -->
+                    <path d="M15 8 L16.5 13.5"></path>
+                    <path d="M25 8 L23.5 13.5"></path>
+                    <!-- escote corazón -->
+                    <path d="M16.5 13.5 Q20 17.5 23.5 13.5"></path>
+                    <!-- cuerpo entallado hasta la cintura -->
+                    <path d="M16.5 13.5 L17.3 25"></path>
+                    <path d="M23.5 13.5 L22.7 25"></path>
+                    <path d="M17.3 25 L22.7 25"></path>
+                    <!-- falda con vuelo -->
+                    <path d="M17.3 25 C13 35 9 45 6 53"></path>
+                    <path d="M22.7 25 C27 35 31 45 34 53"></path>
+                    <!-- dobladillo -->
+                    <path d="M6 53 Q20 57 34 53"></path>
+                    <!-- pliegues sutiles -->
+                    <path d="M20 25.5 L20 53" stroke-width="0.9"></path>
+                    <path d="M16.6 26.5 Q14 40 11.5 51.5" stroke-width="0.9"></path>
+                    <path d="M23.4 26.5 Q26 40 28.5 51.5" stroke-width="0.9"></path>
+                </svg>
+                <!-- Esmoquin (hombre): chaqueta con solapas en pico, pajarita y botones -->
+                <svg class="dc-icon" viewBox="0 0 40 58" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                    <!-- mitad izquierda de la chaqueta -->
+                    <path d="M8 13 L12 9 L16 22 L18 31 L18 53 L7 53 Z"></path>
+                    <!-- mitad derecha de la chaqueta -->
+                    <path d="M32 13 L28 9 L24 22 L22 31 L22 53 L33 53 Z"></path>
+                    <!-- camisa y solapas -->
+                    <path d="M18 31 L20 14 L22 31"></path>
+                    <!-- pajarita -->
+                    <path d="M20 13.5 L15.5 11 L15.5 16 Z" fill="currentColor" stroke="none"></path>
+                    <path d="M20 13.5 L24.5 11 L24.5 16 Z" fill="currentColor" stroke="none"></path>
+                    <circle cx="20" cy="13.5" r="1.4" fill="currentColor" stroke="none"></circle>
+                    <!-- botones -->
+                    <circle cx="20" cy="38" r="1" fill="currentColor" stroke="none"></circle>
+                    <circle cx="20" cy="46" r="1" fill="currentColor" stroke="none"></circle>
+                </svg>
+            </div>
 
             <!-- Nota especial de colores -->
             <div class="restrictions-wrapper">
@@ -334,7 +342,7 @@
                     <h4>Nota especial</h4>
                 </div>
                 <p class="restrictions-desc">
-                    Para ayudarnos a crear la atmósfera que soñamos, les agradeceríamos vestir de traje formal, reservando el color blanco exclusivamente para la novia y el verde olivo oscuro para las damas de honor. ¡Agradecemos su complicidad!
+                    Para ayudarnos a crear la atmósfera que soñamos, les agradeceríamos vestir de <strong>traje formal</strong>, reservando el color blanco exclusivamente para la novia y el verde olivo oscuro para las damas de honor. ¡Agradecemos su complicidad!
                 </p>
 
                 <div class="dresscode-swatches-container">
@@ -395,76 +403,112 @@
         <!-- SECCIÓN 5: ITINERARIO -->
         <!-- ============================================================== -->
         <section id="itinerary" class="section itinerary-section reveal">
-            <h2 class="section-title">El Itinerario</h2>
+            <h2 class="section-title">Itinerario</h2>
             <p class="section-description">Momentos especiales para compartir</p>
 
-            <div class="program-centered-list">
+            <div class="program-timeline">
                 <!-- 4:00 pm -->
                 <div class="program-item reveal">
-                    <svg class="program-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2v6M9 5h6M12 8l-8 5v9h16v-9z"/>
-                        <path d="M10 22v-5a2 2 0 0 1 4 0v5"/>
-                    </svg>
-                    <span class="program-time">4:00 pm</span>
-                    <span class="program-dot">✦</span>
-                    <h3 class="program-title">Ceremonia Religiosa y Bautizo</h3>
+                    <div class="program-text">
+                        <span class="program-time">4:00 pm</span>
+                        <h3 class="program-title">Ceremonia Religiosa y Bautizo</h3>
+                    </div>
+                    <span class="program-marker" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </span>
+                    <span class="program-icon-wrap">
+                        <svg class="program-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v6M9 5h6M12 8l-8 5v9h16v-9z"/>
+                            <path d="M10 22v-5a2 2 0 0 1 4 0v5"/>
+                        </svg>
+                    </span>
                 </div>
 
                 <!-- 5:30 pm -->
                 <div class="program-item reveal">
-                    <svg class="program-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 22V10l8-6 8 6v12"/>
-                        <path d="M9 22V14a3 3 0 0 1 6 0v8"/>
-                    </svg>
-                    <span class="program-time">5:30 pm</span>
-                    <span class="program-dot">✦</span>
-                    <h3 class="program-title">Recepción</h3>
+                    <div class="program-text">
+                        <span class="program-time">5:30 pm</span>
+                        <h3 class="program-title">Recepción</h3>
+                    </div>
+                    <span class="program-marker" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </span>
+                    <span class="program-icon-wrap">
+                        <svg class="program-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 22V10l8-6 8 6v12"/>
+                            <path d="M9 22V14a3 3 0 0 1 6 0v8"/>
+                        </svg>
+                    </span>
                 </div>
 
                 <!-- 6:00 pm -->
                 <div class="program-item reveal">
-                    <svg class="program-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="9" cy="13" r="4.5"/>
-                        <circle cx="15" cy="11" r="4.5"/>
-                    </svg>
-                    <span class="program-time">6:00 pm</span>
-                    <span class="program-dot">✦</span>
-                    <h3 class="program-title">Boda Civil</h3>
+                    <div class="program-text">
+                        <span class="program-time">6:00 pm</span>
+                        <h3 class="program-title">Boda Civil</h3>
+                    </div>
+                    <span class="program-marker" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </span>
+                    <span class="program-icon-wrap">
+                        <svg class="program-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="13" r="4.5"/>
+                            <circle cx="15" cy="11" r="4.5"/>
+                        </svg>
+                    </span>
                 </div>
 
                 <!-- 7:00 pm -->
                 <div class="program-item reveal">
-                    <svg class="program-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M8 22V13M16 22V13M8 13c-2.5 0-4-1.5-4-4V3h8v6c0 2.5-1.5 4-4 4zM16 13c-2.5 0-4-1.5-4-4V3h8v6c0 2.5-1.5 4-4 4z"/>
-                        <line x1="5" y1="22" x2="11" y2="22"/>
-                        <line x1="13" y1="22" x2="19" y2="22"/>
-                    </svg>
-                    <span class="program-time">7:00 pm</span>
-                    <span class="program-dot">✦</span>
-                    <h3 class="program-title">Brindis</h3>
+                    <div class="program-text">
+                        <span class="program-time">7:00 pm</span>
+                        <h3 class="program-title">Brindis</h3>
+                    </div>
+                    <span class="program-marker" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </span>
+                    <span class="program-icon-wrap">
+                        <svg class="program-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M8 22V13M16 22V13M8 13c-2.5 0-4-1.5-4-4V3h8v6c0 2.5-1.5 4-4 4zM16 13c-2.5 0-4-1.5-4-4V3h8v6c0 2.5-1.5 4-4 4z"/>
+                            <line x1="5" y1="22" x2="11" y2="22"/>
+                            <line x1="13" y1="22" x2="19" y2="22"/>
+                        </svg>
+                    </span>
                 </div>
 
                 <!-- 7:15 pm -->
                 <div class="program-item reveal">
-                    <svg class="program-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 18V5l12-2v13"/>
-                        <circle cx="6" cy="18" r="3"/>
-                        <circle cx="18" cy="16" r="3"/>
-                    </svg>
-                    <span class="program-time">7:15 pm</span>
-                    <span class="program-dot">✦</span>
-                    <h3 class="program-title">Vals</h3>
+                    <div class="program-text">
+                        <span class="program-time">7:15 pm</span>
+                        <h3 class="program-title">Vals</h3>
+                    </div>
+                    <span class="program-marker" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </span>
+                    <span class="program-icon-wrap">
+                        <svg class="program-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18V5l12-2v13"/>
+                            <circle cx="6" cy="18" r="3"/>
+                            <circle cx="18" cy="16" r="3"/>
+                        </svg>
+                    </span>
                 </div>
 
                 <!-- 8:00 pm -->
                 <div class="program-item reveal">
-                    <svg class="program-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 3v6a3 3 0 0 0 6 0V3M8 3v6M8 12v9"/>
-                        <path d="M19 3v8h-3V3h3zM17.5 11v10"/>
-                    </svg>
-                    <span class="program-time">8:00 pm</span>
-                    <span class="program-dot">✦</span>
-                    <h3 class="program-title">Cena</h3>
+                    <div class="program-text">
+                        <span class="program-time">8:00 pm</span>
+                        <h3 class="program-title">Cena</h3>
+                    </div>
+                    <span class="program-marker" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </span>
+                    <span class="program-icon-wrap">
+                        <svg class="program-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 3v6a3 3 0 0 0 6 0V3M8 3v6M8 12v9"/>
+                            <path d="M19 3v8h-3V3h3zM17.5 11v10"/>
+                        </svg>
+                    </span>
                 </div>
             </div>
         </section>
@@ -475,6 +519,7 @@
         <!-- SECCIÓN 6: REGALOS -->
         <!-- ============================================================== -->
         <section id="gifts" class="section gifts-section reveal">
+            <h2 class="section-title section-title--script">Regalos</h2>
             <div class="gifts-icon" aria-hidden="true">
                 <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="8" width="18" height="13" rx="1.5"></rect>
@@ -483,7 +528,6 @@
                     <path d="M12 8C12 5 10 3 8 3a2 2 0 0 0 0 4c2 0 4 .5 4 .5S16 7 16 7a2 2 0 0 0 0-4c-2 0-4 2-4 5z"></path>
                 </svg>
             </div>
-            <h2 class="section-title">Regalos</h2>
 
             <p class="gifts-intro">
                 Su presencia y cariño en nuestro gran día es el mayor regalo que podemos recibir. Sin embargo, si desean tener un detalle especial con nosotros, ponemos a su disposición nuestras opciones para obsequios en efectivo:
@@ -584,23 +628,36 @@
         <section id="rsvp" class="section rsvp-section reveal">
             <!-- Kids restriction note -->
             <div class="kids-restriction">
-                <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                </svg>
+                <img src="ramoCent.png" alt="" aria-hidden="true" class="kids-flower">
                 <p>Aunque adoramos a los más pequeños, para permitir que todos los padres puedan disfrutar plenamente de la celebración, hemos planificado un evento exclusivamente para adultos. ¡Agradecemos su comprensión!</p>
             </div>
 
-            <h2 class="section-title">Confirmar Asistencia</h2>
+            <h2 class="section-title section-title--script">Confirmar asistencia</h2>
 
-            <p class="rsvp-intro">
+            <p class="rsvp-intro rsvp-intro--caps">
                 Nuestra celebración no estaría completa sin ti. Por favor, confírmanos tu asistencia antes del 1 de Julio de 2026 para ayudarnos a organizar todos los detalles.
             </p>
 
             <div class="rsvp-actions">
-                <button id="btn-rsvp" class="btn btn-primary btn-lg btn-double-border">
-                    <span>CONFIRMAR ASISTENCIA</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                <img src="RamoDerecho.png" alt="" aria-hidden="true" class="rsvp-flower rsvp-flower--right">
+                <button id="btn-rsvp" class="btn-rsvp-circle" aria-label="Confirma aquí tu asistencia">
+                    <svg class="rsvp-circle-svg" viewBox="0 0 120 142" aria-hidden="true">
+                        <defs>
+                            <path id="rsvp-arc" d="M8 100 Q60 138 112 100"></path>
+                        </defs>
+                        <!-- disco olivo -->
+                        <circle class="rsvp-disc" cx="60" cy="52" r="42"></circle>
+                        <!-- icono persona (silueta) -->
+                        <g class="rsvp-person" fill="currentColor">
+                            <circle cx="60" cy="43" r="11"></circle>
+                            <path d="M39 78 a21 18 0 0 1 42 0 Z"></path>
+                        </g>
+                        <!-- check de confirmado -->
+                        <path class="rsvp-check" d="M44 53 L55 64 L78 41" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <!-- texto curvo -->
+                        <text class="rsvp-arc-text">
+                            <textPath href="#rsvp-arc" startOffset="50%" text-anchor="middle">CONFIRMA AQUÍ</textPath>
+                        </text>
                     </svg>
                 </button>
             </div>
@@ -615,12 +672,17 @@
             </div>
 
             <div class="final-message">
+                <img src="RamoIzq.png" alt="" aria-hidden="true" class="rsvp-flower rsvp-flower--left">
                 <p>
                     Con mucha ilusión queremos vivir este momento rodeados de personas que han formado parte de nuestra historia. Será un honor contar con tu presencia.
                 </p>
             </div>
 
-            <h2 class="te-esperamos">¡TE ESPERAMOS!</h2>
+            <h2 class="te-esperamos">Te esperamos!</h2>
+
+            <figure class="family-photo reveal">
+                <img src="IMG_4546.PNG" alt="Enrique y Diana junto a su familia" loading="lazy">
+            </figure>
         </section>
 
         <!-- Footer -->

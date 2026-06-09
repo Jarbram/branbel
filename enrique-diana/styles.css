@@ -30,7 +30,8 @@
     --font-serif: 'EB Garamond', Georgia, serif;
     --font-sans: 'Montserrat', sans-serif;
     --font-display: 'Cormorant Garamond', Georgia, serif;
-    
+    --font-calligraphy: 'Great Vibes', 'Cormorant Garamond', cursive; /* Nombres de portada en caligrafía */
+
     /* Spacing System */
     --space-xs: 0.5rem;    /* 8px */
     --space-sm: 1rem;     /* 16px */
@@ -725,6 +726,41 @@ body::before {
     margin: 0 auto var(--space-lg) auto;
 }
 
+/* Título de sección en caligrafía (Great Vibes, olivo) */
+.section-title--script {
+    font-family: var(--font-calligraphy);
+    font-weight: 400;
+    color: var(--color-sage-strong);
+    font-size: clamp(3rem, 13vw, 4.6rem);
+    line-height: 0.95;
+    letter-spacing: 0.005em;
+}
+
+.section-title--script::after {
+    display: none; /* sin hoja decorativa cuando el título es caligráfico */
+}
+
+/* Descripción en mayúsculas espaciadas (variante geométrica) */
+.section-description--caps {
+    font-family: var(--font-sans);
+    font-style: normal;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    line-height: 1.9;
+    text-transform: uppercase;
+    color: var(--color-navy-muted);
+    max-width: 30ch;
+}
+
+/* Corazón decorativo olivo */
+.section-heart {
+    display: flex;
+    justify-content: center;
+    color: var(--color-sage-strong);
+    margin: calc(var(--space-md) * -0.4) auto var(--space-md);
+}
+
 /* ==========================================================================
    SECTION 1: HERO / COVER (ASYMMETRIC OFFSET PANELS)
    ========================================================================== */
@@ -732,25 +768,66 @@ body::before {
     padding-top: var(--space-sm);
     max-width: 650px;
     margin: 0 auto;
-}
-
-.editorial-frame {
-    border: 1px solid var(--color-sage-line);
-    padding: var(--space-xl) var(--space-md) var(--space-lg);
     position: relative;
-    background-color: var(--color-white);
-    box-shadow: 0 18px 50px -20px rgba(37, 39, 32, 0.12);
-    overflow: hidden;
 }
 
-/* Fine inner keyline frames the cover like pressed stationery */
-.editorial-frame::after {
-    content: '';
+/* La portada ya no usa marco contenedor: el contenido fluye abierto sobre el papel */
+
+/* Ramo acuarela (PNG transparente) anclado a la esquina superior izquierda */
+.hero-flower {
     position: absolute;
-    inset: 7px;
-    border: 1px solid var(--color-sage-line);
+    width: clamp(150px, 46%, 250px);
+    height: auto;
     pointer-events: none;
-    opacity: 0.5;
+    z-index: 1;
+}
+
+.hero-flower--top {
+    top: -22px;
+    left: -48px;
+}
+
+/* Contenedor que ancla el ramo a la esquina de la foto (la máscara vive en .hero-photo) */
+.hero-photo-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    margin: var(--space-md) auto var(--space-sm);
+}
+
+.hero-photo-wrap .hero-photo {
+    margin: 0;
+}
+
+.hero-flower--photo-br {
+    bottom: -16px;
+    right: -44px;
+    width: clamp(110px, 33%, 170px);
+    z-index: 3;
+}
+
+/* Ramos decorativos anclados al borde de una sección (PNG transparente) */
+.music-section {
+    position: relative;
+}
+
+.music-section > * {
+    position: relative;
+    z-index: 1;
+}
+
+.section-flower {
+    position: absolute;
+    height: auto;
+    pointer-events: none;
+}
+
+.section-flower--music-left {
+    top: 50%;
+    left: -52px;
+    transform: translateY(-50%);
+    width: clamp(95px, 30%, 150px);
+    z-index: 0;
 }
 
 /* Watercolor botanical sprigs anchoring opposite corners */
@@ -823,34 +900,104 @@ body::before {
     margin: 0.05em 0;
 }
 
-/* Roman-numeral date framed by hairlines */
-.hero-date-line {
+/* Variante caligráfica de portada (Enrique & Diana en script olivo) */
+.couple-names--script {
+    line-height: 0.8;
+    margin-bottom: var(--space-sm);
+}
+
+.couple-names--script .couple-name {
+    font-family: var(--font-calligraphy);
+    font-weight: 400;
+    color: var(--color-sage-strong);
+    font-size: clamp(3.6rem, 19vw, 6.6rem);
+    letter-spacing: 0.005em;
+}
+
+.couple-names--script .couple-name--second {
+    margin-top: -0.12em;
+    align-self: center;
+}
+
+.couple-names--script .couple-amp {
+    font-family: var(--font-calligraphy);
+    font-style: normal;
+    font-size: 0.5em;
+    color: var(--color-sage-strong);
+    margin: 0 0.04em 0 0;
+    vertical-align: 0.42em;
+}
+
+/* Foto de portada con bordes difuminados que se funden en el papel */
+.hero-photo {
+    width: 100%;
+    max-width: 440px;
+    margin: var(--space-md) auto var(--space-sm);
+    padding: 0;
+    /* Difuminado vertical reforzado (se combina con la máscara radial de la imagen) */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 74%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 74%, transparent 100%);
+}
+
+.hero-photo-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    -webkit-mask-image: radial-gradient(ellipse 80% 88% at 50% 46%, #000 46%, rgba(0, 0, 0, 0.45) 72%, transparent 100%);
+    mask-image: radial-gradient(ellipse 80% 88% at 50% 46%, #000 46%, rgba(0, 0, 0, 0.45) 72%, transparent 100%);
+}
+
+/* Bloque de fecha editorial: 25 / Julio (script) / 2026 */
+.hero-dateblock {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: var(--space-sm);
-    max-width: 360px;
-    margin: 0 auto;
+    line-height: 0.78;
+    margin: var(--space-md) auto var(--space-sm);
 }
 
-.hero-rule {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--color-sage-line));
+.dateblock-day {
+    font-family: var(--font-calligraphy);
+    font-weight: 400;
+    font-size: clamp(3.4rem, 15vw, 5rem);
+    color: var(--color-navy);
+    line-height: 0.7;
 }
 
-.hero-rule:last-child {
-    background: linear-gradient(to left, transparent, var(--color-sage-line));
+.dateblock-month {
+    font-family: var(--font-calligraphy);
+    font-weight: 400;
+    font-size: clamp(2.8rem, 12.5vw, 4.4rem);
+    color: var(--color-sage-strong);
+    margin-top: -0.12em;
 }
 
-.hero-roman {
+.dateblock-year {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: clamp(0.95rem, 4vw, 1.25rem);
+    letter-spacing: 0.55em;
+    text-indent: 0.55em;
+    color: var(--color-sage-strong);
+    margin-top: 0.5em;
+}
+
+/* Día y hora bajo la fecha */
+.hero-when {
     font-family: var(--font-sans);
     font-size: 0.82rem;
     font-weight: 500;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.28em;
+    text-indent: 0.28em;
+    text-transform: uppercase;
     color: var(--color-navy);
-    white-space: nowrap;
-    text-indent: 0.24em;
+    text-align: center;
+    margin: var(--space-sm) 0 0;
+}
+
+.hero-when-sep {
+    color: var(--color-sage-strong);
+    margin: 0 0.35em;
 }
 
 .bible-verse {
@@ -877,15 +1024,6 @@ body::before {
     margin-top: 10px;
 }
 
-.hero-fulldate {
-    font-family: var(--font-serif);
-    font-size: 1.18rem;
-    font-style: italic;
-    letter-spacing: 0.02em;
-    color: var(--color-navy-muted);
-    text-align: center;
-    margin: var(--space-sm) 0 0;
-}
 
 /* Countdown Timer (Minimalist Typographic) */
 .countdown-container {
@@ -932,11 +1070,13 @@ body::before {
 }
 
 .countdown-unit {
-    font-family: var(--font-serif);
-    font-size: clamp(0.65rem, 1.8vw, 0.8rem);
-    font-style: italic;
+    font-family: var(--font-sans);
+    font-size: clamp(0.56rem, 1.6vw, 0.68rem);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     color: var(--color-navy-muted);
-    margin-top: 4px;
+    margin-top: 8px;
     white-space: nowrap;
 }
 
@@ -1032,39 +1172,177 @@ body::before {
     margin-top: var(--space-md);
 }
 
-/* Visual Baptism Divider */
-.baptism-divider {
+/* --------------------------------------------------------------------------
+   Panel de padres en forma de arco olivo (texto blanco)
+   -------------------------------------------------------------------------- */
+.parents-arch {
+    position: relative;
+    max-width: 520px;
+    margin: 0 auto;
+    background-color: var(--color-sage-strong);
+    color: var(--color-cream);
+    border-top-left-radius: 50% 96px;
+    border-top-right-radius: 50% 96px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: clamp(78px, 17vw, 120px) var(--space-md) var(--space-xl);
+}
+
+/* Anillos dorados */
+.parents-rings {
     display: flex;
-    align-items: center;
     justify-content: center;
+    margin-bottom: var(--space-lg);
+}
+
+/* Ramos pequeños en las esquinas inferiores del arco */
+.parents-flower {
+    position: absolute;
+    bottom: -6px;
+    width: clamp(74px, 21%, 108px);
+    height: auto;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.parents-flower--left {
+    left: -22px;
+}
+
+/* La derecha es más cuadrada: necesita más ancho para igualar el volumen visual */
+.parents-flower--right {
+    right: -24px;
+    width: clamp(94px, 27%, 136px);
+}
+
+/* Contenido por encima del difuminado inferior (las flores conservan su posición absoluta) */
+.parents-arch > *:not(.parents-flower) {
+    position: relative;
+    z-index: 1;
+}
+
+/* Difuminado del arco hacia el crema en la base */
+.parents-arch::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 150px;
+    background: linear-gradient(180deg,
+        rgba(84, 88, 47, 0) 0%,
+        rgba(110, 114, 64, 0.82) 48%,
+        #c2c1a0 80%,
+        var(--color-cream) 100%);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* La rejilla de padres dentro del arco: siempre dos columnas con divisor */
+.parents-arch .parents-grid {
+    grid-template-columns: 1fr 1fr;
+    margin: 0 auto;
     gap: var(--space-sm);
-    color: var(--color-sage-strong);
-    margin: var(--space-lg) auto var(--space-md);
-    max-width: 360px;
+    max-width: 100%;
 }
 
-.baptism-divider-line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--color-sage-line));
+.parents-arch .parents-grid::after {
+    display: block;
+    background-color: rgba(255, 255, 255, 0.32);
+    opacity: 1;
 }
 
-.baptism-divider-line:last-child {
-    background: linear-gradient(to left, transparent, var(--color-sage-line));
+/* Encabezados y nombres en blanco dentro del arco */
+.parents-arch .parent-column h3,
+.parents-arch .parents-role-title {
+    color: var(--color-cream);
 }
 
+.parents-arch .parent-column h3 {
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    text-indent: 0.24em;
+    line-height: 1.5;
+}
+
+.parents-arch .parent-name {
+    font-family: var(--font-sans);
+    font-size: clamp(0.6rem, 2.6vw, 0.7rem);
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-indent: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-cream);
+    line-height: 1.7;
+    margin-bottom: var(--space-sm);
+}
+
+.parents-arch .parent-name:last-child {
+    margin-bottom: 0;
+}
+
+/* Bloques de Padrinos / Testigos a todo el ancho */
+.parents-role {
+    text-align: center;
+    margin-top: var(--space-lg);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+}
+
+.reveal.active .parents-role {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal.active .parents-role { transition-delay: 0.35s; }
+.reveal.active .parents-role + .parents-role { transition-delay: 0.5s; }
+
+.parents-role-title {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-md);
+}
+
+.parents-pair {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: var(--space-sm);
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+.parents-pair .parent-name {
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.parents-amp {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--color-cream);
+    opacity: 0.85;
+}
+
+/* Visual Baptism Divider */
+/* --------------------------------------------------------------------------
+   Bloque de Bautizo (abierto, sin marco) — Abdiel Enrique
+   -------------------------------------------------------------------------- */
 .baptism-block {
     text-align: center;
-    background-color: var(--color-white);
-    border: 1px solid rgba(84, 88, 47, 0.18);
-    padding: var(--space-lg) var(--space-md);
-    max-width: 440px;
-    margin: 0 auto;
+    max-width: 560px;
+    margin: var(--space-xl) auto 0;
     position: relative;
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
-    box-shadow: 0 4px 15px rgba(37, 39, 32, 0.02);
 }
 
 .reveal.active .baptism-block {
@@ -1076,164 +1354,219 @@ body::before {
 .baptism-eyebrow {
     display: block;
     font-family: var(--font-sans);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.22em;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.38em;
+    text-indent: 0.38em;
     text-transform: uppercase;
     color: var(--color-sage-strong);
-    margin-bottom: var(--space-xs);
-}
-
-.baptism-name {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: clamp(2.4rem, 8.5vw, 3.4rem);
-    font-weight: 500;
-    color: var(--color-navy);
-    line-height: 1.05;
     margin-bottom: var(--space-sm);
 }
 
-.baptism-godparents-label {
-    font-family: var(--font-sans);
-    font-size: 0.76rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-navy-muted);
-    margin-bottom: 4px;
+/* El nombre reutiliza la caligrafía de portada, a menor escala */
+.baptism-name {
+    margin-bottom: var(--space-lg);
 }
 
-.baptism-godparents {
-    font-family: var(--font-serif);
-    font-size: 1.25rem;
+.baptism-name .couple-name {
+    font-size: clamp(3rem, 16vw, 5.2rem);
+}
+
+/* Encabezado "Testigos" */
+.baptism-role-title {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-indent: 0.24em;
+    text-transform: uppercase;
     color: var(--color-navy);
-    line-height: 1.45;
+    margin-bottom: var(--space-md);
+}
+
+/* Par de testigos con la paloma al centro */
+.baptism-pair {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: var(--space-sm);
+    max-width: 460px;
+    margin: 0 auto;
+}
+
+.baptism-person {
+    font-family: var(--font-sans);
+    font-size: clamp(0.6rem, 2.6vw, 0.72rem);
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-indent: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-navy);
+    line-height: 1.7;
+    text-align: center;
+}
+
+.baptism-dove {
+    display: flex;
+    justify-content: center;
+    color: rgba(84, 88, 47, 0.45);
+}
+
+/* Foto del bautizo con el mismo difuminado que la portada */
+.baptism-photo {
+    margin-top: var(--space-lg);
 }
 
 /* ==========================================================================
    SECTION 3: CEREMONIAS Y UBICACIÓN (OVERLAPPING CARDS)
    ========================================================================== */
-.datetime-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-lg);
-    max-width: 720px;
-    margin: var(--space-lg) auto 0;
+.ceremony-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    max-width: 540px;
+    margin: 0 auto;
 }
 
-@media (max-width: 680px) {
-    .datetime-container {
-        grid-template-columns: 1fr;
-        gap: var(--space-md);
-        max-width: 360px;
-    }
-}
-
-.datetime-card {
+.ceremony {
+    position: relative;
+    text-align: center;
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
 }
 
-.reveal.active .datetime-card:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
-.reveal.active .datetime-card:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
-
-.datetime-card-inner {
-    border: 1px solid rgba(84, 88, 47, 0.18); /* Subtle Olive border */
-    padding: var(--space-lg) var(--space-md);
-    text-align: center;
-    background-color: var(--color-white);
+/* El contenido de la ceremonia por encima de las flores */
+.ceremony > *:not(.ceremony-flower) {
     position: relative;
+    z-index: 1;
+}
+
+/* Ramos acuarela laterales de cada ceremonia */
+.ceremony-flower {
+    position: absolute;
+    height: auto;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.ceremony-flower--right {
+    top: 38%;
+    right: -40px;
+    width: clamp(120px, 34%, 162px);
+}
+
+.ceremony-flower--left {
+    top: 42%;
+    left: -40px;
+    width: clamp(100px, 30%, 146px);
+}
+
+.reveal.active .ceremony:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
+.reveal.active .ceremony:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+
+.ceremony-title {
+    margin-bottom: var(--space-md);
+}
+
+.ceremony-time {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    box-shadow: 0 4px 15px rgba(37, 39, 32, 0.02);
-    transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
-}
-
-.datetime-card-inner:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(37, 39, 32, 0.04);
-}
-
-.datetime-card-header {
-    width: 100%;
-}
-
-.card-date-badge {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: var(--space-sm) 0 var(--space-md);
-}
-
-.badge-num {
-    font-family: var(--font-display);
-    font-size: 2.3rem;
-    line-height: 1;
+    justify-content: center;
+    gap: 10px;
+    font-family: var(--font-sans);
+    font-size: 0.84rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-indent: 0.2em;
+    text-transform: uppercase;
     color: var(--color-navy);
-    margin: 2px 0;
+    margin-bottom: var(--space-md);
 }
 
-.datetime-card-divider {
-    width: 40px;
-    height: 1px;
+.ceremony-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
     background-color: var(--color-sage-strong);
-    opacity: 0.3;
+    flex-shrink: 0;
+}
+
+.ceremony-place {
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    line-height: 1.85;
+    text-transform: uppercase;
+    color: var(--color-navy-muted);
+    max-width: 34ch;
     margin: 0 auto var(--space-md);
 }
 
-.datetime-card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+/* Botón circular "Ver ubicación" con pin y texto curvo */
+.loc-badge {
+    display: inline-block;
+    line-height: 0;
+    transition: transform 0.4s var(--ease-out-expo);
 }
 
-.datetime-title {
-    font-family: var(--font-display);
-    font-size: 1.35rem;
-    font-weight: 500;
-    line-height: 1.3;
-    color: var(--color-navy);
-    margin-bottom: 6px;
+.loc-badge:hover {
+    transform: translateY(-2px);
 }
 
-.card-eyebrow {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 500;
-    line-height: 1.25;
-    color: var(--color-navy);
-    margin-bottom: var(--space-xs);
+.loc-badge-svg {
+    overflow: visible;
 }
 
-.datetime-time {
+.lb-circle {
+    fill: var(--color-sage-strong);
+}
+
+.lb-pin {
+    fill: var(--color-cream);
+}
+
+.lb-pin-dot {
+    fill: var(--color-sage-strong);
+}
+
+.lb-text {
     font-family: var(--font-sans);
-    font-size: 0.88rem;
+    font-size: 9px;
     font-weight: 600;
-    color: var(--color-sage-strong);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
+    letter-spacing: 2.4px;
+    fill: var(--color-sage-strong);
 }
 
-.datetime-desc {
-    font-family: var(--font-serif);
-    font-size: 1.05rem;
-    color: var(--color-navy-muted);
-    margin-bottom: var(--space-md);
-    line-height: 1.55;
-    max-width: 28ch;
+.loc-badge:hover .lb-circle {
+    fill: var(--color-sage-deep);
 }
 
 /* ==========================================================================
    SECTION 4: DRESS CODE (ASYNCHRONOUS OVERLAPPING CARDS)
    ========================================================================== */
+/* Iconos de vestimenta (vestido + traje) en lugar de la palabra "Elegante" */
+.dresscode-icons {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: var(--space-md);
+    color: var(--color-sage-strong);
+    margin: 0 auto var(--space-lg);
+}
+
+.dc-icon {
+    width: 46px;
+    height: 66px;
+}
+
+/* Énfasis en "traje formal" dentro de la nota especial */
+.restrictions-desc strong {
+    font-weight: 600;
+    color: var(--color-navy);
+}
+
 .dresscode-asymmetric {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1399,48 +1732,43 @@ body::before {
 }
 
 /* ==========================================================================
-   SECTION 5: ITINERARIO (MINIMALIST CENTERED PROGRAM)
+   SECTION 5: ITINERARIO (ALTERNATING HEART TIMELINE)
    ========================================================================== */
-.program-centered-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 600px;
+.program-timeline {
+    max-width: 560px;
     margin: var(--space-lg) auto 0;
     position: relative;
-    padding: 0 var(--space-md);
+    padding: var(--space-sm) 0;
 }
 
 /* Vertical hairline threading the timeline together */
-.program-centered-list::before {
+.program-timeline::before {
     content: '';
     position: absolute;
-    top: 8px;
-    bottom: 8px;
+    top: 0;
+    bottom: 0;
     left: 50%;
     width: 1px;
     transform: translateX(-50%);
-    background: linear-gradient(to bottom, transparent, var(--color-sage-line) 12%, var(--color-sage-line) 88%, transparent);
+    background: linear-gradient(to bottom, transparent, var(--color-sage-line) 10%, var(--color-sage-line) 90%, transparent);
     opacity: 0;
     transition: opacity 1.2s var(--ease-out-expo) 0.3s;
 }
 
-.reveal.active .program-centered-list::before {
+.reveal.active .program-timeline::before {
     opacity: 1;
 }
 
 .program-item {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    text-align: center;
-    margin-bottom: var(--space-md);
+    column-gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
     opacity: 0;
     transform: translateY(24px);
     transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
     transition-delay: calc(var(--stagger-delay, 0) * 110ms);
-    width: 100%;
-    position: relative;
 }
 
 .program-item:last-child {
@@ -1452,29 +1780,70 @@ body::before {
     transform: translateY(0);
 }
 
-/* Icon held in a fine botanical medallion */
-.program-icon {
-    width: 30px;
-    height: 30px;
-    stroke-width: 1.1px;
+/* Default layout: text left, icon right (even rows) */
+.program-text {
+    grid-column: 1;
+    text-align: right;
+}
+
+.program-icon-wrap {
+    grid-column: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Alternate: icon left, text right (odd rows — matches reference) */
+.program-item:nth-child(odd) .program-text {
+    grid-column: 3;
+    text-align: left;
+}
+
+.program-item:nth-child(odd) .program-icon-wrap {
+    grid-column: 1;
+}
+
+/* Heart marker sitting on the central line */
+.program-marker {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
     color: var(--color-sage-strong);
     background-color: var(--color-cream);
-    border: 1px solid var(--color-sage-line);
     border-radius: 50%;
-    padding: 13px;
+    padding: 3px;
     box-sizing: content-box;
-    box-shadow: 0 0 0 4px var(--color-cream);
-    margin-bottom: 14px;
+}
+
+.program-marker svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.program-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--color-sage-strong);
+    transition: transform 0.4s var(--ease-out-expo);
+}
+
+.program-item:hover .program-icon {
+    transform: translateY(-3px);
 }
 
 .program-time {
+    display: block;
     font-family: var(--font-sans);
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 600;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-sage-strong);
-    margin-bottom: 6px;
+    margin-bottom: 5px;
 }
 
 .program-dot {
@@ -1483,13 +1852,84 @@ body::before {
 
 .program-title {
     font-family: var(--font-display);
-    font-size: 1.6rem;
+    font-size: 1.18rem;
     font-weight: 500;
     color: var(--color-navy);
     letter-spacing: 0.01em;
     line-height: 1.25;
-    max-width: 30ch;
     margin: 0;
+}
+
+/* --- Telón en arco color olivo (estilo invitación de referencia) --- */
+.itinerary-section {
+    background-color: var(--color-sage-strong);
+    border-radius: 50% 50% 0 0 / 96px 96px 0 0;
+    padding: 7rem var(--space-md) 10rem;
+    margin-top: var(--space-md);
+    overflow: hidden;
+}
+
+/* Degradado de salida hacia el crema en la base del arco */
+.itinerary-section::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 180px;
+    background: linear-gradient(180deg,
+        rgba(84, 88, 47, 0) 0%,
+        rgba(110, 114, 64, 0.85) 45%,
+        #c2c1a0 78%,
+        var(--color-cream) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* El contenido se mantiene por encima del degradado */
+.itinerary-section > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Título caligráfico en crema sobre el olivo */
+.itinerary-section .section-title {
+    font-family: var(--font-calligraphy);
+    font-weight: 400;
+    color: var(--color-cream);
+    font-size: clamp(3rem, 13vw, 4.6rem);
+    line-height: 0.95;
+    letter-spacing: 0.005em;
+}
+
+.itinerary-section .section-title::after {
+    display: none;
+}
+
+.itinerary-section .section-description {
+    color: rgba(250, 249, 246, 0.78);
+}
+
+/* Hilo vertical y contenido del timeline en crema */
+.itinerary-section .program-timeline::before {
+    background: linear-gradient(to bottom, transparent, rgba(250, 249, 246, 0.45) 10%, rgba(250, 249, 246, 0.45) 90%, transparent);
+}
+
+.itinerary-section .program-marker {
+    background-color: transparent;
+    color: var(--color-cream);
+}
+
+.itinerary-section .program-icon {
+    color: var(--color-cream);
+}
+
+.itinerary-section .program-time {
+    color: rgba(250, 249, 246, 0.88);
+}
+
+.itinerary-section .program-title {
+    color: var(--color-cream);
 }
 
 /* ==========================================================================
@@ -1647,16 +2087,29 @@ body::before {
    SECTION 7: RSVP, DESPEDIDA & FOOTER
    ========================================================================== */
 .kids-restriction {
-    max-width: 440px;
-    margin: 0 auto var(--space-lg);
-    background-color: var(--color-cream-dark);
-    border: 1px solid rgba(84, 88, 47, 0.15);
-    padding: var(--space-md);
+    max-width: 500px;
+    margin: 56px auto var(--space-lg);
+    background-color: var(--color-sage-strong);
+    border: none;
+    border-radius: 28px;
+    padding: 74px var(--space-md) var(--space-lg);
     text-align: center;
     position: relative;
     opacity: 0;
     transform: translateY(15px);
     transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+}
+
+/* Ramo centrado sobre el borde superior de la tarjeta */
+.kids-flower {
+    position: absolute;
+    top: -58px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(160px, 48%, 220px);
+    height: auto;
+    pointer-events: none;
+    z-index: 2;
 }
 
 .reveal.active .kids-restriction {
@@ -1665,16 +2118,13 @@ body::before {
     transition-delay: 0.1s;
 }
 
-.icon-moon {
-    color: var(--color-sage-strong);
-}
-
 .kids-restriction p {
     font-family: var(--font-serif);
-    font-size: 1.08rem;
-    color: var(--color-navy-muted);
+    font-size: 1.12rem;
+    color: var(--color-cream);
     font-style: italic;
-    line-height: 1.5;
+    line-height: 1.6;
+    margin: 0;
 }
 
 .rsvp-intro {
@@ -1687,10 +2137,119 @@ body::before {
     line-height: 1.6;
 }
 
+/* Variante en mayúsculas espaciadas (como la referencia) */
+.rsvp-intro--caps {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 500;
+    font-style: normal;
+    letter-spacing: 0.18em;
+    line-height: 2;
+    text-transform: uppercase;
+    color: var(--color-sage-strong);
+    max-width: 38ch;
+}
+
 .rsvp-actions {
     display: flex;
     justify-content: center;
     margin-bottom: var(--space-lg);
+    position: relative;
+}
+
+/* Ramos laterales de la sección de despedida (detrás del texto) */
+.rsvp-flower {
+    position: absolute;
+    height: auto;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.rsvp-flower--right {
+    right: -50px;
+    top: -78px;
+    width: clamp(118px, 34%, 160px);
+}
+
+.rsvp-actions > .btn-rsvp-circle {
+    position: relative;
+    z-index: 1;
+}
+
+.rsvp-flower--left {
+    left: -74px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(92px, 27%, 130px);
+}
+
+.final-message {
+    position: relative;
+}
+
+.final-message > p {
+    position: relative;
+    z-index: 1;
+}
+
+/* Botón circular "Confirma aquí" con icono y texto curvo */
+.btn-rsvp-circle {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    line-height: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.rsvp-circle-svg {
+    width: 124px;
+    height: auto;
+    overflow: visible;
+}
+
+.rsvp-disc {
+    fill: var(--color-sage-strong);
+    transition: fill 0.4s var(--ease-out-expo);
+}
+
+.rsvp-person {
+    color: var(--color-cream);
+}
+
+.rsvp-arc-text {
+    fill: var(--color-sage-strong);
+    font-family: var(--font-sans);
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.rsvp-check {
+    color: var(--color-cream);
+    display: none;
+}
+
+.btn-rsvp-circle:hover .rsvp-disc {
+    fill: var(--color-navy);
+}
+
+.btn-rsvp-circle:hover .rsvp-circle-svg {
+    transform: translateY(-2px);
+}
+
+.rsvp-circle-svg {
+    transition: transform 0.4s var(--ease-out-expo);
+}
+
+/* Estado confirmado: muestra el check, oculta la persona */
+.btn-rsvp-circle.is-confirmed .rsvp-person {
+    display: none;
+}
+
+.btn-rsvp-circle.is-confirmed .rsvp-check {
+    display: block;
 }
 
 /* Monogram ED with Heart */
@@ -1703,10 +2262,10 @@ body::before {
 }
 
 .monogram-letter {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-weight: 500;
-    font-size: clamp(3rem, 14vw, 5rem);
+    font-family: var(--font-calligraphy);
+    font-style: normal;
+    font-weight: 400;
+    font-size: clamp(3.4rem, 16vw, 5.6rem);
     line-height: 1;
     color: var(--color-sage-strong);
 }
@@ -1727,23 +2286,47 @@ body::before {
 
 .final-message {
     text-align: center;
-    max-width: 46ch;
+    max-width: 34ch;
     margin: var(--space-md) auto;
-    font-family: var(--font-serif);
-    font-size: 1.15rem;
-    line-height: 1.65;
-    color: var(--color-navy-muted);
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    line-height: 2;
+    text-transform: uppercase;
+    color: var(--color-sage-strong);
 }
 
 .te-esperamos {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: clamp(2.8rem, 11vw, 4.4rem);
-    font-weight: 500;
+    font-family: var(--font-calligraphy);
+    font-style: normal;
+    font-size: clamp(3.2rem, 13vw, 5rem);
+    font-weight: 400;
     color: var(--color-sage-strong);
     text-align: center;
-    line-height: 1.1;
+    line-height: 1.05;
     margin-top: var(--space-md);
+}
+
+/* Foto familiar con bordes difuminados que se funden en el crema */
+.family-photo {
+    max-width: 460px;
+    margin: var(--space-lg) auto 0;
+    padding: 0;
+}
+
+.family-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    -webkit-mask-image:
+        linear-gradient(to bottom, transparent 0%, #000 13%, #000 87%, transparent 100%),
+        linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+        linear-gradient(to bottom, transparent 0%, #000 13%, #000 87%, transparent 100%),
+        linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%);
+    mask-composite: intersect;
 }
 
 .main-footer {
@@ -2695,17 +3278,6 @@ body::before {
     margin-top: 4px;
 }
 
-/* Itinerary Program Icons — medallion hover fills with olive */
-.program-icon {
-    transition: background-color 0.4s var(--ease-out-expo), color 0.4s var(--ease-out-expo), border-color 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
-}
-
-.program-item:hover .program-icon {
-    background-color: var(--color-sage-strong);
-    border-color: var(--color-sage-strong);
-    color: var(--color-cream);
-    transform: translateY(-2px);
-}
 
 /* Touch screen improvements and card paddings on mobile */
 @media (max-width: 600px) {
