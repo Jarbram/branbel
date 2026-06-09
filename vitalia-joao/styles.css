@@ -236,6 +236,16 @@ body::before {
     font-weight: 400;
     margin-bottom: var(--space-sm);
     line-height: 1.1;
+    /* Apila: Vitalia / & / Joao, centrado */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.welcome-title .welcome-amp {
+    /* "&" más pequeña que los nombres */
+    font-size: 0.55em;
+    line-height: 1;
 }
 
 .welcome-date {
