@@ -145,8 +145,8 @@ body::before {
     position: absolute;
     inset: 0;
     background-image: 
-        radial-gradient(rgba(37, 39, 32, 0.015) 1px, transparent 0),
-        radial-gradient(rgba(84, 88, 47, 0.02) 1px, transparent 0);
+        radial-gradient(rgba(37, 39, 32, 0.012) 1px, transparent 0),
+        radial-gradient(rgba(84, 88, 47, 0.015) 1px, transparent 0);
     background-size: 24px 24px;
     background-position: 0 0, 12px 12px;
     pointer-events: none;
@@ -165,49 +165,74 @@ body::before {
     justify-content: center;
     width: 100%;
     max-width: 480px;
-    perspective: 1000px;
+    perspective: 1500px; /* Enhanced 3D depth */
 }
 
 .envelope {
     position: relative;
     width: 100%;
     height: 310px;
-    background-color: #e2dbcb; /* Darker inside shadows */
-    border: 1px solid rgba(84, 88, 47, 0.15);
-    box-shadow: 0 15px 35px rgba(37, 39, 32, 0.1);
+    background-color: #2b2e16; /* Deep dark forest/olive lining inside */
+    /* Luxurious interior lining: deep olive paper texture + soft inside shadow */
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.6));
+    background-size: 4px 4px, 4px 4px, 100% 100%;
+    border: 1px solid rgba(84, 88, 47, 0.3);
+    box-shadow:
+        0 25px 55px rgba(25, 26, 21, 0.22),
+        0 8px 20px rgba(25, 26, 21, 0.12),
+        inset 0 0 80px rgba(0, 0, 0, 0.55);
     transform-style: preserve-3d;
-    transition: transform 0.5s var(--ease-out-expo);
+    transition: transform 0.8s var(--ease-out-expo);
 }
 
-/* Envelope Flaps (folding paper look) */
+/* Shared paper grain for the folding flaps */
+.envelope-left,
+.envelope-right,
+.envelope-bottom,
+.envelope-flap::before {
+    background-image:
+        linear-gradient(90deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 3px),
+        linear-gradient(0deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 3px);
+    background-size: 3px 3px;
+}
+
+/* Envelope Flaps (folded textured paper look) */
 .envelope-left {
     position: absolute;
     inset: 0;
-    background-color: #ebe6da;
+    background-color: #434725; /* Elegant rich olive green */
     clip-path: polygon(0 0, 50% 50%, 0 100%);
     z-index: 3;
     pointer-events: none;
-    border-left: 1px solid rgba(255, 255, 255, 0.4);
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset -12px 0 25px rgba(0, 0, 0, 0.2);
 }
 
 .envelope-right {
     position: absolute;
     inset: 0;
-    background-color: #ebe6da;
+    background-color: #434725; /* Matching rich olive green */
     clip-path: polygon(100% 0, 50% 50%, 100% 100%);
     z-index: 3;
     pointer-events: none;
-    border-right: 1px solid rgba(255, 255, 255, 0.4);
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 12px 0 25px rgba(0, 0, 0, 0.2);
 }
 
 .envelope-bottom {
     position: absolute;
     inset: 0;
-    background-color: #f1ebd8;
+    background-color: #4c512a; /* Slightly warmer olive */
     clip-path: polygon(0 100%, 50% 50%, 100% 100%);
     z-index: 4;
     pointer-events: none;
-    box-shadow: 0 -3px 10px rgba(37, 39, 32, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 -5px 18px rgba(0, 0, 0, 0.18),
+        inset 0 12px 20px rgba(255,255,255,0.03);
 }
 
 .envelope-flap {
@@ -216,12 +241,44 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #dfd8cb;
+    /* Gold foil border background layer */
+    background: linear-gradient(135deg, #f5e39e 0%, #d4af37 40%, #b8923a 60%, #e5c158 100%);
     clip-path: polygon(0 0, 50% 50%, 100% 0);
     transform-origin: top;
     transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), z-index 0.3s;
     z-index: 5;
-    filter: drop-shadow(0 4px 6px rgba(37, 39, 32, 0.12));
+    filter: drop-shadow(0 8px 15px rgba(25, 26, 21, 0.28));
+}
+
+/* Inner flap textured overlay that leaves a 2.5px gold border exposed */
+.envelope-flap::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #515630; /* Main exterior olive green */
+    background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 40%);
+    background-size: 3px 3px, 3px 3px, 100% 100%;
+    clip-path: polygon(3px 0, 50% calc(50% - 2.5px), calc(100% - 3px) 0);
+}
+
+/* Faint crease line down the flap center */
+.envelope-flap::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0) 100%);
+    pointer-events: none;
+    z-index: 2;
 }
 
 /* The card inside the envelope */
@@ -239,30 +296,34 @@ body::before {
 .envelope-card-wrapper .welcome-card {
     height: 100%;
     width: 100%;
-    padding: var(--space-md);
+    padding: 24px;
     margin: 0;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: box-shadow 0.8s var(--ease-out-expo);
 }
 
 .welcome-card {
     text-align: center;
     position: relative;
-    border: 1px solid var(--color-sage-strong); /* Primary Olive */
-    background-color: var(--color-white);
+    border: 1px solid var(--color-sage-strong); /* Primary Olive Frame */
+    background-color: var(--color-cream);
+    /* Premium heavy-stock textured cardstock feel */
+    background-image:
+        linear-gradient(90deg, rgba(37,39,32,0.015) 1px, transparent 1px) 0 0 / 3px 3px,
+        linear-gradient(0deg, rgba(37,39,32,0.012) 1px, transparent 1px) 0 0 / 3px 3px;
+    overflow: hidden;
 }
 
+/* Elegant gold inner frame overlay */
 .welcome-card::after {
     content: '';
     position: absolute;
-    top: -5px;
-    left: 5px;
-    right: -5px;
-    bottom: 5px;
-    border: 1px solid var(--color-sage); /* Blush Rose */
+    inset: 6px;
+    border: 1px solid rgba(212, 175, 55, 0.42); /* Delicate metallic gold frame */
     pointer-events: none;
 }
 
@@ -271,33 +332,57 @@ body::before {
     transform: none;
 }
 
+.welcome-card-flower {
+    max-width: 50px;
+    height: auto;
+    margin-bottom: 12px;
+    opacity: 0.85;
+    filter: drop-shadow(0 2px 4px rgba(37, 39, 32, 0.08));
+}
+
 .welcome-eyebrow {
     font-family: var(--font-sans);
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     font-weight: 600;
-    letter-spacing: 0.28em;
+    letter-spacing: 0.32em;
     color: var(--color-sage-strong);
     display: block;
-    margin-bottom: var(--space-xs);
+    margin-bottom: 6px;
 }
 
 .welcome-title {
     font-family: var(--font-display);
-    font-size: clamp(2.8rem, 9vw, 4.4rem);
+    font-size: clamp(2.4rem, 8vw, 3.8rem);
     color: var(--color-navy);
     font-weight: 500;
     letter-spacing: 0.01em;
-    margin-bottom: 6px;
-    line-height: 1.0;
+    margin-bottom: 8px;
+    line-height: 1.1;
+    text-shadow: 0.5px 0.5px 0.5px rgba(255,255,255,0.8);
+}
+
+.welcome-amp {
+    font-family: var(--font-calligraphy);
+    font-size: clamp(2.8rem, 9vw, 4.2rem);
+    color: var(--color-sage); /* Blush Rose */
+    font-weight: 400;
+    vertical-align: middle;
+    margin: 0 0.08em;
+    display: inline-block;
+    transform: translateY(-2px);
 }
 
 .welcome-date {
     font-family: var(--font-serif);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-style: italic;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     color: var(--color-navy-muted);
-    margin-bottom: 0;
+    margin-top: 10px;
+    border-top: 1px solid rgba(84, 88, 47, 0.15);
+    padding-top: 10px;
+    width: 80%;
+    display: inline-block;
 }
 
 /* Wax Seal */
@@ -305,55 +390,101 @@ body::before {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 68px;
-    height: 68px;
-    background: radial-gradient(circle at 35% 35%, #63683a 0%, #3d4122 100%);
-    border-radius: 52% 48% 54% 46% / 46% 54% 48% 52%; /* Organic shape */
-    box-shadow: 
-        0 4px 12px rgba(37, 39, 32, 0.3), 
-        inset 1px 1px 3px rgba(255, 255, 255, 0.25),
-        inset -2px -2px 5px rgba(0, 0, 0, 0.4);
+    width: 86px;
+    height: 86px;
+    /* Elegant Blush Rose wax (matches --color-sage from palette): glossy highlight + soft, satin rose base */
+    background:
+        radial-gradient(circle at 28% 28%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 35%),
+        radial-gradient(circle at 45% 45%, #ebd3cd 0%, #dfbdb3 35%, #a78077 75%, #70483f 100%);
+    border-radius: 53% 47% 52% 48% / 48% 52% 49% 51%; /* Irregular organic squished stamp */
+    box-shadow:
+        0 14px 32px rgba(25, 26, 21, 0.48),
+        0 6px 14px rgba(25, 26, 21, 0.35),
+        inset 2.5px 3px 5px rgba(255, 255, 255, 0.38),
+        inset -3px -4px 8px rgba(0, 0, 0, 0.65);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     z-index: 6;
-    transform: translate(-50%, -50%) translateZ(6px) scale(1);
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+    transform: translate(-50%, -50%) translateZ(10px) scale(1);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.4s ease, opacity 0.4s ease;
 }
 
+/* Pressed inner well (simulating the stamped circular depression) */
 .wax-seal::before {
     content: '';
     position: absolute;
-    inset: 6px;
-    border: 1px solid rgba(229, 193, 88, 0.3);
+    inset: 10px;
     border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%, #cca399 0%, #b2857b 55%, #85584f 100%);
+    box-shadow:
+        inset 2.5px 2.5px 5px rgba(0, 0, 0, 0.65),
+        1.5px 1.5px 1px rgba(255, 255, 255, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+}
+
+/* Debossed outer rim of the metal stamp face */
+.wax-seal::after {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    border: 1px solid rgba(112, 72, 63, 0.45);
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+    border-left: 1px solid rgba(255, 255, 255, 0.35);
     pointer-events: none;
 }
 
 .wax-seal:hover {
-    transform: translate(-50%, -50%) translateZ(6px) scale(1.08);
-    box-shadow: 
-        0 6px 16px rgba(37, 39, 32, 0.35), 
-        inset 1px 1px 3px rgba(255, 255, 255, 0.3),
-        inset -2px -2px 5px rgba(0, 0, 0, 0.4);
+    transform: translate(-50%, -50%) translateZ(14px) scale(1.08) rotate(-3deg);
+    box-shadow:
+        0 20px 40px rgba(25, 26, 21, 0.55),
+        0 8px 18px rgba(25, 26, 21, 0.38),
+        inset 2.5px 3px 5px rgba(255, 255, 255, 0.42),
+        inset -3px -4px 8px rgba(0, 0, 0, 0.65);
 }
 
 .wax-seal-crest {
+    position: relative;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1;
+}
+
+.crest-wreath {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 66px;
+    height: 66px;
+    pointer-events: none;
+    z-index: 1;
+    filter:
+        drop-shadow(-1px -1px 0.5px rgba(0, 0, 0, 0.55))
+        drop-shadow(1px 1px 0.5px rgba(255, 255, 255, 0.2));
 }
 
 .crest-monogram {
     font-family: var(--font-display);
-    font-size: 0.82rem;
+    font-size: 0.95rem; /* Sized down to fit inside the laurel wreath */
     font-weight: bold;
-    color: #e5c158; /* Gold Monogram */
-    letter-spacing: 0.05em;
-    text-shadow: 
-        -1px -1px 0px rgba(0, 0, 0, 0.45),
-        1px 1px 0px rgba(255, 255, 255, 0.15);
+    /* Elegant 3D embossed gold monogram look */
+    background: linear-gradient(135deg, #fff2d4 0%, #f7e2a1 30%, #dcae3a 70%, #9e7b1c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.08em;
+    filter:
+        drop-shadow(-1px -1px 0.5px rgba(0, 0, 0, 0.55))
+        drop-shadow(1px 1px 0.5px rgba(255, 255, 255, 0.2));
+    z-index: 2;
 }
 
 .envelope-hint {
@@ -392,6 +523,12 @@ body::before {
     z-index: 10;
 }
 
+.envelope.open .envelope-card-wrapper .welcome-card {
+    box-shadow: 
+        0 20px 45px rgba(25, 26, 21, 0.25),
+        0 8px 18px rgba(25, 26, 21, 0.12);
+}
+
 @media (max-width: 480px) {
     .envelope {
         height: 270px;
@@ -400,11 +537,15 @@ body::before {
         transform: translateY(-55%) translateZ(10px) scale(1.01);
     }
     .welcome-title {
-        font-size: 2.5rem;
+        font-size: 2.3rem;
+    }
+    .welcome-amp {
+        font-size: 2.7rem;
     }
     .welcome-date {
-        font-size: 0.85rem;
-        margin-bottom: 0;
+        font-size: 0.82rem;
+        margin-top: 8px;
+        padding-top: 8px;
     }
 }
 
