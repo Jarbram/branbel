@@ -158,6 +158,64 @@ body::before {
     pointer-events: none;
 }
 
+/* Hileras florales que enmarcan la carta (entrada lenta) */
+.welcome-garland {
+    position: absolute;
+    left: 50%;
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    filter: drop-shadow(0 6px 14px rgba(37, 39, 32, 0.12));
+    will-change: transform, opacity;
+}
+
+.welcome-garland--top {
+    /* Más grande y pegada al borde superior, como si naciera de ahí */
+    top: 0;
+    width: 132%;
+    max-width: 720px;
+    margin-top: -18px;
+    transform: translate(-50%, -55px);
+    transform-origin: top center;
+    animation: garlandTopIn 2.2s var(--ease-out-expo) 0.35s forwards;
+}
+
+.welcome-garland--bottom {
+    /* Espejada vertical: las flores brotan desde el borde inferior */
+    bottom: 0;
+    margin-bottom: -18px;
+    width: 132%;
+    max-width: 720px;
+    transform: translate(-50%, 55px) scaleY(-1);
+    transform-origin: center center;
+    animation: garlandBottomIn 2.2s var(--ease-out-expo) 0.6s forwards;
+}
+
+@keyframes garlandTopIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -45px);
+    }
+    to {
+        opacity: 0.95;
+        transform: translate(-50%, 0);
+    }
+}
+
+@keyframes garlandBottomIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 45px) scaleY(-1);
+    }
+    to {
+        opacity: 0.95;
+        transform: translate(-50%, 0) scaleY(-1);
+    }
+}
+
 .envelope-wrapper {
     display: flex;
     flex-direction: column;
@@ -166,6 +224,21 @@ body::before {
     width: 100%;
     max-width: 480px;
     perspective: 1500px; /* Enhanced 3D depth */
+    position: relative;
+    z-index: 3;
+    opacity: 0;
+    animation: envelopeFadeIn 1.8s var(--ease-out-expo) 0.15s forwards;
+}
+
+@keyframes envelopeFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .envelope {
