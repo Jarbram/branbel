@@ -2867,11 +2867,31 @@ body::before {
    ========================================================================== */
 .reveal {
     opacity: 0;
-    transition: opacity 0.8s var(--ease-out-expo);
+    transform: translateY(38px);
+    transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
+    will-change: opacity, transform;
 }
 
 .reveal.active {
     opacity: 1;
+    transform: translateY(0);
+}
+
+/* Las secciones largas revelan su contenido con un leve escalonado para mayor fluidez */
+.reveal .section-title,
+.reveal .section-description,
+.reveal .section-title--script {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+    transition-delay: 0.12s;
+}
+
+.reveal.active .section-title,
+.reveal.active .section-description,
+.reveal.active .section-title--script {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* ==========================================================================
