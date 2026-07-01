@@ -48,8 +48,8 @@
     <div class="invite-container" style="overflow:hidden;">
 
         <!-- Decorative floral corners -->
-        <img src="assets/EsquinaIzquierda.png" alt="" class="corner-flower corner-flower--left" aria-hidden="true" style="position:absolute; top:0; left:0; width:clamp(165px,48vw,250px); height:auto; pointer-events:none; z-index:6;">
-        <img src="assets/EsquinaDerecha.png" alt="" class="corner-flower corner-flower--right" aria-hidden="true" style="position:absolute; top:0; right:0; width:clamp(165px,48vw,250px); height:auto; pointer-events:none; z-index:6;">
+        <img src="assets/EsquinaIzquierda.webp" alt="" class="corner-flower corner-flower--left" aria-hidden="true" style="position:absolute; top:0; left:0; width:clamp(165px,48vw,250px); height:auto; pointer-events:none; z-index:6;">
+        <img src="assets/EsquinaDerecha.webp" alt="" class="corner-flower corner-flower--right" aria-hidden="true" style="position:absolute; top:0; right:0; width:clamp(165px,48vw,250px); height:auto; pointer-events:none; z-index:6;">
 
         <!-- Hero Section -->
         <header id="hero" class="section hero-section reveal active">
@@ -65,7 +65,10 @@
 
         <!-- Photo with built-in torn edge cutout -->
         <div class="hero-photo-cutout">
-            <img src="assets/Kyra1.png" alt="Kyra Milene - Mis 15 Años">
+            <picture>
+                <source srcset="assets/Kyra1.webp" type="image/webp">
+                <img src="assets/Kyra1.png" alt="Kyra Milene - Mis 15 Años" width="1080" height="1700" fetchpriority="high">
+            </picture>
         </div>
 
         <!-- Embedded Custom Audio Player -->
@@ -104,8 +107,8 @@
 
         <!-- Parents & Intro Section -->
         <section class="section text-center reveal" style="position:relative;">
-            <img src="assets/FlorAditional.png" alt="" aria-hidden="true" style="position:absolute; top:160px; left:-45px; width:clamp(115px,30vw,175px); height:auto; z-index:0; pointer-events:none; transform:scaleX(-1);">
-            <img src="assets/FlorAditional.png" alt="" aria-hidden="true" style="position:absolute; top:280px; right:-45px; width:clamp(115px,30vw,175px); height:auto; z-index:0; pointer-events:none;">
+            <img src="assets/FlorAditional.webp" alt="" aria-hidden="true" loading="lazy" style="position:absolute; top:160px; left:-45px; width:clamp(115px,30vw,175px); height:auto; z-index:0; pointer-events:none; transform:scaleX(-1);">
+            <img src="assets/FlorAditional.webp" alt="" aria-hidden="true" loading="lazy" style="position:absolute; top:280px; right:-45px; width:clamp(115px,30vw,175px); height:auto; z-index:0; pointer-events:none;">
 
             <p class="intro-text">Con la compañía de mis padres</p>
             <p class="intro-parents">Claudia Olaya y Marco Arrieta</p>
@@ -176,7 +179,10 @@
 
         <!-- Second Photo (Kyra2.png with cutout) -->
         <div class="photo-cutout reveal">
-            <img src="assets/Kyra2.png" alt="Kyra Milene">
+            <picture>
+                <source srcset="assets/Kyra2.webp" type="image/webp">
+                <img src="assets/Kyra2.png" alt="Kyra Milene" width="1080" height="1700" loading="lazy">
+            </picture>
         </div>
 
         <!-- Itinerary Section -->
