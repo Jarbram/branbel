@@ -1847,6 +1847,13 @@ body::before {
     flex-grow: 1;
 }
 
+.account-holder {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    color: var(--color-navy-muted);
+    margin-top: var(--space-xs);
+}
+
 .btn-copy {
     background: transparent;
     border: none;
