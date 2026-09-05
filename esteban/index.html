@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Invitación 3D · Baby Shower de Esteban</title>
+    <meta name="description" content="Josué Huacchillo y Elena Horna te invitan al baby shower de Esteban. Sábado 17 de octubre, 2026 · Piura, Perú. Desliza para volar por la expedición.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Staatliches&family=Vollkorn:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+    <!--
+      Nota: este archivo (la experiencia 3D, ahora index.html raíz del sitio)
+      NO carga styles.css a propósito. El reset global de ese
+      archivo (`*{margin:0;padding:0}`) no está en una @layer, así que por
+      especificación CSS siempre le gana a las reglas de scroll-engine.js (que
+      sí están en `@layer sw`) sin importar la especificidad — anulaba TODOS
+      los márgenes/paddings del motor (nav, tags, eyebrow, título, CTA...).
+      Esta página es autónoma: no usa ninguna clase de styles.css.
+    -->
+    <style>
+        :root, .sw-root {
+            --sw-bg: #E4D3A5;
+            --sw-ink: #241B12;
+            --sw-ink-soft: #6b5c3e;
+            --sw-accent: #A32E23;
+            --sw-font-display: 'Staatliches', sans-serif;
+            --sw-font-body: 'Vollkorn', serif;
+        }
+        body { margin: 0; background: var(--sw-bg); }
+
+        /* Sin chrome de navegación: solo el logo y la experiencia cinemática. */
+        .sw-nav { display: none; }
+        .sw-route { display: none; }
+
+        /* La tarjeta de copy se ve mejor más arriba que centrada a media
+           pantalla — solo en desktop. En mobile el motor ya la ancla abajo
+           (con su degradado de legibilidad); ese override sin media query
+           estaba pisando ese comportamiento y tapando la escena con texto. */
+        @media (min-width: 861px) {
+            .sw-copy { top: 32%; }
+        }
+
+        /* Sello "INVITACIÓN" solo en la primera escena — mismo lenguaje visual
+           que el tab de tinta rojo de la portada en index.html (mismo rojo,
+           misma rotación), para dejar inequívoco que esto es una invitación
+           real y no solo un mundo temático, sin repetir la etiqueta en las
+           otras 5 escenas donde el eyebrow ya cumple otro rol (la hora). */
+        .sw-copylayer > .sw-copy:first-child .sw-copy__eyebrow::before {
+            content: 'Invitación';
+            display: inline-block;
+            font-family: 'Courier Prime', monospace;
+            font-size: .64rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: #fff;
+            background: var(--sw-accent);
+            padding: 5px 11px;
+            border-radius: 2px;
+            transform: rotate(-4deg);
+            box-shadow: 2px 3px 6px rgba(36, 27, 18, .35);
+            margin-bottom: 12px;
+        }
+
+        /* En mobile la escena "campamento base" tiene follaje justo donde
+           empieza la tarjeta (número + eyebrow quedan sobre las palmeras,
+           poco legibles). Baja la tarjeta más cerca del borde inferior y
+           extiende/refuerza el degradado para que todo el bloque de texto
+           caiga sobre zona sólida, no sobre la escena. El "desliza para
+           volar" del motor vive fijo a ~20-26px del borde — dejamos ~104px
+           de aire para que ni el body más largo (3 líneas en la escena 1)
+           le pise el hint. */
+        @media (max-width: 860px) {
+            .sw-copy { bottom: calc(104px + env(safe-area-inset-bottom)); }
+            .sw-copylayer::before {
+                height: 72%;
+                background: linear-gradient(0deg, var(--sw-bg) 22%, color-mix(in srgb, var(--sw-bg) 80%, transparent) 55%, transparent 100%);
+            }
+        }
+
+        /* "Desliza para volar": la etiqueta de texto se hace más presente
+           (fuente de display, más espaciada) y el ícono de mouse genérico se
+           reemplaza por dos chevrones que caen en cascada — como una aguja de
+           gauge — más a tono con la estética de bitácora de campo. */
+        .sw-hint {
+            gap: 12px;
+            font-family: var(--sw-font-display);
+            font-size: .92rem;
+            letter-spacing: .22em;
+            color: var(--sw-ink);
+            text-shadow: 0 1px 14px color-mix(in srgb, var(--sw-bg) 88%, transparent);
+            animation: sw-hint-pulse 2.6s ease-in-out infinite;
+        }
+        .sw-hint i {
+            position: relative;
+            width: 16px;
+            height: 26px;
+            border: none;
+            background: none;
+        }
+        .sw-hint i::before, .sw-hint i::after {
+            content: "";
+            position: absolute;
+            left: 1px;
+            top: -6px;
+            width: 11px;
+            height: 11px;
+            border-right: 3px solid var(--sw-accent);
+            border-bottom: 3px solid var(--sw-accent);
+            border-radius: 0 0 2px 0;
+            transform: rotate(45deg);
+            animation: sw-chevron-fall 1.6s ease-in infinite;
+        }
+        .sw-hint i::after { animation-delay: .35s; }
+        @keyframes sw-chevron-fall {
+            0%   { top: -6px;  opacity: 0; }
+            25%  { opacity: 1; }
+            75%  { opacity: 1; }
+            100% { top: 16px;  opacity: 0; }
+        }
+        @keyframes sw-hint-pulse {
+            0%, 100% { opacity: .78; }
+            50%      { opacity: 1; }
+        }
+
+        /* Botón de sonido ambiente — el navegador bloquea el autoplay con
+           audio sin gesto del usuario, así que arranca en mute y el visitante
+           lo activa a propósito. Ocupa el espacio que dejó el nav de arriba. */
+        .sound-toggle {
+            position: fixed;
+            top: clamp(14px, 2.4vw, 26px);
+            right: clamp(18px, 5vw, 64px);
+            z-index: 50;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid color-mix(in srgb, var(--sw-accent) 20%, transparent);
+            background: color-mix(in srgb, #fff 55%, transparent);
+            backdrop-filter: blur(10px);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            color: var(--sw-ink);
+            transition: background .25s, color .25s, transform .2s;
+        }
+        .sound-toggle:hover { transform: scale(1.06); }
+        .sound-toggle.is-on {
+            background: var(--sw-accent);
+            color: #fff;
+            border-color: var(--sw-accent);
+        }
+        .sound-toggle svg { width: 18px; height: 18px; }
+        .sound-toggle .icon-off { display: block; }
+        .sound-toggle .icon-on { display: none; }
+        .sound-toggle.is-on .icon-off { display: none; }
+        .sound-toggle.is-on .icon-on { display: block; }
+    </style>
+</head>
+<body>
+    <div id="world"></div>
+
+    <!-- Sonido ambiente (selva/dinosaurios) — arranca en silencio, el
+         visitante lo activa a propósito porque el navegador bloquea el
+         autoplay con audio sin gesto del usuario. -->
+    <audio id="ambience" src="assets/ambience.mp3" loop preload="none"></audio>
+    <button id="sound-toggle" class="sound-toggle" aria-label="Activar sonido ambiente" aria-pressed="false">
+        <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="4 9 8 9 12 5 12 19 8 15 4 15 4 9"></polygon>
+            <line x1="17" y1="9" x2="22" y2="14"></line>
+            <line x1="22" y1="9" x2="17" y2="14"></line>
+        </svg>
+        <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="4 9 8 9 12 5 12 19 8 15 4 15 4 9"></polygon>
+            <path d="M16 8a5 5 0 0 1 0 8"></path>
+            <path d="M19 5a9 9 0 0 1 0 14"></path>
+        </svg>
+    </button>
+
+    <script src="scroll-engine.js"></script>
+    <script>
+        mountScrollWorld(document.getElementById('world'), {
+            brand: { name: 'Expedición Nº 001', href: '#' },
+            hint: 'desliza para volar',
+            diveScroll: 1.3,
+            connScroll: 0.9,
+            sections: [
+                {
+                    id: 'base', label: 'Campamento base',
+                    still: 'assets/still_base.webp',
+                    clip: 'assets/vid/dive_base.mp4',
+                    accent: '#58643C',
+                    scroll: 1.6, linger: 0.4,
+                    eyebrow: 'EXPEDICIÓN Nº 001 · CONFIDENCIAL',
+                    title: 'Estás invitado a la expedición.',
+                    body: 'Josué Huacchillo y Elena Horna te invitan a celebrar la llegada de su primer hijo. Sábado 17 de octubre, 2026 · 6:00 pm · Piura, Perú.',
+                },
+                {
+                    id: 'excavacion', label: 'Sitio de excavación',
+                    still: 'assets/still_excavacion.webp',
+                    clip: 'assets/vid/dive_excavacion.mp4',
+                    accent: '#A32E23',
+                    eyebrow: '6:00 pm',
+                    title: 'Recepción del equipo.',
+                    body: 'El hallazgo principal ya está bajo cuidado: un huevo intacto, cuidadosamente documentado.',
+                },
+                {
+                    id: 'selva', label: 'Selva de helechos',
+                    still: 'assets/still_selva.webp',
+                    clip: 'assets/vid/dive_selva.mp4',
+                    accent: '#58643C',
+                    eyebrow: '7:00 pm',
+                    title: 'Juegos y dinámicas de campo.',
+                    body: 'El equipo se adentra en la espesura para las pruebas de campo del día.',
+                },
+                {
+                    id: 'brindis', label: 'Mesa de brindis',
+                    still: 'assets/still_brindis.webp',
+                    clip: 'assets/vid/dive_brindis.mp4',
+                    accent: '#A32E23',
+                    eyebrow: '8:00 pm',
+                    title: 'Brindis por el hallazgo.',
+                    body: 'Una pausa junto al fuego para celebrar lo que está por llegar.',
+                },
+                {
+                    id: 'regalos', label: 'Carga de regalos',
+                    still: 'assets/still_regalos.webp',
+                    clip: 'assets/vid/dive_regalos.mp4',
+                    accent: '#58643C',
+                    eyebrow: '8:30 pm',
+                    title: 'Apertura del cargamento.',
+                    body: 'La carreta de suministros llega cargada de regalos para el nuevo ejemplar.',
+                },
+                {
+                    id: 'nido', label: 'El nido',
+                    still: 'assets/still_nido.webp',
+                    clip: 'assets/vid/dive_nido.mp4',
+                    accent: '#A32E23',
+                    scroll: 1.7, linger: 0.5,
+                    eyebrow: '9:00 pm',
+                    title: 'Esteban está por llegar.',
+                    body: 'Gracias por acompañarnos. Sábado 17 de octubre, 2026 · 6:00 pm · Piura, Perú.',
+                    // CTA deshabilitado por ahora a pedido del usuario — no debe
+                    // redirigir a invitacion.html#rsvp todavía. Reactivar cuando
+                    // el flujo de confirmación esté listo para compartirse.
+                },
+            ],
+            // conn_3, conn_4, conn_5 pendientes (créditos de Flow) — el motor
+            // hace crossfade directo en esas costuras hasta que se agreguen.
+            connectors: [
+                'assets/vid/conn_1.mp4',
+                'assets/vid/conn_2.mp4',
+                null,
+                null,
+                null,
+            ],
+        });
+
+        const ambience = document.getElementById('ambience');
+        const soundToggle = document.getElementById('sound-toggle');
+        ambience.volume = 0.55;
+        soundToggle.addEventListener('click', () => {
+            const willPlay = ambience.paused;
+            if (willPlay) {
+                ambience.play().catch(() => {});
+            } else {
+                ambience.pause();
+            }
+            soundToggle.classList.toggle('is-on', willPlay);
+            soundToggle.setAttribute('aria-pressed', String(willPlay));
+            soundToggle.setAttribute('aria-label', willPlay ? 'Silenciar sonido ambiente' : 'Activar sonido ambiente');
+        });
+
+        // El logo lleva de vuelta al inicio del scroll (no sale a otra página).
+        document.querySelector('.sw-brand').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
