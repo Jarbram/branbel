@@ -325,9 +325,17 @@
                     eyebrow: '9:00 pm',
                     title: 'Esteban está por llegar.',
                     body: 'Gracias por acompañarnos. Sábado 17 de octubre, 2026 · 6:00 pm · Piura, Perú.',
-                    // CTA deshabilitado por ahora a pedido del usuario — no debe
-                    // redirigir a invitacion.html#rsvp todavía. Reactivar cuando
-                    // el flujo de confirmación esté listo para compartirse.
+                    // El CTA de confirmar asistencia sigue deshabilitado a pedido
+                    // del usuario — no debe redirigir a invitacion.html#rsvp
+                    // todavía. Reactivar cuando ese flujo esté listo. El botón de
+                    // ubicación sí puede ir ya, es solo un enlace a Google Maps.
+                    cta: {
+                        primary: {
+                            label: 'Ver ubicación',
+                            href: 'https://www.google.com/maps/search/?api=1&query=Mz+C4+Lote+18+II+Etapa+Urb+Bello+Horizonte+Piura',
+                            target: '_blank',
+                        },
+                    },
                 },
             ],
             // conn_3, conn_4, conn_5 pendientes (créditos de Flow) — el motor

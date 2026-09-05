@@ -333,9 +333,16 @@ function mountScrollWorld(container, config) {
   function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
   function ctaBtns(cta) {
     let h = '';
-    if (cta.primary) h += `<a class="sw-btn sw-btn--primary" href="${esc(cta.primary.href || '#')}">${esc(cta.primary.label)}</a>`;
-    if (cta.secondary) h += `<a class="sw-btn sw-btn--ghost" href="${esc(cta.secondary.href || '#')}">${esc(cta.secondary.label)}</a>`;
+    if (cta.primary) h += ctaBtn(cta.primary, 'sw-btn--primary');
+    if (cta.secondary) h += ctaBtn(cta.secondary, 'sw-btn--ghost');
     return h;
+  }
+  function ctaBtn(btn, cls) {
+    // target/rel es opcional — solo se agrega si el CTA lo pide (p.ej. un
+    // enlace externo a Google Maps), para no cambiar el comportamiento de
+    // los CTAs internos que ya existían.
+    const target = btn.target ? ` target="${esc(btn.target)}" rel="noopener noreferrer"` : '';
+    return `<a class="sw-btn ${cls}" href="${esc(btn.href || '#')}"${target}>${esc(btn.label)}</a>`;
   }
 }
 
