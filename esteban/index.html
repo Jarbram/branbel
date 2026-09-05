@@ -191,16 +191,9 @@
             display: grid; place-items: center;
             box-shadow: 0 8px 16px rgba(36, 27, 18, .35), 0 0 0 4px var(--sw-bg);
         }
-        .start-gate__fern {
-            position: absolute; width: 76px; opacity: .8; pointer-events: none;
-        }
-        .start-gate__fern--l { left: -30px; bottom: -22px; transform: rotate(-15deg); }
-        .start-gate__fern--r { right: -30px; top: -18px; transform: rotate(165deg) scaleX(-1); }
-        @media (max-width: 480px) {
-            .start-gate__fern { width: 54px; }
-            .start-gate__fern--l { left: -18px; bottom: -14px; }
-            .start-gate__fern--r { right: -18px; top: -12px; }
-        }
+        /* La aventura ya la guía el vuelo automático — el hint de "desliza
+           para volar" del motor (pensado para scroll manual) ya no aplica. */
+        .sw-hint { display: none; }
         .start-gate__kind {
             font-family: 'Courier Prime', monospace; font-size: .72rem; font-weight: 700;
             letter-spacing: .18em; text-transform: uppercase; color: var(--sw-ink-soft);
@@ -232,10 +225,6 @@
         }
         .start-gate__btn:hover { transform: translateY(-2px); box-shadow: 4px 6px 0 rgba(36, 27, 18, .32); }
         .start-gate__btn:active { transform: translateY(0); box-shadow: 2px 2px 0 rgba(36, 27, 18, .3); }
-        .start-gate__hint {
-            font-family: var(--sw-font-body); font-size: .82rem; color: var(--sw-ink-soft);
-            max-width: 32ch; margin: 0;
-        }
     </style>
 </head>
 <body>
@@ -244,8 +233,6 @@
          invitación (ver startAutoFlight más abajo). -->
     <div id="start-gate" class="start-gate">
         <div class="start-gate__card">
-            <img class="start-gate__fern start-gate__fern--l" src="assets/Helechos.png" alt="" aria-hidden="true">
-            <img class="start-gate__fern start-gate__fern--r" src="assets/Cascaras.png" alt="" aria-hidden="true">
             <span class="start-gate__seal">E</span>
             <span class="start-gate__kind">Invitación &middot; Baby Shower</span>
             <span class="start-gate__stamp">EXPEDICIÓN Nº 001 · CONFIDENCIAL</span>
@@ -253,7 +240,6 @@
             <p class="start-gate__sub">Josué Huacchillo &amp; Elena Horna te invitan &middot; Sábado 17 de octubre, 2026 &middot; Piura, Perú</p>
             <hr class="start-gate__rule">
             <button id="start-btn" class="start-gate__btn">Iniciemos la aventura</button>
-            <p class="start-gate__hint">Siéntate y disfruta el vuelo — nosotros nos encargamos del scroll.</p>
         </div>
     </div>
 
@@ -262,7 +248,7 @@
     <!-- Sonido ambiente (selva/dinosaurios) — arranca en silencio, el
          visitante lo activa a propósito porque el navegador bloquea el
          autoplay con audio sin gesto del usuario. -->
-    <audio id="ambience" src="assets/ambience.mp3" loop preload="none"></audio>
+    <audio id="ambience" src="assets/ambience.mp3" loop preload="auto"></audio>
     <button id="sound-toggle" class="sound-toggle" aria-label="Activar sonido ambiente" aria-pressed="false">
         <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="4 9 8 9 12 5 12 19 8 15 4 15 4 9"></polygon>
@@ -355,19 +341,36 @@
             ],
         });
 
+        // Precarga en segundo plano los clips que el motor pedirá apenas
+        // arranque el scroll (mientras el invitado todavía lee la tarjeta),
+        // para que no compitan por ancho de banda justo al hacer clic — eso
+        // es lo que se sentía como un arranque lento del recorrido.
+        ['assets/vid/dive_base.mp4', 'assets/vid/conn_1.mp4', 'assets/vid/dive_excavacion.mp4']
+            .forEach(url => fetch(url).catch(() => {}));
+
         const ambience = document.getElementById('ambience');
         const soundToggle = document.getElementById('sound-toggle');
-        ambience.volume = 0.55;
+        ambience.volume = 0.75;
+        let soundManuallyOff = false; // el visitante lo apagó a propósito: no reintentar por él
+        function markSoundOn() {
+            soundToggle.classList.add('is-on');
+            soundToggle.setAttribute('aria-pressed', 'true');
+            soundToggle.setAttribute('aria-label', 'Silenciar sonido ambiente');
+        }
+        function markSoundOff() {
+            soundToggle.classList.remove('is-on');
+            soundToggle.setAttribute('aria-pressed', 'false');
+            soundToggle.setAttribute('aria-label', 'Activar sonido ambiente');
+        }
         soundToggle.addEventListener('click', () => {
             const willPlay = ambience.paused;
+            soundManuallyOff = !willPlay;
             if (willPlay) {
-                ambience.play().catch(() => {});
+                ambience.play().then(markSoundOn).catch(() => {});
             } else {
                 ambience.pause();
+                markSoundOff();
             }
-            soundToggle.classList.toggle('is-on', willPlay);
-            soundToggle.setAttribute('aria-pressed', String(willPlay));
-            soundToggle.setAttribute('aria-label', willPlay ? 'Silenciar sonido ambiente' : 'Activar sonido ambiente');
         });
 
         // El logo lleva de vuelta al inicio del scroll (no sale a otra página).
@@ -382,7 +385,10 @@
         // "scroll" de window, así que animarlo con scrollTo lo reproduce igual
         // que si alguien scrolleara a mano — sin tocar el motor.
         const AUTO_FLIGHT_MS = 60000; // ponytail: ritmo fijo para 6 escenas; ajustar si se agregan/quitan escenas
-        const easeInOutQuad = x => x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+        // Arranca rápido y frena hacia el final (en vez de acelerar/frenar
+        // por igual en ambos extremos) — un arranque suave se sentía como
+        // que el recorrido "no avanzaba" en los primeros segundos.
+        const easeOutCubic = x => 1 - Math.pow(1 - x, 3);
         let autoFlightRAF = null;
         function cancelAutoFlight() {
             if (autoFlightRAF) { cancelAnimationFrame(autoFlightRAF); autoFlightRAF = null; }
@@ -398,7 +404,7 @@
                 elapsed += Math.min(now - last, 100);
                 last = now;
                 const p = Math.min(1, elapsed / AUTO_FLIGHT_MS);
-                window.scrollTo(0, max * easeInOutQuad(p));
+                window.scrollTo(0, max * easeOutCubic(p));
                 autoFlightRAF = p < 1 ? requestAnimationFrame(step) : null;
             })(last);
         }
@@ -418,11 +424,16 @@
             // El clic en "Iniciemos la aventura" es el gesto del usuario que
             // el navegador exige para reproducir audio — se aprovecha ese
             // mismo clic para arrancar el sonido ambiente automáticamente.
-            ambience.play().catch(() => {});
-            soundToggle.classList.add('is-on');
-            soundToggle.setAttribute('aria-pressed', 'true');
-            soundToggle.setAttribute('aria-label', 'Silenciar sonido ambiente');
+            ambience.play().then(markSoundOn).catch(() => {});
         });
+
+        // Red de seguridad: si ese primer play() fue rechazado (política de
+        // autoplay del navegador, buffering, lo que sea), cualquier otro
+        // toque/clic/tecla en la página lo reintenta — hasta que suene, y
+        // solo si el visitante no lo apagó él mismo a propósito.
+        ['pointerdown', 'keydown'].forEach(evt => window.addEventListener(evt, () => {
+            if (ambience.paused && !soundManuallyOff) ambience.play().then(markSoundOn).catch(() => {});
+        }, { passive: true }));
     </script>
 </body>
 </html>
