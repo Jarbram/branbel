@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="sw-pre-start">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -156,9 +156,107 @@
         .sound-toggle .icon-on { display: none; }
         .sound-toggle.is-on .icon-off { display: none; }
         .sound-toggle.is-on .icon-on { display: block; }
+
+        /* Antes de arrancar la aventura, la página no hace scroll: la
+           experiencia se recorre sola, no a pulso — pensado para invitados
+           adultos a quienes el scroll continuo puede resultarles pesado. */
+        html.sw-pre-start, html.sw-pre-start body { overflow: hidden; height: 100%; }
+
+        .start-gate {
+            position: fixed; inset: 0; z-index: 200;
+            display: flex; align-items: center; justify-content: center;
+            padding: 32px; text-align: center;
+            background: var(--sw-bg); color: var(--sw-ink);
+            transition: opacity .6s ease;
+        }
+        .start-gate.is-hidden { opacity: 0; pointer-events: none; }
+
+        /* La tarjeta con borde punteado + sello de cera es lo que separa esto
+           de una simple pantalla de carga: se lee como una invitación real
+           que se abre, no como un splash screen de app. */
+        .start-gate__card {
+            position: relative; width: min(92vw, 480px);
+            display: flex; flex-direction: column; align-items: center; gap: 16px;
+            padding: 52px 34px 38px;
+            background: color-mix(in srgb, var(--sw-bg) 88%, #fff 12%);
+            border: 1.5px dashed color-mix(in srgb, var(--sw-ink) 32%, transparent);
+            border-radius: 6px;
+            box-shadow: 0 24px 60px rgba(36, 27, 18, .22);
+        }
+        .start-gate__seal {
+            position: absolute; top: -28px; left: 50%; transform: translateX(-50%) rotate(-8deg);
+            width: 54px; height: 54px; border-radius: 50%;
+            background: var(--sw-accent); color: #fff;
+            font-family: var(--sw-font-display); font-size: 1.7rem;
+            display: grid; place-items: center;
+            box-shadow: 0 8px 16px rgba(36, 27, 18, .35), 0 0 0 4px var(--sw-bg);
+        }
+        .start-gate__fern {
+            position: absolute; width: 76px; opacity: .8; pointer-events: none;
+        }
+        .start-gate__fern--l { left: -30px; bottom: -22px; transform: rotate(-15deg); }
+        .start-gate__fern--r { right: -30px; top: -18px; transform: rotate(165deg) scaleX(-1); }
+        @media (max-width: 480px) {
+            .start-gate__fern { width: 54px; }
+            .start-gate__fern--l { left: -18px; bottom: -14px; }
+            .start-gate__fern--r { right: -18px; top: -12px; }
+        }
+        .start-gate__kind {
+            font-family: 'Courier Prime', monospace; font-size: .72rem; font-weight: 700;
+            letter-spacing: .18em; text-transform: uppercase; color: var(--sw-ink-soft);
+        }
+        .start-gate__stamp {
+            display: inline-block; font-family: 'Courier Prime', monospace;
+            font-size: .74rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+            color: #fff; background: var(--sw-accent); padding: 6px 14px; border-radius: 2px;
+            transform: rotate(-4deg); box-shadow: 2px 3px 6px rgba(36, 27, 18, .35);
+        }
+        .start-gate__title {
+            font-family: var(--sw-font-display); font-size: clamp(2.8rem, 11vw, 5rem);
+            margin: 0; letter-spacing: .02em;
+        }
+        .start-gate__sub {
+            font-family: var(--sw-font-body); font-style: italic; font-size: 1.02rem;
+            color: var(--sw-ink-soft); max-width: 36ch; line-height: 1.5; margin: 0;
+        }
+        .start-gate__rule {
+            width: 56px; height: 1.5px; border: 0; margin: 2px 0;
+            background: color-mix(in srgb, var(--sw-ink) 25%, transparent);
+        }
+        .start-gate__btn {
+            margin-top: 6px; font-family: var(--sw-font-display); font-size: 1.15rem;
+            letter-spacing: .08em; text-transform: uppercase;
+            color: #fff; background: var(--sw-accent); border: 0; cursor: pointer;
+            padding: 17px 36px; border-radius: 3px; transition: transform .2s, box-shadow .2s;
+            box-shadow: 3px 4px 0 rgba(36, 27, 18, .3);
+        }
+        .start-gate__btn:hover { transform: translateY(-2px); box-shadow: 4px 6px 0 rgba(36, 27, 18, .32); }
+        .start-gate__btn:active { transform: translateY(0); box-shadow: 2px 2px 0 rgba(36, 27, 18, .3); }
+        .start-gate__hint {
+            font-family: var(--sw-font-body); font-size: .82rem; color: var(--sw-ink-soft);
+            max-width: 32ch; margin: 0;
+        }
     </style>
 </head>
 <body>
+    <!-- Portón de inicio: la aventura no arranca con scroll manual, arranca
+         con este botón. Un clic dispara el vuelo automático por toda la
+         invitación (ver startAutoFlight más abajo). -->
+    <div id="start-gate" class="start-gate">
+        <div class="start-gate__card">
+            <img class="start-gate__fern start-gate__fern--l" src="assets/Helechos.png" alt="" aria-hidden="true">
+            <img class="start-gate__fern start-gate__fern--r" src="assets/Cascaras.png" alt="" aria-hidden="true">
+            <span class="start-gate__seal">E</span>
+            <span class="start-gate__kind">Invitación &middot; Baby Shower</span>
+            <span class="start-gate__stamp">EXPEDICIÓN Nº 001 · CONFIDENCIAL</span>
+            <h1 class="start-gate__title">ESTEBAN</h1>
+            <p class="start-gate__sub">Josué Huacchillo &amp; Elena Horna te invitan &middot; Sábado 17 de octubre, 2026 &middot; Piura, Perú</p>
+            <hr class="start-gate__rule">
+            <button id="start-btn" class="start-gate__btn">Iniciemos la aventura</button>
+            <p class="start-gate__hint">Siéntate y disfruta el vuelo — nosotros nos encargamos del scroll.</p>
+        </div>
+    </div>
+
     <div id="world"></div>
 
     <!-- Sonido ambiente (selva/dinosaurios) — arranca en silencio, el
@@ -276,6 +374,54 @@
         document.querySelector('.sw-brand').addEventListener('click', (e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Vuelo automático: en vez de pedirle scroll manual al invitado, el
+        // botón del portón anima el scroll de la página él solo, a ritmo fijo,
+        // de arriba a abajo. El motor (scroll-engine.js) solo escucha el evento
+        // "scroll" de window, así que animarlo con scrollTo lo reproduce igual
+        // que si alguien scrolleara a mano — sin tocar el motor.
+        const AUTO_FLIGHT_MS = 60000; // ponytail: ritmo fijo para 6 escenas; ajustar si se agregan/quitan escenas
+        const easeInOutQuad = x => x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+        let autoFlightRAF = null;
+        function cancelAutoFlight() {
+            if (autoFlightRAF) { cancelAnimationFrame(autoFlightRAF); autoFlightRAF = null; }
+        }
+        function startAutoFlight() {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            let elapsed = 0, last = performance.now();
+            (function step(now) {
+                // Tope de 100ms por frame: si el hilo principal se congela un
+                // momento (p.ej. cargando los videos de las siguientes escenas),
+                // el vuelo se pausa y sigue donde iba, en vez de saltar de golpe
+                // hacia el final al recuperarse.
+                elapsed += Math.min(now - last, 100);
+                last = now;
+                const p = Math.min(1, elapsed / AUTO_FLIGHT_MS);
+                window.scrollTo(0, max * easeInOutQuad(p));
+                autoFlightRAF = p < 1 ? requestAnimationFrame(step) : null;
+            })(last);
+        }
+        // Si el invitado toma el control (rueda, toque, teclado), el vuelo
+        // automático cede el paso al scroll manual de siempre.
+        ['wheel', 'touchstart', 'keydown'].forEach(evt =>
+            window.addEventListener(evt, cancelAutoFlight, { passive: true })
+        );
+
+        const startGate = document.getElementById('start-gate');
+        document.getElementById('start-btn').addEventListener('click', () => {
+            document.documentElement.classList.remove('sw-pre-start');
+            startGate.classList.add('is-hidden');
+            setTimeout(() => startGate.remove(), 700);
+            startAutoFlight();
+
+            // El clic en "Iniciemos la aventura" es el gesto del usuario que
+            // el navegador exige para reproducir audio — se aprovecha ese
+            // mismo clic para arrancar el sonido ambiente automáticamente.
+            ambience.play().catch(() => {});
+            soundToggle.classList.add('is-on');
+            soundToggle.setAttribute('aria-pressed', 'true');
+            soundToggle.setAttribute('aria-label', 'Silenciar sonido ambiente');
         });
     </script>
 </body>
