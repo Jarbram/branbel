@@ -17,8 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentTimeEl = document.getElementById('current-time');
     const durationTimeEl = document.getElementById('duration-time');
     
-    const btnRepeat = document.querySelector('.icon-repeat');
-    let isLooping = true; // Loop by default
+    const isLooping = true; // una sola canción, siempre en bucle
     bgMusic.loop = isLooping;
 
     // Initialize audio element source
@@ -68,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             progressBar.value = progressPercent;
             
             // Update background color filling
-            progressBar.style.background = `linear-gradient(to right, var(--color-burgundy) ${progressPercent}%, rgba(163, 46, 35, 0.2) ${progressPercent}%)`;
+            progressBar.style.background = `linear-gradient(to right, var(--color-burgundy) ${progressPercent}%, rgba(123, 154, 109, 0.16) ${progressPercent}%)`;
         }
     });
 
@@ -81,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 bgMusic.currentTime = seekTime;
                 
                 const progressPercent = progressBar.value;
-                progressBar.style.background = `linear-gradient(to right, var(--color-burgundy) ${progressPercent}%, rgba(163, 46, 35, 0.2) ${progressPercent}%)`;
+                progressBar.style.background = `linear-gradient(to right, var(--color-burgundy) ${progressPercent}%, rgba(123, 154, 109, 0.16) ${progressPercent}%)`;
             }
         });
     }
@@ -93,38 +92,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Toggle repeat mode
-    if (btnRepeat) {
-        btnRepeat.addEventListener('click', () => {
-            isLooping = !isLooping;
-            bgMusic.loop = isLooping;
-            if(isLooping) {
-                btnRepeat.style.opacity = '1';
-            } else {
-                btnRepeat.style.opacity = '0.5';
-            }
-        });
-    }
-
-    // Reset when audio ends (if not looping)
+    // Reset when audio ends (por si algún día se apaga el loop)
     bgMusic.addEventListener('ended', () => {
         if (!isLooping) {
             iconPlay.style.display = 'block';
             iconPause.style.display = 'none';
             progressBar.value = 0;
-            progressBar.style.background = `rgba(163, 46, 35, 0.2)`;
+            progressBar.style.background = `rgba(123, 154, 109, 0.16)`;
             currentTimeEl.textContent = '00:00';
         }
-    });
-
-    // Decorative buttons (Shuffle, Prev, Next) animation effect only
-    document.querySelectorAll('.btn-control:not(.icon-repeat)').forEach(btn => {
-        btn.addEventListener('click', function() {
-            this.style.transform = 'scale(0.9)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 150);
-        });
     });
 
     // ==========================================================================

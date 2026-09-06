@@ -1,447 +1,234 @@
 <!DOCTYPE html>
-<html lang="es" class="sw-pre-start">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Invitación 3D · Baby Shower de Esteban</title>
-    <meta name="description" content="Josué Huacchillo y Elena Horna te invitan al baby shower de Esteban. Sábado 17 de octubre, 2026 · Piura, Perú. Desliza para volar por la expedición.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esteban | Expedición Baby Shower</title>
+    <meta name="description" content="Invitación digital al baby shower de Esteban, hijo de Josué Huacchillo Castillo y Elena Horna Pingo. Sábado 17 de Octubre 2026. Piura, Perú.">
 
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Staatliches&family=Vollkorn:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 
-    <!--
-      Nota: este archivo (la experiencia 3D, ahora index.html raíz del sitio)
-      NO carga styles.css a propósito. El reset global de ese
-      archivo (`*{margin:0;padding:0}`) no está en una @layer, así que por
-      especificación CSS siempre le gana a las reglas de scroll-engine.js (que
-      sí están en `@layer sw`) sin importar la especificidad — anulaba TODOS
-      los márgenes/paddings del motor (nav, tags, eyebrow, título, CTA...).
-      Esta página es autónoma: no usa ninguna clase de styles.css.
-    -->
-    <style>
-        :root, .sw-root {
-            --sw-bg: #E4D3A5;
-            --sw-ink: #241B12;
-            --sw-ink-soft: #6b5c3e;
-            --sw-accent: #A32E23;
-            --sw-font-display: 'Staatliches', sans-serif;
-            --sw-font-body: 'Vollkorn', serif;
-        }
-        body { margin: 0; background: var(--sw-bg); }
-
-        /* Sin chrome de navegación: solo el logo y la experiencia cinemática. */
-        .sw-nav { display: none; }
-        .sw-route { display: none; }
-
-        /* La tarjeta de copy se ve mejor más arriba que centrada a media
-           pantalla — solo en desktop. En mobile el motor ya la ancla abajo
-           (con su degradado de legibilidad); ese override sin media query
-           estaba pisando ese comportamiento y tapando la escena con texto. */
-        @media (min-width: 861px) {
-            .sw-copy { top: 32%; }
-        }
-
-        /* Sello "INVITACIÓN" solo en la primera escena — mismo lenguaje visual
-           que el tab de tinta rojo de la portada en index.html (mismo rojo,
-           misma rotación), para dejar inequívoco que esto es una invitación
-           real y no solo un mundo temático, sin repetir la etiqueta en las
-           otras 5 escenas donde el eyebrow ya cumple otro rol (la hora). */
-        .sw-copylayer > .sw-copy:first-child .sw-copy__eyebrow::before {
-            content: 'Invitación';
-            display: inline-block;
-            font-family: 'Courier Prime', monospace;
-            font-size: .64rem;
-            font-weight: 700;
-            letter-spacing: .14em;
-            text-transform: uppercase;
-            color: #fff;
-            background: var(--sw-accent);
-            padding: 5px 11px;
-            border-radius: 2px;
-            transform: rotate(-4deg);
-            box-shadow: 2px 3px 6px rgba(36, 27, 18, .35);
-            margin-bottom: 12px;
-        }
-
-        /* En mobile la escena "campamento base" tiene follaje justo donde
-           empieza la tarjeta (número + eyebrow quedan sobre las palmeras,
-           poco legibles). Baja la tarjeta más cerca del borde inferior y
-           extiende/refuerza el degradado para que todo el bloque de texto
-           caiga sobre zona sólida, no sobre la escena. El "desliza para
-           volar" del motor vive fijo a ~20-26px del borde — dejamos ~104px
-           de aire para que ni el body más largo (3 líneas en la escena 1)
-           le pise el hint. */
-        @media (max-width: 860px) {
-            .sw-copy { bottom: calc(104px + env(safe-area-inset-bottom)); }
-            .sw-copylayer::before {
-                height: 72%;
-                background: linear-gradient(0deg, var(--sw-bg) 22%, color-mix(in srgb, var(--sw-bg) 80%, transparent) 55%, transparent 100%);
-            }
-        }
-
-        /* "Desliza para volar": la etiqueta de texto se hace más presente
-           (fuente de display, más espaciada) y el ícono de mouse genérico se
-           reemplaza por dos chevrones que caen en cascada — como una aguja de
-           gauge — más a tono con la estética de bitácora de campo. */
-        .sw-hint {
-            gap: 12px;
-            font-family: var(--sw-font-display);
-            font-size: .92rem;
-            letter-spacing: .22em;
-            color: var(--sw-ink);
-            text-shadow: 0 1px 14px color-mix(in srgb, var(--sw-bg) 88%, transparent);
-            animation: sw-hint-pulse 2.6s ease-in-out infinite;
-        }
-        .sw-hint i {
-            position: relative;
-            width: 16px;
-            height: 26px;
-            border: none;
-            background: none;
-        }
-        .sw-hint i::before, .sw-hint i::after {
-            content: "";
-            position: absolute;
-            left: 1px;
-            top: -6px;
-            width: 11px;
-            height: 11px;
-            border-right: 3px solid var(--sw-accent);
-            border-bottom: 3px solid var(--sw-accent);
-            border-radius: 0 0 2px 0;
-            transform: rotate(45deg);
-            animation: sw-chevron-fall 1.6s ease-in infinite;
-        }
-        .sw-hint i::after { animation-delay: .35s; }
-        @keyframes sw-chevron-fall {
-            0%   { top: -6px;  opacity: 0; }
-            25%  { opacity: 1; }
-            75%  { opacity: 1; }
-            100% { top: 16px;  opacity: 0; }
-        }
-        @keyframes sw-hint-pulse {
-            0%, 100% { opacity: .78; }
-            50%      { opacity: 1; }
-        }
-
-        /* Botón de sonido ambiente — el navegador bloquea el autoplay con
-           audio sin gesto del usuario, así que arranca en mute y el visitante
-           lo activa a propósito. Ocupa el espacio que dejó el nav de arriba. */
-        .sound-toggle {
-            position: fixed;
-            top: clamp(14px, 2.4vw, 26px);
-            right: clamp(18px, 5vw, 64px);
-            z-index: 50;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            border: 1px solid color-mix(in srgb, var(--sw-accent) 20%, transparent);
-            background: color-mix(in srgb, #fff 55%, transparent);
-            backdrop-filter: blur(10px);
-            display: grid;
-            place-items: center;
-            cursor: pointer;
-            color: var(--sw-ink);
-            transition: background .25s, color .25s, transform .2s;
-        }
-        .sound-toggle:hover { transform: scale(1.06); }
-        .sound-toggle.is-on {
-            background: var(--sw-accent);
-            color: #fff;
-            border-color: var(--sw-accent);
-        }
-        .sound-toggle svg { width: 18px; height: 18px; }
-        .sound-toggle .icon-off { display: block; }
-        .sound-toggle .icon-on { display: none; }
-        .sound-toggle.is-on .icon-off { display: none; }
-        .sound-toggle.is-on .icon-on { display: block; }
-
-        /* Antes de arrancar la aventura, la página no hace scroll: la
-           experiencia se recorre sola, no a pulso — pensado para invitados
-           adultos a quienes el scroll continuo puede resultarles pesado. */
-        html.sw-pre-start, html.sw-pre-start body { overflow: hidden; height: 100%; }
-
-        .start-gate {
-            position: fixed; inset: 0; z-index: 200;
-            display: flex; align-items: center; justify-content: center;
-            padding: 32px; text-align: center;
-            background: var(--sw-bg); color: var(--sw-ink);
-            transition: opacity .6s ease;
-        }
-        .start-gate.is-hidden { opacity: 0; pointer-events: none; }
-
-        /* La tarjeta con borde punteado + sello de cera es lo que separa esto
-           de una simple pantalla de carga: se lee como una invitación real
-           que se abre, no como un splash screen de app. */
-        .start-gate__card {
-            position: relative; width: min(92vw, 480px);
-            display: flex; flex-direction: column; align-items: center; gap: 16px;
-            padding: 52px 34px 38px;
-            background: color-mix(in srgb, var(--sw-bg) 88%, #fff 12%);
-            border: 1.5px dashed color-mix(in srgb, var(--sw-ink) 32%, transparent);
-            border-radius: 6px;
-            box-shadow: 0 24px 60px rgba(36, 27, 18, .22);
-        }
-        .start-gate__seal {
-            position: absolute; top: -28px; left: 50%; transform: translateX(-50%) rotate(-8deg);
-            width: 54px; height: 54px; border-radius: 50%;
-            background: var(--sw-accent); color: #fff;
-            font-family: var(--sw-font-display); font-size: 1.7rem;
-            display: grid; place-items: center;
-            box-shadow: 0 8px 16px rgba(36, 27, 18, .35), 0 0 0 4px var(--sw-bg);
-        }
-        /* La aventura ya la guía el vuelo automático — el hint de "desliza
-           para volar" del motor (pensado para scroll manual) ya no aplica. */
-        .sw-hint { display: none; }
-        .start-gate__kind {
-            font-family: 'Courier Prime', monospace; font-size: .72rem; font-weight: 700;
-            letter-spacing: .18em; text-transform: uppercase; color: var(--sw-ink-soft);
-        }
-        .start-gate__stamp {
-            display: inline-block; font-family: 'Courier Prime', monospace;
-            font-size: .74rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-            color: #fff; background: var(--sw-accent); padding: 6px 14px; border-radius: 2px;
-            transform: rotate(-4deg); box-shadow: 2px 3px 6px rgba(36, 27, 18, .35);
-        }
-        .start-gate__title {
-            font-family: var(--sw-font-display); font-size: clamp(2.8rem, 11vw, 5rem);
-            margin: 0; letter-spacing: .02em;
-        }
-        .start-gate__sub {
-            font-family: var(--sw-font-body); font-style: italic; font-size: 1.02rem;
-            color: var(--sw-ink-soft); max-width: 36ch; line-height: 1.5; margin: 0;
-        }
-        .start-gate__rule {
-            width: 56px; height: 1.5px; border: 0; margin: 2px 0;
-            background: color-mix(in srgb, var(--sw-ink) 25%, transparent);
-        }
-        .start-gate__btn {
-            margin-top: 6px; font-family: var(--sw-font-display); font-size: 1.15rem;
-            letter-spacing: .08em; text-transform: uppercase;
-            color: #fff; background: var(--sw-accent); border: 0; cursor: pointer;
-            padding: 17px 36px; border-radius: 3px; transition: transform .2s, box-shadow .2s;
-            box-shadow: 3px 4px 0 rgba(36, 27, 18, .3);
-        }
-        .start-gate__btn:hover { transform: translateY(-2px); box-shadow: 4px 6px 0 rgba(36, 27, 18, .32); }
-        .start-gate__btn:active { transform: translateY(0); box-shadow: 2px 2px 0 rgba(36, 27, 18, .3); }
-    </style>
+    <!-- Main Style -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Portón de inicio: la aventura no arranca con scroll manual, arranca
-         con este botón. Un clic dispara el vuelo automático por toda la
-         invitación (ver startAutoFlight más abajo). -->
-    <div id="start-gate" class="start-gate">
-        <div class="start-gate__card">
-            <span class="start-gate__seal">E</span>
-            <span class="start-gate__kind">Invitación &middot; Baby Shower</span>
-            <span class="start-gate__stamp">EXPEDICIÓN Nº 001 · CONFIDENCIAL</span>
-            <h1 class="start-gate__title">ESTEBAN</h1>
-            <p class="start-gate__sub">Josué Huacchillo &amp; Elena Horna te invitan &middot; Sábado 17 de octubre, 2026 &middot; Piura, Perú</p>
-            <hr class="start-gate__rule">
-            <button id="start-btn" class="start-gate__btn">Iniciemos la aventura</button>
+<!--
+MUNDO: Baby shower en acuarela suave — eucalipto y salvia sobre blanco,
+inspirado en las tarjetas de dino bebé que compartió el cliente.
+PALETA: blanco (#FFFFFF) sobre verde-blanco (#E9EEE2); tinta eucalipto
+(#45503D), acento verde (#7B9A6D / #5C7650), muestras salvia/eucalipto/crema.
+TIPOGRAFÍA: Caveat (manuscrita, nombre y títulos de sección) + Newsreader
+(serif suave, cuerpo, datos y etiquetas en versalitas con tracking).
+ESTRUCTURA: nombre → dino → nota de los papás → reproductor → fecha/lugar →
+cuenta regresiva → confirmación.
+Follaje solo en las esquinas superiores (assets/Helechos.png; pendiente cambiar por
+eucalipto real). La versión 3D con vuelo automático quedó en invitacion-3d.html.
+-->
+
+    <!-- Expedition progress gauge -->
+    <div class="scroll-progress-container">
+        <div id="scroll-progress" class="scroll-progress"></div>
+    </div>
+
+
+    <!-- Background Music Element (deja song.mp3 en esta carpeta cuando lo tengas) -->
+    <audio id="bg-music" loop preload="none">
+        <source id="audio-source" src="" type="audio/mp3">
+    </audio>
+
+    <!-- La invitación 3D (vuelo automático) quedó archivada en invitacion-3d.html;
+         esta versión "bitácora" es ahora la página principal de /esteban/. -->
+
+    <!-- Main Container -->
+    <div class="invite-container" style="overflow:hidden;">
+
+        <!-- Follaje tropical (acuarela) solo en las esquinas superiores -->
+        <img class="leaf-frame leaf-frame--tl" src="assets/Helechos.png" alt="" aria-hidden="true" loading="lazy">
+        <img class="leaf-frame leaf-frame--tr" src="assets/Helechos.png" alt="" aria-hidden="true" loading="lazy">
+
+        <!-- Hero Section -->
+        <header id="hero" class="section hero-section reveal active">
+            <div class="hero-content">
+                <h1 class="hero-name-title">Esteban</h1>
+                <p class="hero-subtitle">Baby shower</p>
+                <p class="hero-logistics">Sábado 17 de octubre, 2026 · 6:00 pm · Piura, Perú</p>
+            </div>
+        </header>
+
+        <!-- Dino illustration -->
+        <div id="dino-hero" class="specimen-mount">
+            <img src="assets/DinoEgg.png" alt="Dinosaurio bebé saliendo de su huevo" width="1371" height="1148" fetchpriority="high">
+        </div>
+
+        <!-- Handwritten note -->
+        <p class="intro-quote reveal">Un corazón pequeño está a punto de latir fuera del nuestro. Ven a celebrar con nosotros la llegada de nuestro dinosaurito.</p>
+
+        <!-- Reproductor: una sola canción dedicada a Esteban -->
+        <figure class="song-card">
+            <figcaption class="song-card__title">
+                <span>Canción para Esteban</span>
+            </figcaption>
+
+            <div class="song-card__deck">
+                <button id="btn-play-pause" class="song-card__play" aria-label="Reproducir la canción">
+                    <svg id="icon-play" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                    <svg id="icon-pause" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </button>
+
+                <div class="song-card__scrub">
+                    <input type="range" id="progress-bar" class="song-card__range" value="0" min="0" max="100" step="0.1" aria-label="Avance de la canción">
+                    <div class="song-card__time">
+                        <span id="current-time">00:00</span>
+                        <span aria-hidden="true">/</span>
+                        <span id="duration-time">00:00</span>
+                    </div>
+                </div>
+            </div>
+        </figure>
+
+        <!-- Parents' note + key details -->
+        <section class="section text-center reveal" style="position:relative;">
+            <p style="font-family:var(--font-serif); font-style:italic; font-size:1.2rem; color:var(--color-navy); max-width:340px; margin:0 auto; line-height:1.6;">
+                Con muchísima ilusión, <strong style="font-style:normal; color:var(--color-sage-deep);">Josué Huacchillo Castillo</strong> y <strong style="font-style:normal; color:var(--color-sage-deep);">Elena Horna Pingo</strong> esperan la llegada de su primer bebé y te invitan a celebrarlo.
+            </p>
+
+            <!-- Date + venue -->
+            <div class="field-ticket">
+                <img class="field-ticket__peek" src="assets/DinoHoja.png" alt="" aria-hidden="true" loading="lazy" width="432" height="578">
+                <div class="field-ticket__row">
+                    <div class="field-ticket__main">
+                        <span class="field-ticket__label">Fecha</span>
+                        <div class="field-ticket__value">Sábado 17 de octubre, 2026<br><span style="font-size:1rem;">6:00 pm</span></div>
+                        <hr class="field-rule">
+                        <span class="field-ticket__label">Lugar</span>
+                        <div class="field-ticket__value" style="font-size:1.05rem; line-height:1.5;">
+                            Mz. C4 Lote 18 &middot; II Etapa<br>
+                            Urb. Bello Horizonte, Piura<br>
+                            <span style="opacity:0.75; font-size:0.8rem;">Pasaje frente a la Clínica Bello Horizonte</span>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Mz+C4+Lote+18+II+Etapa+Urb+Bello+Horizonte+Piura"
+                           class="btn btn-secondary venue-map-link" target="_blank" rel="noopener noreferrer" style="margin-top:1.2rem;">
+                            <svg class="venue-map-link__pin" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M20 10c0 5.5-8 12-8 12s-8-6.5-8-12a8 8 0 0 1 16 0Z"/>
+                                <circle cx="12" cy="10" r="2.6"/>
+                            </svg>
+                            <span>Ver ubicación</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Countdown Section -->
+        <section class="section countdown-section reveal">
+            <h2 class="countdown-main-title">Cuenta regresiva</h2>
+            <div id="countdown" class="countdown-row">
+                <div class="countdown-item">
+                    <span id="days" class="time-num">00</span>
+                    <span class="time-label">Días</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="hours" class="time-num">00</span>
+                    <span class="time-label">Horas</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="minutes" class="time-num">00</span>
+                    <span class="time-label">Minutos</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="seconds" class="time-num">00</span>
+                    <span class="time-label">Segundos</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP / Confirmar Asistencia Section -->
+        <section id="rsvp" class="section rsvp-section reveal" style="position:relative;">
+            <h2 class="confirm-title">Confirma tu asistencia</h2>
+
+            <div class="rsvp-actions">
+                <button id="btn-rsvp" class="btn btn-primary btn-lg">
+                    <span>Confirmar aquí</span>
+                </button>
+            </div>
+
+            <div class="confirm-closing">
+                <p>Tu presencia hará este momento aún más especial para nuestra familia.</p>
+                <p>Gracias por acompañarnos en la llegada de Esteban.</p>
+            </div>
+
+            <h2 class="te-esperamos">Te esperamos</h2>
+            <img class="te-esperamos__dino" src="assets/DinoAdios.png" alt="" aria-hidden="true" loading="lazy" width="432" height="578">
+        </section>
+
+    </div>
+
+    <!-- RSVP Modal (Interactive Flow) -->
+    <div id="rsvp-modal" class="modal">
+        <div class="modal-content">
+            <button id="modal-close" class="modal-close" aria-label="Cerrar modal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
+                    <path d="M6 6l12 12M18 6L6 18"/>
+                </svg>
+            </button>
+            <div class="modal-body">
+                <h3>Confirmar asistencia</h3>
+                <p class="modal-subtitle">Por favor completa tus datos para registrar tu asistencia en la lista de invitados.</p>
+
+                <form id="form-rsvp" class="form-rsvp">
+                    <div class="form-group">
+                        <label for="rsvp-name">Nombre y Apellido</label>
+                        <input type="text" id="rsvp-name" required placeholder="Ej. Juan Pérez">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rsvp-phone">Número de Teléfono / Contacto</label>
+                        <input type="tel" id="rsvp-phone" required placeholder="Ej. +51 987654321">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rsvp-message">Mensaje para los papás (opcional)</label>
+                        <textarea id="rsvp-message" rows="2" placeholder="Ej. ¡Felicidades! No puedo esperar a conocer a Esteban."></textarea>
+                    </div>
+
+                    <div class="form-group-radio">
+                        <label>¿Podrás acompañarnos?</label>
+                        <div class="radio-options">
+                            <label class="radio-label">
+                                <input type="radio" name="rsvp-status" value="Si" checked>
+                                <span class="custom-radio"></span>
+                                <span>Sí, asistiré con mucho gusto</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="rsvp-status" value="No">
+                                <span class="custom-radio"></span>
+                                <span>Lamentablemente no podré asistir</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" id="btn-submit-rsvp">
+                        <span>Confirmar asistencia</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
-    <div id="world"></div>
+    <!-- Inline toast notifications -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-    <!-- Sonido ambiente (selva/dinosaurios) — arranca en silencio, el
-         visitante lo activa a propósito porque el navegador bloquea el
-         autoplay con audio sin gesto del usuario. -->
-    <audio id="ambience" src="assets/ambience.mp3" loop preload="auto"></audio>
-    <button id="sound-toggle" class="sound-toggle" aria-label="Activar sonido ambiente" aria-pressed="false">
-        <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="4 9 8 9 12 5 12 19 8 15 4 15 4 9"></polygon>
-            <line x1="17" y1="9" x2="22" y2="14"></line>
-            <line x1="22" y1="9" x2="17" y2="14"></line>
-        </svg>
-        <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="4 9 8 9 12 5 12 19 8 15 4 15 4 9"></polygon>
-            <path d="M16 8a5 5 0 0 1 0 8"></path>
-            <path d="M19 5a9 9 0 0 1 0 14"></path>
-        </svg>
-    </button>
+    <!-- GSAP + ScrollTrigger (CDN) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
-    <script src="scroll-engine.js"></script>
-    <script>
-        mountScrollWorld(document.getElementById('world'), {
-            brand: { name: 'Expedición Nº 001', href: '#' },
-            hint: 'desliza para volar',
-            diveScroll: 1.3,
-            connScroll: 0.9,
-            sections: [
-                {
-                    id: 'base', label: 'Campamento base',
-                    still: 'assets/still_base.webp',
-                    clip: 'assets/vid/dive_base.mp4',
-                    accent: '#58643C',
-                    scroll: 1.6, linger: 0.4,
-                    eyebrow: 'EXPEDICIÓN Nº 001 · CONFIDENCIAL',
-                    title: 'Estás invitado a la expedición.',
-                    body: 'Josué Huacchillo y Elena Horna te invitan a celebrar la llegada de su primer hijo. Sábado 17 de octubre, 2026 · 6:00 pm · Piura, Perú.',
-                },
-                {
-                    id: 'excavacion', label: 'Sitio de excavación',
-                    still: 'assets/still_excavacion.webp',
-                    clip: 'assets/vid/dive_excavacion.mp4',
-                    accent: '#A32E23',
-                    eyebrow: '6:00 pm',
-                    title: 'Recepción del equipo.',
-                    body: 'El hallazgo principal ya está bajo cuidado: un huevo intacto, cuidadosamente documentado.',
-                },
-                {
-                    id: 'selva', label: 'Selva de helechos',
-                    still: 'assets/still_selva.webp',
-                    clip: 'assets/vid/dive_selva.mp4',
-                    accent: '#58643C',
-                    eyebrow: '7:00 pm',
-                    title: 'Juegos y dinámicas de campo.',
-                    body: 'El equipo se adentra en la espesura para las pruebas de campo del día.',
-                },
-                {
-                    id: 'brindis', label: 'Mesa de brindis',
-                    still: 'assets/still_brindis.webp',
-                    clip: 'assets/vid/dive_brindis.mp4',
-                    accent: '#A32E23',
-                    eyebrow: '8:00 pm',
-                    title: 'Brindis por el hallazgo.',
-                    body: 'Una pausa junto al fuego para celebrar lo que está por llegar.',
-                },
-                {
-                    id: 'regalos', label: 'Carga de regalos',
-                    still: 'assets/still_regalos.webp',
-                    clip: 'assets/vid/dive_regalos.mp4',
-                    accent: '#58643C',
-                    eyebrow: '8:30 pm',
-                    title: 'Apertura del cargamento.',
-                    body: 'La carreta de suministros llega cargada de regalos para el nuevo ejemplar.',
-                },
-                {
-                    id: 'nido', label: 'El nido',
-                    still: 'assets/still_nido.webp',
-                    clip: 'assets/vid/dive_nido.mp4',
-                    accent: '#A32E23',
-                    scroll: 1.7, linger: 0.5,
-                    eyebrow: '9:00 pm',
-                    title: 'Esteban está por llegar.',
-                    body: 'Gracias por acompañarnos. Sábado 17 de octubre, 2026 · 6:00 pm · Piura, Perú.',
-                    // El CTA de confirmar asistencia sigue deshabilitado a pedido
-                    // del usuario — no debe redirigir a invitacion.html#rsvp
-                    // todavía. Reactivar cuando ese flujo esté listo. El botón de
-                    // ubicación sí puede ir ya, es solo un enlace a Google Maps.
-                    cta: {
-                        primary: {
-                            label: 'Ver ubicación',
-                            href: 'https://www.google.com/maps/search/?api=1&query=Mz+C4+Lote+18+II+Etapa+Urb+Bello+Horizonte+Piura',
-                            target: '_blank',
-                        },
-                    },
-                },
-            ],
-            // conn_3, conn_4, conn_5 pendientes (créditos de Flow) — el motor
-            // hace crossfade directo en esas costuras hasta que se agreguen.
-            connectors: [
-                'assets/vid/conn_1.mp4',
-                'assets/vid/conn_2.mp4',
-                null,
-                null,
-                null,
-            ],
-        });
-
-        // Precarga en segundo plano los clips que el motor pedirá apenas
-        // arranque el scroll (mientras el invitado todavía lee la tarjeta),
-        // para que no compitan por ancho de banda justo al hacer clic — eso
-        // es lo que se sentía como un arranque lento del recorrido.
-        ['assets/vid/dive_base.mp4', 'assets/vid/conn_1.mp4', 'assets/vid/dive_excavacion.mp4']
-            .forEach(url => fetch(url).catch(() => {}));
-
-        const ambience = document.getElementById('ambience');
-        const soundToggle = document.getElementById('sound-toggle');
-        ambience.volume = 0.75;
-        let soundManuallyOff = false; // el visitante lo apagó a propósito: no reintentar por él
-        function markSoundOn() {
-            soundToggle.classList.add('is-on');
-            soundToggle.setAttribute('aria-pressed', 'true');
-            soundToggle.setAttribute('aria-label', 'Silenciar sonido ambiente');
-        }
-        function markSoundOff() {
-            soundToggle.classList.remove('is-on');
-            soundToggle.setAttribute('aria-pressed', 'false');
-            soundToggle.setAttribute('aria-label', 'Activar sonido ambiente');
-        }
-        soundToggle.addEventListener('click', () => {
-            const willPlay = ambience.paused;
-            soundManuallyOff = !willPlay;
-            if (willPlay) {
-                ambience.play().then(markSoundOn).catch(() => {});
-            } else {
-                ambience.pause();
-                markSoundOff();
-            }
-        });
-
-        // El logo lleva de vuelta al inicio del scroll (no sale a otra página).
-        document.querySelector('.sw-brand').addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // Vuelo automático: en vez de pedirle scroll manual al invitado, el
-        // botón del portón anima el scroll de la página él solo, a ritmo fijo,
-        // de arriba a abajo. El motor (scroll-engine.js) solo escucha el evento
-        // "scroll" de window, así que animarlo con scrollTo lo reproduce igual
-        // que si alguien scrolleara a mano — sin tocar el motor.
-        const AUTO_FLIGHT_MS = 60000; // ponytail: ritmo fijo para 6 escenas; ajustar si se agregan/quitan escenas
-        // Arranca rápido y frena hacia el final (en vez de acelerar/frenar
-        // por igual en ambos extremos) — un arranque suave se sentía como
-        // que el recorrido "no avanzaba" en los primeros segundos.
-        const easeOutCubic = x => 1 - Math.pow(1 - x, 3);
-        let autoFlightRAF = null;
-        function cancelAutoFlight() {
-            if (autoFlightRAF) { cancelAnimationFrame(autoFlightRAF); autoFlightRAF = null; }
-        }
-        function startAutoFlight() {
-            const max = document.documentElement.scrollHeight - window.innerHeight;
-            let elapsed = 0, last = performance.now();
-            (function step(now) {
-                // Tope de 100ms por frame: si el hilo principal se congela un
-                // momento (p.ej. cargando los videos de las siguientes escenas),
-                // el vuelo se pausa y sigue donde iba, en vez de saltar de golpe
-                // hacia el final al recuperarse.
-                elapsed += Math.min(now - last, 100);
-                last = now;
-                const p = Math.min(1, elapsed / AUTO_FLIGHT_MS);
-                window.scrollTo(0, max * easeOutCubic(p));
-                autoFlightRAF = p < 1 ? requestAnimationFrame(step) : null;
-            })(last);
-        }
-        // Si el invitado toma el control (rueda, toque, teclado), el vuelo
-        // automático cede el paso al scroll manual de siempre.
-        ['wheel', 'touchstart', 'keydown'].forEach(evt =>
-            window.addEventListener(evt, cancelAutoFlight, { passive: true })
-        );
-
-        const startGate = document.getElementById('start-gate');
-        document.getElementById('start-btn').addEventListener('click', () => {
-            document.documentElement.classList.remove('sw-pre-start');
-            startGate.classList.add('is-hidden');
-            setTimeout(() => startGate.remove(), 700);
-            startAutoFlight();
-
-            // El clic en "Iniciemos la aventura" es el gesto del usuario que
-            // el navegador exige para reproducir audio — se aprovecha ese
-            // mismo clic para arrancar el sonido ambiente automáticamente.
-            ambience.play().then(markSoundOn).catch(() => {});
-        });
-
-        // Red de seguridad: si ese primer play() fue rechazado (política de
-        // autoplay del navegador, buffering, lo que sea), cualquier otro
-        // toque/clic/tecla en la página lo reintenta — hasta que suene, y
-        // solo si el visitante no lo apagó él mismo a propósito.
-        ['pointerdown', 'keydown'].forEach(evt => window.addEventListener(evt, () => {
-            if (ambience.paused && !soundManuallyOff) ambience.play().then(markSoundOn).catch(() => {});
-        }, { passive: true }));
-    </script>
+    <!-- Main JavaScript -->
+    <script defer src="script.js"></script>
 </body>
 </html>
