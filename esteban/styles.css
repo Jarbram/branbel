@@ -4249,12 +4249,41 @@ body.cover-active { overflow: hidden; }
 .sound-toggle:hover { color: var(--color-sage-deep); border-color: var(--color-sage-deep); }
 .sound-toggle svg { width: 14px; height: 14px; flex: none; }
 
-/* Beat 1 · nota de apertura: dos frases con aire entre ellas */
+/* Beat 1 · nota de apertura: versos cortos, se escribe sola al entrar en cuadro */
 .opening-note {
+    max-width: 42ch;
     margin: calc(var(--space-md) + 0.4rem) auto var(--space-lg);
+    text-align: center;
 }
-.opening-note .intro-quote { margin: 0 auto; }
-.opening-note .intro-quote + .intro-quote { margin-top: 1.1rem; }
+.opening-note__stanza {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.02rem, 3.4vw, 1.18rem);
+    line-height: 1.8;
+    color: var(--color-navy);
+}
+.opening-note__line { display: block; }
+
+/* Ramita separadora entre estrofas — filete salvia con un punto, el mismo
+   lenguaje que los <hr> de la tarjeta de datos. */
+.opening-note__sprig {
+    display: block;
+    width: 44px;
+    height: 9px;
+    margin: 1.6rem auto;
+    background:
+        radial-gradient(circle 2.5px at 50% 50%, var(--color-sage-strong) 99%, transparent) center / 9px 9px no-repeat,
+        linear-gradient(var(--color-sage-line), var(--color-sage-line)) center / 44px 1px no-repeat;
+}
+
+/* Write-on: solo se aplica si JS envolvió las palabras y no hay reduce-motion */
+.opening-note.is-writing .opening-note__word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.45em);
+    filter: blur(4px);
+    will-change: opacity, transform, filter;
+}
 
 /* Beat 4 · la voz del bebé, justo antes de confirmar */
 .baby-note {

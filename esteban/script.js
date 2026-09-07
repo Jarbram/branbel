@@ -148,6 +148,41 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap.registerPlugin(ScrollTrigger);
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+        // Nota de apertura: se "escribe" sola — cada palabra entra en cascada,
+        // verso a verso, al aparecer en pantalla. Con reduce-motion se queda quieta.
+        const openingNote = document.getElementById('opening-note');
+        if (openingNote) {
+            openingNote.querySelectorAll('.opening-note__line').forEach((line) => {
+                const words = line.textContent.trim().split(/\s+/);
+                line.textContent = '';
+                words.forEach((w, i) => {
+                    const span = document.createElement('span');
+                    span.className = 'opening-note__word';
+                    span.textContent = w;
+                    line.appendChild(span);
+                    if (i < words.length - 1) line.appendChild(document.createTextNode(' '));
+                });
+            });
+
+            if (!reduceMotion) {
+                openingNote.classList.add('is-writing');
+                gsap.to(openingNote.querySelectorAll('.opening-note__word'), {
+                    opacity: 1, y: 0, filter: 'blur(0px)',
+                    duration: 0.5, ease: 'power2.out',
+                    stagger: 0.045,
+                    scrollTrigger: { trigger: openingNote, start: 'top 80%', once: true }
+                });
+                const sprig = openingNote.querySelector('.opening-note__sprig');
+                if (sprig) {
+                    gsap.from(sprig, {
+                        opacity: 0, scaleX: 0,
+                        duration: 0.6, ease: 'power2.out',
+                        scrollTrigger: { trigger: openingNote, start: 'top 62%', once: true }
+                    });
+                }
+            }
+        }
+
         // Egg-hatch pin: the specimen photo settles into place as it appears
         const dinoHero = document.getElementById('dino-hero');
         if (dinoHero) {
