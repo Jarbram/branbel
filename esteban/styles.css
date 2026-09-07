@@ -134,12 +134,14 @@ body::before {
    PRIMARY BUTTONS
    ========================================================================== */
 /* Primary action buttons in the primary accent green */
+#btn-enter.btn-primary,
 #btn-submit-rsvp.btn-primary,
 .admin-gate #gate-form .btn-primary {
     background-color: var(--color-burgundy);
     border-color: var(--color-burgundy);
     color: var(--color-cream);
 }
+#btn-enter.btn-primary:hover,
 #btn-submit-rsvp.btn-primary:hover,
 .admin-gate #gate-form .btn-primary:hover {
     color: var(--color-burgundy);
@@ -307,130 +309,6 @@ body::before {
     transform: scale(1);
 }
 
-/* ==========================================================================
-   REPRODUCTOR — tarjeta de una sola canción dedicada a Esteban.
-   Patrón "mini player": título arriba, play sólido + scrub + tiempo abajo.
-   ========================================================================== */
-.song-card {
-    width: 100%;
-    max-width: 340px;
-    margin: var(--space-md) auto;
-    padding: 1.15rem 1.35rem 1.3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.95rem;
-    background: linear-gradient(180deg, var(--color-paper), var(--color-cream));
-    border: 1px solid var(--color-sage-line);
-    border-radius: 20px;
-    box-shadow: 0 14px 34px -18px rgba(69, 80, 61, 0.4);
-}
-
-.song-card__title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    font-family: var(--font-sans);
-    font-size: 0.7rem;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    line-height: 1;
-    color: var(--color-sage-deep);
-}
-.song-card__deck {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-}
-
-/* Botón play/pausa — sólido, cálido, con sombra real (offset + blur). */
-.song-card__play {
-    flex: none;
-    width: 56px;
-    height: 56px;
-    display: grid;
-    place-items: center;
-    border: none;
-    border-radius: 50%;
-    background: var(--color-sage-deep);
-    color: var(--color-white);
-    cursor: pointer;
-    box-shadow: 0 10px 22px -8px rgba(92, 118, 80, 0.8);
-    transition: transform 0.2s var(--ease-out-expo),
-                filter 0.2s ease,
-                box-shadow 0.2s ease;
-}
-.song-card__play svg { transform: translateX(1px); } /* centra el triángulo */
-#icon-pause { transform: none; }
-.song-card__play:hover {
-    filter: brightness(0.92);
-    transform: translateY(-1px);
-    box-shadow: 0 14px 26px -8px rgba(92, 118, 80, 0.85);
-}
-.song-card__play:active { transform: scale(0.96); }
-.song-card__play:focus-visible {
-    outline: 2px solid var(--color-sage-deep);
-    outline-offset: 3px;
-}
-
-.song-card__scrub {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-}
-
-/* Barra de avance. El relleno se pinta desde JS con un degradado sobre
-   --color-sage-light (antes usaba el rojo del sello antiguo). */
-.song-card__range {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 6px;
-    border-radius: 999px;
-    background: var(--color-sage-light);
-    outline: none;
-    cursor: pointer;
-}
-.song-card__range::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: var(--color-burgundy);
-    border: 2px solid var(--color-cream);
-    box-shadow: 0 2px 6px -1px rgba(69, 80, 61, 0.45);
-    cursor: pointer;
-    transition: transform 0.15s ease;
-}
-.song-card__range::-moz-range-thumb {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: var(--color-burgundy);
-    border: 2px solid var(--color-cream);
-    box-shadow: 0 2px 6px -1px rgba(69, 80, 61, 0.45);
-    cursor: pointer;
-}
-.song-card__range:hover::-webkit-slider-thumb,
-.song-card__range:active::-webkit-slider-thumb { transform: scale(1.18); }
-.song-card__range:focus-visible::-webkit-slider-thumb {
-    outline: 2px solid var(--color-sage-deep);
-    outline-offset: 2px;
-}
-
-.song-card__time {
-    display: flex;
-    gap: 0.35rem;
-    font-family: var(--font-serif);
-    font-size: 0.82rem;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.02em;
-    color: var(--color-navy-muted);
-}
-.song-card__time span[aria-hidden] { opacity: 0.5; }
 /* ==========================================================================
    LAYOUT CONTAINERS (EDITORIAL ALIGNMENTS AND ASYMMETRY)
    ========================================================================== */
@@ -4003,6 +3881,8 @@ button,
     width: min(300px, 76%);
     margin: var(--space-sm) auto 0;
 }
+/* El gif del cascarón es vertical (270×480): más angosto para que no domine */
+#dino-hero.specimen-mount { width: min(210px, 58%); }
 .specimen-mount img {
     display: block;
     width: 100%;
@@ -4017,7 +3897,7 @@ button,
     position: relative;
     z-index: 0; /* crea contexto de apilado para que el dino quede DETRÁS */
     max-width: 340px;
-    margin: calc(var(--space-md) + 3.5rem) auto 0; /* hueco para el dino que asoma */
+    margin: var(--space-md) auto 0;
     background: linear-gradient(180deg, var(--color-paper), var(--color-cream));
     border: 1px solid var(--color-sage-line);
     border-radius: 16px;
@@ -4235,7 +4115,8 @@ button,
 /* Watercolor tropical-leaf frame (baby-shower dino reference). One asset
    (Helechos.png) mirrored into each corner; child selector beats
    `.invite-container > *` so the leaves stay behind the content. */
-.invite-container > .leaf-frame {
+.invite-container > .leaf-frame,
+.welcome-overlay > .leaf-frame {
     position: absolute;
     width: clamp(180px, 52vw, 300px);
     height: auto;
@@ -4255,3 +4136,137 @@ button,
     .leaf-frame--tr { right: -104px; }
 }
 
+
+/* ==========================================================================
+   PORTADA DE APERTURA — mismo patrón que las otras invitaciones: la tarjeta
+   se desliza hacia arriba al entrar y arranca la canción.
+   ========================================================================== */
+body.cover-active { overflow: hidden; }
+
+.welcome-overlay {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: var(--container-max-width);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md);
+    background-color: var(--color-cream);
+    overflow: hidden;
+    z-index: var(--z-index-welcome);
+    transition: opacity 1s var(--ease-out-expo), transform 1.4s var(--ease-out-expo);
+}
+.welcome-overlay.dismissed {
+    transform: translate(-50%, -100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.welcome-card {
+    position: relative;
+    z-index: 1;
+    max-width: 360px;
+    width: 100%;
+    padding: var(--space-lg) var(--space-sm);
+    text-align: center;
+}
+/* Marcas de esquina en filete salvia, asimétricas (igual que las hermanas) */
+.welcome-card::before,
+.welcome-card::after {
+    content: '';
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border: 0 solid var(--color-sage-line);
+    pointer-events: none;
+}
+.welcome-card::before { top: 0; left: 0; border-width: 1px 0 0 1px; }
+.welcome-card::after { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+
+/* Entrada escalonada */
+.welcome-card > * {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.9s var(--ease-out-quart), transform 0.9s var(--ease-out-quart);
+}
+.welcome-loaded .welcome-card > * { opacity: 1; transform: translateY(0); }
+.welcome-loaded .welcome-card .welcome-title { transition-delay: 0.15s; }
+.welcome-loaded .welcome-card .welcome-date { transition-delay: 0.3s; }
+.welcome-loaded .welcome-card #btn-enter { transition-delay: 0.45s; }
+
+.welcome-eyebrow {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--color-sage-deep);
+    margin-bottom: var(--space-sm);
+}
+.welcome-title {
+    font-family: var(--font-script), cursive;
+    font-size: clamp(4rem, 22vw, 6.5rem);
+    line-height: 0.95;
+    font-weight: 600;
+    color: var(--color-sage-deep);
+    margin-bottom: var(--space-xs);
+}
+.welcome-date {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-style: italic;
+    letter-spacing: 0.04em;
+    color: var(--color-navy-muted);
+    margin-bottom: var(--space-lg);
+}
+#btn-enter { width: 100%; max-width: 300px; margin: 0 auto; }
+@media (prefers-reduced-motion: reduce) {
+    .welcome-overlay { transition: opacity 0.3s linear, transform 0.3s linear; }
+    .welcome-card > * { transition-duration: 0.3s; }
+}
+
+/* Toggle de sonido — inline en el hero, no un widget flotante */
+.sound-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: var(--space-sm);
+    padding: 0.42rem 0.9rem;
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-navy-muted);
+    background: transparent;
+    border: 1px solid var(--color-sage-line);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+}
+.sound-toggle:hover { color: var(--color-sage-deep); border-color: var(--color-sage-deep); }
+.sound-toggle svg { width: 14px; height: 14px; flex: none; }
+
+/* Beat 1 · nota de apertura: dos frases con aire entre ellas */
+.opening-note {
+    margin: calc(var(--space-md) + 0.4rem) auto var(--space-lg);
+}
+.opening-note .intro-quote { margin: 0 auto; }
+.opening-note .intro-quote + .intro-quote { margin-top: 1.1rem; }
+
+/* Beat 4 · la voz del bebé, justo antes de confirmar */
+.baby-note {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.05rem, 3.6vw, 1.2rem);
+    line-height: 1.65;
+    color: var(--color-navy);
+    text-align: center;
+    text-wrap: balance;
+    max-width: 34ch;
+    margin: 0 auto var(--space-lg);
+}

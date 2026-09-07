@@ -13,8 +13,11 @@
 
     <!-- Main Style -->
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Sin JS no hay portada que abrir: se muestra la invitación directa -->
+    <noscript><style>#welcome-overlay{display:none!important}body.cover-active{overflow:auto!important}</style></noscript>
 </head>
-<body>
+<body class="cover-active">
 <!--
 MUNDO: Baby shower en acuarela suave — eucalipto y salvia sobre blanco,
 inspirado en las tarjetas de dino bebé que compartió el cliente.
@@ -22,8 +25,9 @@ PALETA: blanco (#FFFFFF) sobre verde-blanco (#E9EEE2); tinta eucalipto
 (#45503D), acento verde (#7B9A6D / #5C7650), muestras salvia/eucalipto/crema.
 TIPOGRAFÍA: Caveat (manuscrita, nombre y títulos de sección) + Newsreader
 (serif suave, cuerpo, datos y etiquetas en versalitas con tracking).
-ESTRUCTURA: nombre → dino → nota de los papás → reproductor → fecha/lugar →
-cuenta regresiva → confirmación.
+ESTRUCTURA: portada (abre + música) → hero → beat 1 (voz de los papás) →
+beat 2 (fecha/lugar) → beat 3 (cuenta regresiva) → beat 4 (voz del bebé +
+confirmar) → cierre.
 Follaje solo en las esquinas superiores (assets/Helechos.png; pendiente cambiar por
 eucalipto real). La versión 3D con vuelo automático quedó en invitacion-3d.html.
 -->
@@ -39,8 +43,24 @@ eucalipto real). La versión 3D con vuelo automático quedó en invitacion-3d.ht
         <source id="audio-source" src="" type="audio/mp3">
     </audio>
 
-    <!-- La invitación 3D (vuelo automático) quedó archivada en invitacion-3d.html;
-         esta versión "bitácora" es ahora la página principal de /esteban/. -->
+    <!-- Portada de apertura (mismo patrón que las otras invitaciones): la
+         tarjeta se desliza hacia arriba al entrar y arranca la canción. -->
+    <div id="welcome-overlay" class="welcome-overlay">
+        <img class="leaf-frame leaf-frame--tl" src="assets/Helechos.png" alt="" aria-hidden="true">
+        <img class="leaf-frame leaf-frame--tr" src="assets/Helechos.png" alt="" aria-hidden="true">
+        <div class="welcome-card">
+            <span class="welcome-eyebrow">Baby Shower</span>
+            <h1 class="welcome-title">Esteban</h1>
+            <p class="welcome-date">Sábado &middot; 17 &middot; Octubre &middot; 2026</p>
+            <button id="btn-enter" class="btn btn-primary btn-double-border" aria-label="Entrar a la invitación">
+                <span>Descubrir invitación</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </button>
+        </div>
+    </div>
 
     <!-- Main Container -->
     <div class="invite-container" style="overflow:hidden;">
@@ -54,45 +74,27 @@ eucalipto real). La versión 3D con vuelo automático quedó en invitacion-3d.ht
             <div class="hero-content">
                 <h1 class="hero-name-title">Esteban</h1>
                 <p class="hero-subtitle">Baby shower</p>
+                <button id="btn-sound" class="sound-toggle" type="button" aria-pressed="true">
+                    <svg class="sound-toggle__on" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    <svg class="sound-toggle__off" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M16 9l6 6M22 9l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    <span class="sound-toggle__label">Pausar música</span>
+                </button>
             </div>
         </header>
 
         <!-- Dino illustration -->
         <div id="dino-hero" class="specimen-mount">
-            <img src="assets/DinoEgg.png" alt="Dinosaurio bebé saliendo de su huevo" width="1371" height="1148" fetchpriority="high">
+            <img src="assets/dino-hatch.gif" alt="Dinosaurio bebé rompiendo el cascarón" width="270" height="480" fetchpriority="high">
         </div>
 
-        <!-- Handwritten note -->
-        <p class="intro-quote reveal">Un corazón pequeñito, soñado por nosotros y creado por Dios, está a punto de latir en nuestros brazos. Agradecidos por esta hermosa bendición, te invitamos a compartir nuestra alegría y celebrar la vida de nuestro pequeño.</p>
+        <!-- Beat 1 · la voz de los papás -->
+        <div class="opening-note reveal">
+            <p class="intro-quote">Un corazón pequeñito, soñado por nosotros y creado por Dios, está a punto de latir en nuestros brazos.</p>
+            <p class="intro-quote">Agradecidos por esta hermosa bendición, te invitamos a compartir nuestra alegría y celebrar la vida de nuestro pequeño.</p>
+        </div>
 
-        <!-- Reproductor: una sola canción dedicada a Esteban -->
-        <figure class="song-card">
-            <figcaption class="song-card__title">
-                <span>Canción para Esteban</span>
-            </figcaption>
-
-            <div class="song-card__deck">
-                <button id="btn-play-pause" class="song-card__play" aria-label="Reproducir la canción">
-                    <svg id="icon-play" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                    <svg id="icon-pause" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                </button>
-
-                <div class="song-card__scrub">
-                    <input type="range" id="progress-bar" class="song-card__range" value="0" min="0" max="100" step="0.1" aria-label="Avance de la canción">
-                    <div class="song-card__time">
-                        <span id="current-time">00:00</span>
-                        <span aria-hidden="true">/</span>
-                        <span id="duration-time">00:00</span>
-                    </div>
-                </div>
-            </div>
-        </figure>
-
-        <!-- Parents' note + key details -->
+        <!-- Beat 2 · dónde y cuándo -->
         <section class="section text-center reveal" style="position:relative;">
-            <p style="font-family:var(--font-serif); font-style:italic; font-size:clamp(1.05rem, 3.6vw, 1.2rem); color:var(--color-navy); max-width:34ch; margin:0 auto; line-height:1.65;">
-                Aún estoy en la pancita, pero ya siento todo el amor que me espera afuera. Mis papis están muy emocionados por mi llegada y les haría muy feliz que nos acompañen a celebrar mi Baby Shower.
-            </p>
 
             <!-- Date + venue -->
             <div class="field-ticket">
@@ -143,8 +145,10 @@ eucalipto real). La versión 3D con vuelo automático quedó en invitacion-3d.ht
             </div>
         </section>
 
-        <!-- RSVP / Confirmar Asistencia Section -->
+        <!-- Beat 4 · la voz del bebé + confirmar -->
         <section id="rsvp" class="section rsvp-section reveal" style="position:relative;">
+            <p class="baby-note">Aún estoy en la pancita, pero ya siento todo el amor que me espera afuera. Mis papis están muy emocionados por mi llegada y les haría muy feliz que nos acompañen a celebrar mi Baby Shower.</p>
+
             <h2 class="confirm-title">Confirma tu asistencia</h2>
 
             <div class="rsvp-actions">

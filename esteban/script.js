@@ -1,107 +1,64 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
-    // CUSTOM AUDIO PLAYER SYSTEM
+    // PORTADA DE APERTURA + CANCIÓN
+    // Un toque en la portada abre la invitación y arranca la única canción
+    // (ese gesto también desbloquea el autoplay del navegador). El sonido se
+    // controla después con un toggle inline en el hero, no con un widget.
     // ==========================================================================
 
     // Default background audio URL (deja song.mp3 en esta carpeta cuando lo tengas)
     const AUDIO_SRC = '../song.mp3?v=1';
-    
+
     const bgMusic = document.getElementById('bg-music');
     const audioSource = document.getElementById('audio-source');
-    
-    const btnPlayPause = document.getElementById('btn-play-pause');
-    const iconPlay = document.getElementById('icon-play');
-    const iconPause = document.getElementById('icon-pause');
-    
-    const progressBar = document.getElementById('progress-bar');
-    const currentTimeEl = document.getElementById('current-time');
-    const durationTimeEl = document.getElementById('duration-time');
-    
-    const isLooping = true; // una sola canción, siempre en bucle
-    bgMusic.loop = isLooping;
 
-    // Initialize audio element source
+    bgMusic.loop = true; // una sola canción, siempre en bucle
     if (audioSource) {
         audioSource.src = AUDIO_SRC;
         bgMusic.load();
         bgMusic.volume = 0.5;
     }
 
-    // Format time function (seconds to MM:SS)
-    function formatTime(seconds) {
-        if (isNaN(seconds)) return '00:00';
-        const m = Math.floor(seconds / 60);
-        const s = Math.floor(seconds % 60);
-        return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    const welcomeOverlay = document.getElementById('welcome-overlay');
+    const btnEnter = document.getElementById('btn-enter');
+    const btnSound = document.getElementById('btn-sound');
+    const soundOn = btnSound && btnSound.querySelector('.sound-toggle__on');
+    const soundOff = btnSound && btnSound.querySelector('.sound-toggle__off');
+    const soundLabel = btnSound && btnSound.querySelector('.sound-toggle__label');
+
+    // Entrada escalonada de la tarjeta de portada (igual que las otras invitaciones)
+    setTimeout(() => {
+        if (welcomeOverlay) welcomeOverlay.classList.add('welcome-loaded');
+    }, 100);
+
+    function reflectSound() {
+        const playing = !bgMusic.paused;
+        if (btnSound) btnSound.setAttribute('aria-pressed', String(playing));
+        if (soundOn) soundOn.hidden = !playing;
+        if (soundOff) soundOff.hidden = playing;
+        if (soundLabel) soundLabel.textContent = playing ? 'Pausar música' : 'Reanudar música';
     }
 
-    // Toggle Play/Pause
-    if (btnPlayPause) {
-        btnPlayPause.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (bgMusic.paused) {
-                bgMusic.play().then(() => {
-                    iconPlay.style.display = 'none';
-                    iconPause.style.display = 'block';
-                }).catch(err => console.log('Audio playback failed: ', err));
-            } else {
-                bgMusic.pause();
-                iconPlay.style.display = 'block';
-                iconPause.style.display = 'none';
-            }
+    function enterInvite() {
+        if (!welcomeOverlay || welcomeOverlay.classList.contains('dismissed')) return;
+        welcomeOverlay.classList.add('dismissed'); // se desliza hacia arriba
+        document.body.classList.remove('cover-active');
+        bgMusic.play().catch(() => {});
+        reflectSound();
+    }
+
+    if (btnEnter) btnEnter.addEventListener('click', enterInvite);
+
+    if (btnSound) {
+        btnSound.addEventListener('click', () => {
+            if (bgMusic.paused) bgMusic.play().catch(() => {});
+            else bgMusic.pause();
+            reflectSound();
         });
     }
-
-    // Update progress bar as audio plays
-    bgMusic.addEventListener('timeupdate', () => {
-        const currentTime = bgMusic.currentTime;
-        const duration = bgMusic.duration;
-        
-        if (!isNaN(duration) && progressBar) {
-            // Update time labels
-            currentTimeEl.textContent = formatTime(currentTime);
-            durationTimeEl.textContent = formatTime(duration);
-            
-            // Update progress bar value
-            const progressPercent = (currentTime / duration) * 100;
-            progressBar.value = progressPercent;
-            
-            // Update background color filling
-            progressBar.style.background = `linear-gradient(to right, var(--color-burgundy) ${progressPercent}%, rgba(123, 154, 109, 0.16) ${progressPercent}%)`;
-        }
-    });
-
-    // Handle progress bar drag/seek
-    if (progressBar) {
-        progressBar.addEventListener('input', () => {
-            const duration = bgMusic.duration;
-            if (!isNaN(duration)) {
-                const seekTime = (progressBar.value / 100) * duration;
-                bgMusic.currentTime = seekTime;
-                
-                const progressPercent = progressBar.value;
-                progressBar.style.background = `linear-gradient(to right, var(--color-burgundy) ${progressPercent}%, rgba(123, 154, 109, 0.16) ${progressPercent}%)`;
-            }
-        });
-    }
-    
-    // Set duration when metadata loads
-    bgMusic.addEventListener('loadedmetadata', () => {
-        if (durationTimeEl) {
-            durationTimeEl.textContent = formatTime(bgMusic.duration);
-        }
-    });
-
-    // Reset when audio ends (por si algún día se apaga el loop)
-    bgMusic.addEventListener('ended', () => {
-        if (!isLooping) {
-            iconPlay.style.display = 'block';
-            iconPause.style.display = 'none';
-            progressBar.value = 0;
-            progressBar.style.background = `rgba(123, 154, 109, 0.16)`;
-            currentTimeEl.textContent = '00:00';
-        }
-    });
+    bgMusic.addEventListener('play', reflectSound);
+    bgMusic.addEventListener('pause', reflectSound);
+    reflectSound();
 
     // ==========================================================================
     // COUNTDOWN TIMER
