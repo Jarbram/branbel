@@ -3881,8 +3881,6 @@ button,
     width: min(300px, 76%);
     margin: var(--space-sm) auto 0;
 }
-/* El gif del cascarón es vertical (270×480): más angosto para que no domine */
-#dino-hero.specimen-mount { width: min(210px, 58%); }
 .specimen-mount img {
     display: block;
     width: 100%;
