@@ -3501,18 +3501,43 @@ button,
     font-weight: 700;
 }
 
+/* Dedicatoria de cierre — bloque acotado entre dos filetes finos de salvia
+   (mismo lenguaje que el hr de la tarjeta de datos), para que lea como una
+   nota impresa y no como texto suelto sobre el confeti. */
 .confirm-closing {
-    font-family: var(--font-text-script), cursive;
-    font-size: clamp(1.2rem, 4.2vw, 1.5rem);
+    font-family: var(--font-serif), serif;
+    font-optical-sizing: auto;
+    font-size: clamp(1rem, 3.4vw, 1.12rem);
+    font-style: italic;
     color: var(--color-navy);
     text-align: center;
-    line-height: 1.45;
-    max-width: 420px;
-    margin: var(--space-lg) auto var(--space-md) auto;
+    line-height: 1.7;
+    text-wrap: balance;
+    max-width: 32ch;
+    margin: var(--space-md) auto var(--space-md);
+    padding: 1.6rem 0.5rem;
 }
+.confirm-closing::before,
+.confirm-closing::after {
+    content: "";
+    display: block;
+    width: 34px;
+    height: 1px;
+    margin: 0 auto;
+    background: var(--color-sage-line);
+}
+.confirm-closing::before { margin-bottom: 1.4rem; }
+.confirm-closing::after  { margin-top: 1.4rem; }
 
 .confirm-closing p + p {
-    margin-top: var(--space-sm);
+    margin-top: 0.85rem;
+}
+
+/* El nombre del bebé, el corazón de la frase: en verde bosque y sin cursiva. */
+.confirm-closing__name {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--color-sage-deep);
 }
 
 .te-esperamos {
