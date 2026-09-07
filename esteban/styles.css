@@ -32,11 +32,14 @@
     /* Layout */
     --container-max-width: 480px;
 
-    /* Typographic Hierarchy — manuscrita + serif suave (baby shower acuarela) */
-    --font-script: 'Caveat', 'Segoe Script', cursive; /* Titulares manuscritos: nombre + secciones */
-    --font-serif: 'Newsreader', Georgia, serif; /* Serif suave para cuerpo, datos y citas */
-    --font-sans: 'Newsreader', Georgia, serif;  /* Micro-etiquetas: se estilizan en mayúsculas con tracking */
-    --font-text-script: 'Caveat', cursive; /* Notas manuscritas cortas */
+    /* Tipografía — dos familias, tres papeles. Nada más.
+       · DISPLAY  (--font-script, Caveat)  → solo "Esteban", títulos de sección y "Te esperamos".
+       · TEXTO    (--font-serif, Newsreader) → todo lo que se lee en frases: citas, notas, direcciones, fechas.
+       · ETIQUETA (--font-sans = misma Newsreader) → micro-rótulos en mayúsculas con tracking y los números. */
+    --font-script: 'Caveat', 'Segoe Script', cursive;
+    --font-serif: 'Newsreader', Georgia, serif;
+    --font-sans: var(--font-serif);
+    --font-text-script: var(--font-script); /* alias heredado — no usar en código nuevo */
     
     /* Spacing System */
     --space-xs: 0.5rem;    /* 8px */
@@ -327,8 +330,10 @@ body::before {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    font-family: var(--font-script), cursive;
-    font-size: 1.3rem;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
     line-height: 1;
     color: var(--color-sage-deep);
 }
@@ -3587,20 +3592,19 @@ button,
     outline-offset: 3px;
 }
 
-/* Nota de los papás — misma voz manuscrita que el nombre (Caveat), pero
-   más chica y ligera para que "Esteban" siga siendo el héroe; líneas
-   cortas y equilibradas para que el script se mantenga legible. */
+/* Cita de apertura — misma voz que la nota de los papás y la dedicatoria
+   de cierre: Newsreader itálica. Caveat queda para "Esteban" y los títulos. */
 .intro-quote {
-    font-family: var(--font-script), cursive;
-    font-size: clamp(1.5rem, 5.4vw, 1.9rem);
-    font-style: normal;
-    font-weight: 500;
-    line-height: 1.28;
+    font-family: var(--font-serif);
+    font-size: clamp(1.05rem, 3.6vw, 1.2rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.65;
     letter-spacing: 0;
     color: var(--color-navy);
     text-align: center;
     text-wrap: balance;
-    max-width: 24ch;
+    max-width: 34ch;
     margin: calc(var(--space-md) + 0.4rem) auto var(--space-lg);
     quotes: none;
 }
