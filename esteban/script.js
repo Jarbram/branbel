@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
 
     // Default background audio URL (deja song.mp3 en esta carpeta cuando lo tengas)
-    const AUDIO_SRC = '../song.mp3?v=1';
+    const AUDIO_SRC = 'song.mp3?v=1';
 
     const bgMusic = document.getElementById('bg-music');
     const audioSource = document.getElementById('audio-source');
