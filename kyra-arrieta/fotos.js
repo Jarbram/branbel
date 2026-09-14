@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //    - IMPORTANTE: Haz el bucket "Public" (Público) para que cualquiera pueda acceder a los links directos.
     //    - Añade políticas al bucket 'photos' para permitir que usuarios anónimos puedan subir archivos (upload/insert).
     
-    const SUPABASE_URL = 'https://pncvqukbnuqvwgowperf.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBuY3ZxdWtibnVxdndnb3dwZXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1NTg4MjUsImV4cCI6MjA5NjEzNDgyNX0.uZWqxvl2kd7Fq9pNAIDi86zWwa0TWhbj0OrSLAmRciE';
+    const SUPABASE_URL = 'https://yzjggaooqkzsaiktkhvq.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6amdnYW9vcWt6c2Fpa3RraHZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkzNDIwMzIsImV4cCI6MjEwNDkxODAzMn0.euCmwakjXJP7EOX284h0mGITDDj9_cJA8UbLITuL52E';
     const EVENT_SLUG = 'kyra-arrieta';
 
     let supabaseClient = null;
