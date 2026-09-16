@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esteban | Expedición Baby Shower</title>
+    <title>Esteban | Invitación Baby Shower</title>
     <meta name="description" content="Invitación digital al baby shower de Esteban, hijo de Josué Huacchillo Castillo y Elena Horna Pingo. Sábado 17 de Octubre 2026. Piura, Perú.">
 
     <!-- Google Fonts -->
@@ -158,12 +158,13 @@ eucalipto real). La versión 3D con vuelo automático quedó en invitacion-3d.ht
         <section id="rsvp" class="section rsvp-section reveal" style="position:relative;">
             <p class="baby-note">Aún estoy en la pancita, pero ya siento todo el amor que me espera afuera. Mis papis están muy emocionados por mi llegada y les haría muy feliz que nos acompañen a celebrar mi Baby Shower.</p>
 
-            <h2 class="confirm-title">Confirma tu asistencia</h2>
+            <h2 class="confirm-title" id="confirm-title">Confirma tu asistencia</h2>
 
             <div class="rsvp-actions">
                 <button id="btn-rsvp" class="btn btn-primary btn-lg">
                     <span>Confirmar aquí</span>
                 </button>
+                <p id="my-gift-page-note" class="my-gift-page-note" hidden></p>
             </div>
 
             <div class="confirm-closing">
@@ -186,48 +187,73 @@ eucalipto real). La versión 3D con vuelo automático quedó en invitacion-3d.ht
                 </svg>
             </button>
             <div class="modal-body">
-                <h3>Confirmar asistencia</h3>
-                <p class="modal-subtitle">Por favor completa tus datos para registrar tu asistencia en la lista de invitados.</p>
 
-                <form id="form-rsvp" class="form-rsvp">
-                    <div class="form-group">
-                        <label for="rsvp-name">Nombre y Apellido</label>
-                        <input type="text" id="rsvp-name" required placeholder="Ej. Juan Pérez">
-                    </div>
+                <div id="rsvp-screen-form" class="modal-screen active">
+                    <h3>Confirmar asistencia</h3>
+                    <p class="modal-subtitle">Por favor completa tus datos para registrar tu asistencia en la lista de invitados.</p>
 
-                    <div class="form-group">
-                        <label for="rsvp-phone">Número de Teléfono / Contacto</label>
-                        <input type="tel" id="rsvp-phone" required placeholder="Ej. +51 987654321">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="rsvp-message">Mensaje para los papás (opcional)</label>
-                        <textarea id="rsvp-message" rows="2" placeholder="Ej. ¡Felicidades! No puedo esperar a conocer a Esteban."></textarea>
-                    </div>
-
-                    <div class="form-group-radio">
-                        <label>¿Podrás acompañarnos?</label>
-                        <div class="radio-options">
-                            <label class="radio-label">
-                                <input type="radio" name="rsvp-status" value="Si" checked>
-                                <span class="custom-radio"></span>
-                                <span>Sí, asistiré con mucho gusto</span>
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="rsvp-status" value="No">
-                                <span class="custom-radio"></span>
-                                <span>Lamentablemente no podré asistir</span>
-                            </label>
+                    <form id="form-rsvp" class="form-rsvp">
+                        <div class="form-group">
+                            <label for="rsvp-name">Nombre y Apellido</label>
+                            <input type="text" id="rsvp-name" required placeholder="Ej. Juan Pérez">
                         </div>
-                    </div>
 
-                    <button type="submit" class="btn btn-primary btn-block" id="btn-submit-rsvp">
-                        <span>Confirmar asistencia</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                    </button>
-                </form>
+                        <div class="form-group">
+                            <label for="rsvp-phone">Número de Teléfono / Contacto</label>
+                            <input type="tel" id="rsvp-phone" required placeholder="Ej. +51 987654321">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rsvp-message">Mensaje para los papás (opcional)</label>
+                            <textarea id="rsvp-message" rows="2" placeholder="Ej. ¡Felicidades! No puedo esperar a conocer a Esteban."></textarea>
+                        </div>
+
+                        <div class="form-group-radio">
+                            <label>¿Podrás acompañarnos?</label>
+                            <div class="radio-options">
+                                <label class="radio-label">
+                                    <input type="radio" name="rsvp-status" value="Si" checked>
+                                    <span class="custom-radio"></span>
+                                    <span>Sí, asistiré con mucho gusto</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="rsvp-status" value="No">
+                                    <span class="custom-radio"></span>
+                                    <span>Lamentablemente no podré asistir</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block" id="btn-submit-rsvp">
+                            <span>Confirmar asistencia</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+                <div id="rsvp-screen-gift" class="modal-screen" hidden>
+                    <h3>Algunas ideas, por si te sirven</h3>
+                    <p class="modal-subtitle">Esto es solo una guía para quien quiera tener una idea de qué llevar. Tu cariño ya es el regalo, esto es 100% opcional.</p>
+
+                    <div id="my-gift-summary" class="my-gift-summary" hidden></div>
+
+                    <div id="gift-pills" class="gift-pills"></div>
+                    <div id="gift-grid" class="gift-grid-flow"></div>
+
+                    <form id="form-gift" class="form-rsvp gift-select-form">
+                        <div class="form-group">
+                            <label for="gift-message">Un mensajito para los papás (opcional)</label>
+                            <textarea id="gift-message" rows="2" placeholder="Ej. Les llevaré el coche de paseo, ¡con mucho cariño!"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" id="btn-submit-gift" disabled>
+                            <span>Guardar mi idea</span>
+                        </button>
+                        <button type="button" class="btn-skip-gift" id="btn-skip-gift">Prefiero no elegir ahora</button>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
