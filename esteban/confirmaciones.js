@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (allRows.length === 0) {
             emptyEl.hidden = false;
-            emptyEl.textContent = 'Aún no hay expedicionarios registrados.';
+            emptyEl.textContent = 'Aún no hay invitados registrados.';
             return;
         }
         if (rows.length === 0) {
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = 'rsvp-card' + (yes ? '' : ' is-no');
             card.innerHTML = `
                 <div class="rsvp-card-head">
-                    <span class="rsvp-name">${escapeHtml(r.nombre) || 'Expedicionario'}</span>
+                    <span class="rsvp-name">${escapeHtml(r.nombre) || 'Invitado'}</span>
                     <span class="rsvp-badge ${yes ? 'yes' : 'no'}">${yes ? 'Confirmado' : 'Declinó'}</span>
                 </div>
                 <div class="rsvp-meta">
