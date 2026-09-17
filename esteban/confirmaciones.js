@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const elTotal = document.getElementById('stat-total');
 
     let allRows = [];
+    let giftsByPhone = new Map();
     let filter = 'all';
     let search = '';
 
@@ -73,6 +74,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     // DATA
     // ==========================================================================
+    // Normaliza a los últimos 9 dígitos para poder cruzar "+51 987654321"
+    // con "987654321" sin depender de cómo cada uno lo haya tecleado.
+    function normalizePhone(numero) {
+        const digits = (numero || '').replace(/[^\d]/g, '');
+        return digits.slice(-9);
+    }
+
+    async function loadGifts() {
+        try {
+            const { data, error } = await supabaseClient
+                .from('regalos')
+                .select('numero, regalo, mensaje')
+                .eq('event_slug', EVENT_SLUG);
+            if (error) throw error;
+            (data || []).forEach((g) => {
+                const key = normalizePhone(g.numero);
+                if (key) giftsByPhone.set(key, g);
+            });
+        } catch (err) {
+            // La lista de regalos es un plus sobre la bitácora de RSVP:
+            // si falla (p.ej. falta política de lectura), no bloquea el resto.
+            console.error('No se pudo leer la lista de regalos:', err);
+        }
+    }
+
     async function loadRsvps() {
         if (!supabaseClient) {
             showError('Supabase no está configurado.');
@@ -92,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (error) throw error;
 
             allRows = data || [];
+            await loadGifts();
             loadingEl.hidden = true;
             renderStats();
             renderList();
@@ -175,6 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         rows.forEach(r => {
             const yes = isYes(r);
             const wa = waLink(r.numero);
+            const gift = giftsByPhone.get(normalizePhone(r.numero));
             const card = document.createElement('article');
             card.className = 'rsvp-card' + (yes ? '' : ' is-no');
             card.innerHTML = `
@@ -187,6 +215,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="rsvp-date">${fmtDate(r.created_at)}</span>
                 </div>
                 ${(r.mensaje || '').trim() ? `<p class="rsvp-msg">${escapeHtml(r.mensaje)}</p>` : ''}
+                ${gift ? `
+                <div class="rsvp-gift">
+                    <span class="rsvp-gift-label">🎁 Regalo</span>
+                    <span class="rsvp-gift-name">${escapeHtml(gift.regalo)}</span>
+                </div>
+                ${(gift.mensaje || '').trim() ? `<p class="rsvp-msg rsvp-gift-msg">${escapeHtml(gift.mensaje)}</p>` : ''}
+                ` : ''}
                 ${wa ? `<a class="rsvp-wa" href="${wa}" target="_blank" rel="noopener">Escribir por WhatsApp</a>` : ''}
             `;
             listEl.appendChild(card);

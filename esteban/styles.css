@@ -3310,6 +3310,35 @@ button,
 }
 .rsvp-wa:hover { color: var(--color-navy); border-color: var(--color-navy); }
 
+.rsvp-gift {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    margin-top: var(--space-sm);
+    background-color: var(--color-sage-light);
+    border: 1px solid var(--color-sage-line);
+    border-radius: 10px;
+    padding: 6px 10px;
+}
+.rsvp-gift-label {
+    font-family: var(--font-sans);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--color-sage-deep);
+}
+.rsvp-gift-name {
+    font-family: var(--font-serif);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-navy);
+}
+.rsvp-gift-msg {
+    font-size: 0.9rem;
+    margin-top: 6px;
+}
+
 .admin-state {
     text-align: center;
     font-family: var(--font-serif);
