@@ -490,26 +490,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: 'Crema corporal hidratante Eucerin Baby', image: 'https://plazavea.vteximg.com.br/arquivos/ids/7166733-450-450/imageUrl_1.jpg?v=637813595926170000', link: 'https://www.plazavea.com.pe/locion-corporal-eucerin-baby-frasco-400-ml-100208331/p', price: '' },
                 { name: 'Toallas con capucha 100% algodón', image: 'https://media.falabella.com/sodimacPE/2889242_01/w=1200,h=1200,fit=cover', link: 'https://www.falabella.com.pe/falabella-pe/product/113321466/Toalla-de-Felpa-con-Capucha-Celeste/113321468', price: '' },
                 { name: 'Termómetro digital de frente u oído', image: 'https://media.falabella.com/falabellaPE/16086732_1/public', link: 'https://www.falabella.com.pe/falabella-pe/product/16086732/Termometro-Digital-Frente-y-Oidos/16086732', price: '' },
-                { name: 'Kit de aseo (cortaúñas eléctrico, aspirador nasal)', image: 'https://media.falabella.com/falabellaPE/18895204_1/public', link: 'https://www.falabella.com.pe/falabella-pe/product/18895204/Kit-de-Cortaunas-Electrico-Seguro-para-Bebe-R/18895204', price: 'S/ 22.90' }
+                { name: 'Kit de aseo (cortaúñas eléctrico, aspirador nasal)', image: 'https://media.falabella.com/falabellaPE/18895204_1/public', link: 'https://www.falabella.com.pe/falabella-pe/product/18895204/Kit-de-Cortaunas-Electrico-Seguro-para-Bebe-R/18895204', price: '' }
             ]
         },
         {
             title: 'Alimentación y Ropa',
             items: [
                 { name: 'Biberones Philips Avent de vidrio (kit inicial)', image: 'https://images.philips.com/is/image/philipsconsumer/53cacc6e8c064266a663ac55017562a2', link: 'https://www.philips.com.pe/c-p/SCD303_01/newborn-glass-starter-set', price: '' },
-                { name: 'Escobillas para biberones (con limpiador de tetina)', image: 'https://www.soft.com.pe/cdn/shop/products/EscobillaparaBiberonesAzul.jpg?v=1642678489&width=1946', link: 'https://www.soft.com.pe/products/escobilla-para-biberones-azul', price: 'S/ 38.90' },
-                { name: 'Escurridor vertical de biberones', image: 'https://mundochiquitines.pe/cdn/shop/files/escurridor-4.webp', link: 'https://mundochiquitines.pe/products/escurridor-de-biberones', price: 'S/ 129.00' },
-                { name: 'Cojín de lactancia', image: 'https://monchitos.com.pe/wp-content/uploads/2021/06/cojin-croissi-pillow-monchitos-CM-12902001-01-300x300.jpg', link: 'https://monchitos.com.pe/producto/croissi-pillow-xtraconfort-azul/', price: 'S/ 149.90' },
-                { name: 'Set de muselinas / babitas de algodón', image: 'https://media.falabella.com/falabellaPE/139812982_01/w=1200,h=1200,fit=cover', link: 'https://www.falabella.com.pe/falabella-pe/product/139812981/Manta-Muselina-para-Bebe-Algodon-y-Bambu-Pack-x-3-Unidades/139812982', price: 'S/ 109.90' },
-                { name: 'Bodys de manga corta de algodón (pack)', image: 'https://media.falabella.com/falabellaPE/19010302_1/w=1200,h=1200,fit=cover', link: 'https://www.falabella.com.pe/falabella-pe/product/19010297/body-bebe-nino-nina-pack-x5-algodon-carters/19010302', price: 'S/ 79.92' },
-                { name: 'Pijamas de algodón delgado con cierre', image: 'https://plazavea.vteximg.com.br/arquivos/ids/14681653-450-450/imageUrl_2.jpg?v=637946026067500000', link: 'https://www.plazavea.com.pe/pijama-enterizo-carter-s-con-cierre-diseno-de-animales-para-bebe-nino-100416251/p', price: 'S/ 16.92' }
+                { name: 'Escobillas para biberones (con limpiador de tetina)', image: 'https://www.soft.com.pe/cdn/shop/products/EscobillaparaBiberonesAzul.jpg?v=1642678489&width=1946', link: 'https://www.soft.com.pe/products/escobilla-para-biberones-azul', price: '' },
+                { name: 'Escurridor vertical de biberones', image: 'https://mundochiquitines.pe/cdn/shop/files/escurridor-4.webp', link: 'https://mundochiquitines.pe/products/escurridor-de-biberones', price: '' },
+                { name: 'Cojín de lactancia con respaldar', image: 'https://media.falabella.com/falabellaPE/157453137_01/w=1200,h=1200,fit=cover', link: 'https://www.falabella.com.pe/falabella-pe/product/157453136/pack-de-lactancia-cojin-de-lactancia-respaldar-gris-acolchonaditos/157453137', price: '' },
+                { name: 'Set de muselinas / babitas de algodón', image: 'https://media.falabella.com/falabellaPE/139812982_01/w=1200,h=1200,fit=cover', link: 'https://www.falabella.com.pe/falabella-pe/product/139812981/Manta-Muselina-para-Bebe-Algodon-y-Bambu-Pack-x-3-Unidades/139812982', price: '' },
+                { name: 'Bodys de manga corta de algodón (pack)', image: 'https://media.falabella.com/falabellaPE/19010302_1/w=1200,h=1200,fit=cover', link: 'https://www.falabella.com.pe/falabella-pe/product/19010297/body-bebe-nino-nina-pack-x5-algodon-carters/19010302', price: '' },
+                { name: 'Pijamas de algodón delgado con cierre', image: 'https://plazavea.vteximg.com.br/arquivos/ids/14681653-450-450/imageUrl_2.jpg?v=637946026067500000', link: 'https://www.plazavea.com.pe/pijama-enterizo-carter-s-con-cierre-diseno-de-animales-para-bebe-nino-100416251/p', price: '' }
             ]
         },
         {
             title: 'Descanso · Colecho',
             items: [
-                { name: 'Cuna de colecho con lateral abatible', image: 'https://media.falabella.com/falabellaPE/18272091_1/w=1200,h=1200,fit=cover', link: 'https://www.falabella.com.pe/falabella-pe/product/prod17650099/Cuna-Colecho-Nido-Bebe/18272091', price: '' },
-                { name: 'Sábanas bajeras ajustables tamaño colecho (pack)', image: 'https://promart.vteximg.com.br/arquivos/ids/8205792-1000-1000/image-0.jpg?v=638640872510170000', link: 'https://www.promart.pe/sabanas-bebe-bajeras-cuna-colecho-100-algodon-x2-blancas-1000719015/p', price: 'S/ 99.00' },
+                { name: 'Cuna de colecho Modena', image: 'https://carestino.cc/_next/image/?url=https%3A%2F%2Fcarestino.cc%2Fuploads%2Fproductos_imagen_1_7293_ar-1774630737.jpg&w=3840&q=75', link: 'https://www.carestino.com.pe/producto/cuna-colecho-modena-gris-topo/', price: '' },
+                { name: 'Sábanas bajeras ajustables tamaño colecho (pack)', image: 'https://promart.vteximg.com.br/arquivos/ids/8205792-1000-1000/image-0.jpg?v=638640872510170000', link: 'https://www.promart.pe/sabanas-bebe-bajeras-cuna-colecho-100-algodon-x2-blancas-1000719015/p', price: '' },
                 { name: 'Protectores de colchón impermeables pequeños', image: 'https://media.falabella.com/falabellaPE/125780442_01/w=1200,h=1200,fit=cover', link: 'https://www.falabella.com.pe/falabella-pe/product/125780439/Protector-De-Colchon-Amoldable-Impermeable-Cuna/125780442', price: '' },
                 { name: 'Monitor de bebé (cámara o audio)', image: 'https://media.falabella.com/sodimacPE/2534436_01/w=1200,h=1200,fit=cover', link: 'https://www.falabella.com.pe/falabella-pe/product/113529216/Monitor-para-Bebe-VTECH-VM2251/113529219', price: '' }
             ]
@@ -517,8 +517,8 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             title: 'Movilidad y Paseo',
             items: [
-                { name: 'Coche de paseo ligero, fácil de plegar', image: 'https://media.falabella.com/falabellaPE/882815499_01/w=1200,h=1200,fit=cover', link: 'https://www.falabella.com.pe/falabella-pe/product/882815498/Coche-Travel-System-Frezzio-Priori-Plegable-Con-Portabebe/882815499', price: 'S/ 519.90' },
-                { name: 'Mochila pañalera espaciosa', image: 'https://media.falabella.com/falabellaPE/17628246_1/w=1200,h=1200,fit=cover', link: 'https://www.falabella.com.pe/falabella-pe/product/17628246/Mochila-Panalera-Open-Negra/17628246', price: 'S/ 135.20' }
+                { name: 'Coche de paseo ligero, fácil de plegar', image: 'https://media.falabella.com/falabellaPE/882815499_01/w=1200,h=1200,fit=cover', link: '', price: '' },
+                { name: 'Mochila pañalera espaciosa', image: 'https://media.falabella.com/falabellaPE/17628246_1/w=1200,h=1200,fit=cover', link: 'https://www.falabella.com.pe/falabella-pe/product/17628246/Mochila-Panalera-Open-Negra/17628246', price: '' }
             ]
         }
     ];
